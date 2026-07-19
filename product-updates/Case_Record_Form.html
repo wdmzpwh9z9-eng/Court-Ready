@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Court Ready™ Case Record Form</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   COURT READY™ — CASE RECORD FORM
+   Vejovis Intelligence Co.™ · House Style v4
+   Built on court-ready-components.css. No one-off styles.
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --primary:#1D4435; --primary-d:#12301F; --primary-t:#E4EDE6;
+  --accent1:#C25A34; --accent1-t:#FAE9E1;
+  --accent2:#E8A33D; --accent2-t:#FCF0DA;
+  --garnet:#8C2F26;  --garnet-t:#F8E7E4;
+  --ink:#2E2A24; --body:#453F37; --muted:#7A7167;
+  --border:#E2D9C9; --fill:#F5EEE2; --ground:#FCFAF6; --paper:#FFFFFF;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+body{font-family:'Figtree','Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.6;
+  color:var(--body);background:var(--ground);padding:22px 16px 60px;}
+h1,h2,h3,h4{font-family:'Outfit','Trebuchet MS','Segoe UI',Arial,sans-serif;letter-spacing:-.015em;line-height:1.2;}
+
+.sheet{max-width:840px;margin:0 auto;background:var(--paper);
+  border:1px solid var(--border);border-radius:10px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(29,68,53,.05),0 12px 34px rgba(29,68,53,.07);}
+
+/* ── SECTION HEADER BLOCK ───────────────────────────────── */
+.head{position:relative;background:var(--primary);padding:20px 24px 18px 46px;}
+.head::before{content:"";position:absolute;left:22px;top:21px;width:15px;height:15px;
+  border-left:2px solid #E9DFCB;border-top:2px solid #E9DFCB;}
+.head::after{content:"";position:absolute;left:26px;top:28px;width:4px;height:9px;
+  border-right:2px solid var(--accent1);border-bottom:2px solid var(--accent1);
+  transform:rotate(42deg);}
+.head .cr{position:absolute;right:24px;top:21px;font-family:'Outfit',sans-serif;
+  font-size:11px;font-weight:600;color:#B9CFC1;}
+.head h1{font-size:25px;font-weight:700;color:#fff;}
+.head .desc{display:block;margin-top:7px;font-family:'Outfit',sans-serif;font-size:10px;
+  font-weight:600;letter-spacing:.17em;text-transform:uppercase;color:#C8D8CC;}
+.headrule{height:4px;background:var(--accent1);}
+
+.promise{background:var(--fill);border-bottom:1px solid var(--border);
+  padding:11px 24px;font-size:12.5px;color:var(--muted);
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.promise b{color:var(--primary);font-weight:600;}
+
+.body{padding:24px;}
+
+/* ── NUMBERED SECTION BAR ───────────────────────────────── */
+.sec{margin-bottom:26px;}
+.secbar{display:flex;align-items:center;gap:11px;background:var(--primary-t);
+  border-left:5px solid var(--primary);border-radius:7px;padding:9px 14px;margin-bottom:13px;}
+.secbar .n{flex:0 0 22px;width:22px;height:22px;border-radius:50%;background:var(--primary);
+  color:#fff;font-family:'Outfit',sans-serif;font-size:11.5px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;}
+.secbar h2{font-size:15px;font-weight:700;color:var(--primary);}
+.secbar .hint{margin-left:auto;font-size:11px;color:var(--muted);font-style:italic;}
+
+/* ── FIELDS ─────────────────────────────────────────────── */
+.row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:12px;}
+.field{flex:1 1 200px;min-width:0;}
+.field.half{flex:1 1 44%;}
+.field.third{flex:1 1 28%;}
+label{display:block;font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--primary);margin-bottom:5px;}
+input[type=text],input[type=date],input[type=time],select,textarea{
+  width:100%;font-family:inherit;font-size:14px;color:var(--ink);
+  background:var(--paper);border:1px solid var(--border);border-radius:6px;
+  padding:9px 11px;transition:border-color .15s,box-shadow .15s;}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(29,68,53,.10);}
+textarea{resize:vertical;line-height:1.6;}
+::placeholder{color:#B7B0A5;font-style:italic;}
+
+/* ── CHECK / RADIO GROUPS ───────────────────────────────── */
+.opts{display:flex;flex-wrap:wrap;gap:7px;}
+.opt{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--border);
+  border-radius:20px;padding:6px 13px 6px 10px;font-size:13px;cursor:pointer;
+  background:var(--paper);transition:all .15s;}
+.opt:hover{border-color:var(--accent1);}
+.opt input{accent-color:var(--accent1);width:14px;height:14px;cursor:pointer;margin:0;}
+.opt.on{background:var(--accent1-t);border-color:var(--accent1);
+  color:var(--primary-d);font-weight:600;}
+
+/* ── THREE BLOCKS ───────────────────────────────────────── */
+.block{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:13px;}
+.block .bh{display:flex;align-items:center;gap:11px;background:var(--fill);
+  border-bottom:1px solid var(--border);padding:9px 14px;}
+.block .bn{flex:0 0 22px;width:22px;height:22px;border-radius:50%;background:var(--accent1);
+  color:#fff;font-family:'Outfit',sans-serif;font-size:11.5px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;}
+.block .bh h3{font-size:13.5px;font-weight:700;color:var(--primary);}
+.block .bh .ask{margin-left:auto;font-size:11px;color:var(--muted);text-align:right;}
+.block textarea{border:0;border-radius:0;padding:12px 14px;min-height:82px;}
+.block textarea:focus{box-shadow:inset 0 0 0 2px rgba(29,68,53,.12);}
+
+/* ── CALLOUTS ───────────────────────────────────────────── */
+.call{border-radius:7px;padding:11px 15px;margin:13px 0;font-size:13px;line-height:1.55;}
+.call .cl{display:block;font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px;}
+.tip{background:var(--accent2-t);border-left:5px solid var(--accent2);}  .tip .cl{color:#9A6410;}
+.dont{background:var(--garnet-t);border-left:5px solid var(--garnet);}   .dont .cl{color:var(--garnet);}
+.why{background:var(--primary-t);border-left:5px solid var(--primary);}  .why .cl{color:var(--primary);}
+
+/* ── EXHIBIT CARDS ──────────────────────────────────────── */
+.exhibit{border:1px solid var(--border);border-radius:8px;margin-bottom:13px;overflow:hidden;}
+.exhibit .eh{display:flex;align-items:center;gap:11px;background:var(--fill);
+  border-bottom:1px solid var(--border);padding:9px 14px;}
+.exhibit .el{flex:0 0 24px;width:24px;height:24px;border-radius:5px;background:var(--primary);
+  color:#fff;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;}
+.exhibit .eh h3{font-size:13.5px;font-weight:700;color:var(--primary);}
+.exhibit .ei{padding:14px;}
+.rm{margin-left:auto;background:none;border:1px solid var(--border);border-radius:5px;
+  color:var(--garnet);font-size:11px;font-family:'Outfit',sans-serif;font-weight:600;
+  padding:4px 10px;cursor:pointer;}
+.rm:hover{background:var(--garnet-t);border-color:var(--garnet);}
+
+/* ── AUTO-GENERATED OUTPUT ──────────────────────────────── */
+.out{background:var(--primary);border-radius:8px;padding:16px 18px;margin-top:6px;}
+.out .ol{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:#F2EDE2;margin-bottom:7px;}
+.out .ol:not(:first-child){margin-top:16px;}
+.out .val{font-family:'IBM Plex Mono','Consolas',monospace;font-size:12.5px;color:#fff;
+  background:rgba(255,255,255,.09);border-radius:5px;padding:9px 12px;
+  word-break:break-all;line-height:1.5;}
+.out .note{font-size:11.5px;color:#C8D8CC;margin-top:9px;}
+
+.fname{font-family:'IBM Plex Mono','Consolas',monospace;font-size:12px;
+  background:var(--fill);border:1px solid var(--border);border-radius:4px;
+  padding:6px 9px;color:var(--primary-d);display:block;word-break:break-all;}
+
+/* ── BUTTONS ────────────────────────────────────────────── */
+.bar{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px;}
+button{font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;border-radius:6px;
+  padding:10px 18px;cursor:pointer;border:1px solid var(--border);
+  background:var(--paper);color:var(--primary);transition:all .15s;}
+button:hover{border-color:var(--primary);}
+button.cta{background:var(--accent2);border-color:var(--accent2);color:var(--primary-d);font-weight:700;}
+button.cta:hover{background:#DC941F;border-color:#DC941F;}
+:focus-visible{outline:2px solid var(--accent1);outline-offset:2px;}
+
+.foot{border-top:1px solid var(--border);padding:13px 24px;
+  font-family:'IBM Plex Mono','Consolas',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+
+@media print{
+  body{background:#fff;padding:0;font-size:10pt;}
+  .sheet{border:0;box-shadow:none;max-width:100%;border-radius:0;}
+  .bar,.rm{display:none !important;}
+  .sec,.block,.exhibit,.call{break-inside:avoid;}
+  input,select,textarea{border-color:#C9C0B0;}
+}
+@media (max-width:620px){
+  .field.half,.field.third{flex:1 1 100%;}
+  .head{padding:18px 18px 16px 42px;} .body{padding:18px;}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none !important;}}
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <div class="head">
+    <div class="cr">Vejovis Intelligence Co.™</div>
+    <h1>Court Ready™ Case Record Form</h1>
+    <span class="desc">Document one event in three factual blocks</span>
+  </div>
+  <div class="headrule"></div>
+
+  <div class="promise">
+    <span><b>Two minutes for a routine event.</b> Check the boxes and stop.</span>
+    <span><b>Document what a camera would see.</b></span>
+  </div>
+
+  <div class="body">
+
+    <!-- ═══ 1 · PARTIES ═══ -->
+    <div class="sec">
+      <div class="secbar"><span class="n">1</span><h2>Parties</h2>
+        <span class="hint">Set once, keeps every entry neutral</span></div>
+      <div class="row">
+        <div class="field half"><label>Parent A — you, the documenting parent</label>
+          <input type="text" id="parentA" placeholder="Your name" oninput="generate()"></div>
+        <div class="field half"><label>Parent B — the other parent</label>
+          <input type="text" id="parentB" placeholder="Other parent's name" oninput="generate()"></div>
+      </div>
+      <div class="call why">
+        <span class="cl">Why this matters</span>
+        Neutral labels keep the record readable by anyone. A judge does not need to know who you resent — only what happened.
+      </div>
+    </div>
+
+    <!-- ═══ 2 · EVENT ═══ -->
+    <div class="sec">
+      <div class="secbar"><span class="n">2</span><h2>The Event</h2>
+        <span class="hint">Facts only — times, places, names</span></div>
+      <div class="row">
+        <div class="field third"><label>Event ID</label>
+          <input type="text" id="evtId" placeholder="EVT-0001" oninput="generate()"></div>
+        <div class="field third"><label>Date</label>
+          <input type="date" id="evtDate" onchange="generate()"></div>
+        <div class="field third"><label>Time</label>
+          <input type="time" id="evtTime"></div>
+      </div>
+      <div class="row">
+        <div class="field half"><label>Location</label>
+          <input type="text" id="evtLocation" placeholder="Exchange point, school, home address"></div>
+        <div class="field half"><label>Children present</label>
+          <input type="text" id="children" placeholder="Names" oninput="generate()"></div>
+      </div>
+
+      <div class="field" style="margin-bottom:12px"><label>Event type — check all that apply</label>
+        <div class="opts" id="eventTypes">
+          <label class="opt"><input type="checkbox" value="Exchange" onchange="generate()">Exchange</label>
+          <label class="opt"><input type="checkbox" value="Communication" onchange="generate()">Communication</label>
+          <label class="opt"><input type="checkbox" value="Medical" onchange="generate()">Medical</label>
+          <label class="opt"><input type="checkbox" value="School" onchange="generate()">School</label>
+          <label class="opt"><input type="checkbox" value="Incident" onchange="generate()">Incident</label>
+          <label class="opt"><input type="checkbox" value="Expense" onchange="generate()">Expense</label>
+          <label class="opt"><input type="checkbox" value="Decision" onchange="generate()">Decision</label>
+          <label class="opt"><input type="checkbox" value="Other" onchange="generate()">Other</label>
+        </div>
+      </div>
+
+      <div class="field" style="margin-bottom:12px"><label>Who was present</label>
+        <div class="opts" id="present">
+          <label class="opt"><input type="checkbox" value="Parent A" checked>Parent A</label>
+          <label class="opt"><input type="checkbox" value="Parent B">Parent B</label>
+          <label class="opt"><input type="checkbox" value="Child/Children">Child / children</label>
+          <label class="opt"><input type="checkbox" value="Witness">Witness</label>
+          <label class="opt"><input type="checkbox" value="Other">Other</label>
+        </div>
+      </div>
+
+      <div class="field"><label>Witnesses — names, or "none"</label>
+        <input type="text" id="witnesses" placeholder="Who else saw or heard this"></div>
+    </div>
+
+    <!-- ═══ 3 · NOTIFICATION ═══ -->
+    <div class="sec">
+      <div class="secbar"><span class="n">3</span><h2>Notification &amp; Follow-Up</h2>
+        <span class="hint">Builds your co-parenting conduct record</span></div>
+      <div class="row">
+        <div class="field third"><label>Other parent notified?</label>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="opNotified" value="Yes">Yes</label>
+            <label class="opt"><input type="radio" name="opNotified" value="No">No</label>
+            <label class="opt"><input type="radio" name="opNotified" value="N/A">N/A</label>
+          </div></div>
+        <div class="field third"><label>Method</label>
+          <select id="notifMethod">
+            <option value="">— Select —</option><option>Text</option><option>Email</option>
+            <option>Phone Call</option><option>In Person</option><option>Co-Parenting App</option>
+          </select></div>
+        <div class="field third"><label>Notification time</label>
+          <input type="time" id="notifTime"></div>
+      </div>
+      <div class="row">
+        <div class="field third"><label>Follow-up needed?</label>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="followUp" value="Yes">Yes</label>
+            <label class="opt"><input type="radio" name="followUp" value="No">No</label>
+          </div></div>
+        <div class="field third"><label>Follow-up action</label>
+          <input type="text" id="followUpAction" placeholder="What still needs doing"></div>
+        <div class="field third"><label>Follow-up by date</label>
+          <input type="date" id="followUpDate"></div>
+      </div>
+      <div class="call tip">
+        <span class="cl">Tip</span>
+        Notifying Parent B and recording when and how is one of the strongest habits in this system. A pattern of you informing and them not responding builds itself over time.
+      </div>
+    </div>
+
+    <!-- ═══ 4 · THREE BLOCKS ═══ -->
+    <div class="sec">
+      <div class="secbar"><span class="n">4</span><h2>The Three Blocks</h2>
+        <span class="hint">Significant events only — skip for routine</span></div>
+
+      <div class="block">
+        <div class="bh"><span class="bn">1</span><h3>Event Leading to the Incident</h3>
+          <span class="ask">What was scheduled or expected?</span></div>
+        <textarea id="block1" placeholder="Visitation exchange scheduled for 5:00 PM at Parent A's residence per court order. Parent A arrived at 5:10 PM."></textarea>
+      </div>
+
+      <div class="block">
+        <div class="bh"><span class="bn">2</span><h3>Description of Event</h3>
+          <span class="ask">What happened, in order, with times and quotes?</span></div>
+        <textarea id="block2" placeholder="Parent A was 10 minutes late. Parent B stated: &quot;I am very upset that you're 10 minutes late.&quot; Parent A acknowledged the delay. Children transferred at 5:12 PM." oninput="generate()"></textarea>
+      </div>
+
+      <div class="block">
+        <div class="bh"><span class="bn">3</span><h3>Immediate Outcome &amp; Impact</h3>
+          <span class="ask">What happened right after? Child's visible state?</span></div>
+        <textarea id="block3" placeholder="Child was visibly upset during exchange. Parent A drove home. No further communication between parties. Evening continued with normal routine."></textarea>
+      </div>
+
+      <div class="call dont">
+        <span class="cl">Do not</span>
+        Write what you believe the other parent intended, or how the event made you feel. Feelings tell you what to document. They do not go in the entry.
+      </div>
+    </div>
+
+    <!-- ═══ 5 · CLASSIFICATION ═══ -->
+    <div class="sec">
+      <div class="secbar"><span class="n">5</span><h2>Classification</h2>
+        <span class="hint">Feeds your dashboard coverage</span></div>
+      <div class="row">
+        <div class="field third"><label>Documentation purpose</label>
+          <select id="docPurpose" onchange="generate()">
+            <option value="">— Select —</option><option>Parenting Time</option><option>Medical Decision</option>
+            <option>Communication</option><option>Safety Concern</option><option>Transportation</option>
+            <option>School Issue</option><option>Financial</option><option>Co-Parenting</option>
+            <option>Emotional Wellbeing</option>
+          </select></div>
+        <div class="field third"><label>Primary factor</label>
+          <select id="primaryFactor" onchange="generate()">
+            <option value="">— Select —</option>
+            <option>ST — Stability &amp; Routine</option><option>PI — Parental Involvement</option>
+            <option>HS — Health &amp; Safety</option><option>CC — Co-Parenting Conduct</option>
+            <option>EW — Emotional Wellbeing</option><option>ED — Education</option>
+            <option>FS — Financial Support</option><option>PF — Parental Fitness</option>
+          </select></div>
+        <div class="field third"><label>Also supports</label>
+          <select id="alsoSupports" onchange="generate()">
+            <option value="">— None —</option>
+            <option>ST — Stability &amp; Routine</option><option>PI — Parental Involvement</option>
+            <option>HS — Health &amp; Safety</option><option>CC — Co-Parenting Conduct</option>
+            <option>EW — Emotional Wellbeing</option><option>ED — Education</option>
+            <option>FS — Financial Support</option><option>PF — Parental Fitness</option>
+          </select></div>
+      </div>
+      <div class="field"><label>Exhibit-worthy?</label>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="exhibitWorthy" value="Yes" onchange="generate()">Yes</label>
+          <label class="opt"><input type="radio" name="exhibitWorthy" value="No" onchange="generate()">No</label>
+        </div></div>
+    </div>
+
+    <!-- ═══ 6 · EVIDENCE ═══ -->
+    <div class="sec">
+      <div class="secbar"><span class="n">6</span><h2>Evidence</h2>
+        <span class="hint">One card per piece — add as many as you need</span></div>
+      <div id="exhibits"></div>
+      <div class="bar">
+        <button type="button" class="cta" onclick="addExhibit()">+ Add an exhibit card</button>
+      </div>
+      <div class="call dont">
+        <span class="cl">Do not</span>
+        Crop, edit, annotate or rename the original file. Work on a copy. A cropped screenshot invites the question: what aren't we seeing?
+      </div>
+    </div>
+
+    <!-- ═══ AUTO-GENERATED ═══ -->
+    <div class="sec">
+      <div class="secbar"><span class="n">✓</span><h2>Generated For You</h2>
+        <span class="hint">Copy these two lines and you're done</span></div>
+      <div class="out">
+        <div class="ol">Event folder name</div>
+        <div class="val" id="folderName">EVT-0001_2026-07-18_Event</div>
+        <div class="ol">Master Index row</div>
+        <div class="val" id="wbRow">—</div>
+        <div class="note">Create the folder, save this form into it as a PDF, then paste the row into your Event Index tab.</div>
+      </div>
+      <div class="bar">
+        <button type="button" class="cta" onclick="window.print()">Save as PDF</button>
+        <button type="button" onclick="copyRow()">Copy index row</button>
+        <button type="button" onclick="clearForm()">Clear form</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <span>Court Ready™ · Case Record Form</span>
+    <span>Vejovis Intelligence Co.™ — organizational framework, not legal advice</span>
+  </div>
+</div>
+
+<template id="exhibitTpl">
+  <div class="exhibit">
+    <div class="eh"><span class="el ex-letter">A</span><h3>Exhibit A</h3>
+      <button type="button" class="rm" onclick="removeExhibit(this)">Remove</button></div>
+    <div class="ei">
+      <div class="row">
+        <div class="field half"><label>Evidence type</label>
+          <select class="ex-type" onchange="generate()">
+            <option value="">— Select —</option><option>Screenshot</option><option>Photo</option>
+            <option>Receipt</option><option>Document</option><option>Audio</option>
+            <option>Video</option><option>Other</option>
+          </select></div>
+        <div class="field half"><label>Source platform</label>
+          <select>
+            <option value="">— Select —</option><option>Text Message (SMS)</option><option>Email</option>
+            <option>Co-Parenting App</option><option>School Portal</option><option>Medical Chart / Portal</option>
+            <option>Social Media</option><option>Phone Call Log</option><option>In Person</option>
+            <option>Camera / Phone Camera</option><option>Other</option>
+          </select></div>
+      </div>
+      <div class="row">
+        <div class="field half"><label>Original file name as captured</label>
+          <input type="text" placeholder="IMG_4821.HEIC"></div>
+        <div class="field third"><label>Date captured</label><input type="date"></div>
+        <div class="field third"><label>Time captured</label><input type="time"></div>
+      </div>
+      <div class="field" style="margin-bottom:12px"><label>What does this evidence show? Facts only</label>
+        <textarea rows="2" placeholder="Text thread between Parent A and Parent B dated 2026-07-16, 4:12 PM to 4:38 PM, regarding the Friday exchange time."></textarea></div>
+      <div class="field" style="margin-bottom:12px"><label>Why does this matter?</label>
+        <textarea rows="2" placeholder="Shows the schedule change was requested 40 minutes before the scheduled exchange."></textarea></div>
+      <div class="row">
+        <div class="field half"><label>Primary storage</label>
+          <input type="text" placeholder="Event folder / Exhibits"></div>
+        <div class="field half"><label>Backup storage</label>
+          <input type="text" placeholder="Cloud backup, external drive"></div>
+      </div>
+      <label>Court-ready file name — rename your file to match</label>
+      <span class="fname">—</span>
+    </div>
+  </div>
+</template>
+
+<script>
+function getChecked(id){
+  return Array.from(document.querySelectorAll('#'+id+' input[type="checkbox"]:checked')).map(c=>c.value);
+}
+function getRadio(name){
+  const r=document.querySelector('input[name="'+name+'"]:checked');
+  return r?r.value:'';
+}
+function addExhibit(){
+  document.getElementById('exhibits').appendChild(
+    document.getElementById('exhibitTpl').content.cloneNode(true));
+  generate(); syncPills();
+}
+function removeExhibit(btn){ btn.closest('.exhibit').remove(); generate(); }
+
+function updateExhibits(id,date){
+  document.querySelectorAll('#exhibits .exhibit').forEach((card,i)=>{
+    const letter=String.fromCharCode(65+i);
+    card.querySelector('.ex-letter').textContent=letter;
+    card.querySelector('.eh h3').textContent='Exhibit '+letter;
+    const type=card.querySelector('.ex-type').value||'Evidence';
+    const ext=(type==='Photo'||type==='Screenshot')?'.png':'.pdf';
+    card.querySelector('.fname').textContent=date+'_'+type+'_'+id+'_Ex'+letter+ext;
+  });
+}
+function generate(){
+  const id=document.getElementById('evtId').value||'EVT-0001';
+  const date=document.getElementById('evtDate').value||new Date().toISOString().slice(0,10);
+  const types=getChecked('eventTypes');
+  const typeStr=types.length?types[0]:'Event';
+  const fSel=document.getElementById('primaryFactor');
+  const factor=fSel.value?fSel.selectedOptions[0].text:'';
+  const aSel=document.getElementById('alsoSupports');
+  const also=aSel.value?aSel.selectedOptions[0].text:'';
+  const purpose=document.getElementById('docPurpose').value||'';
+  const exhibit=getRadio('exhibitWorthy')||'';
+  const children=document.getElementById('children').value||'';
+  const b2=document.getElementById('block2').value;
+  const shortDesc=b2?b2.substring(0,50).replace(/[^a-zA-Z0-9 ]/g,'').trim().replace(/ +/g,'_'):'';
+
+  document.getElementById('folderName').textContent=id+'_'+date+'_'+typeStr;
+  updateExhibits(id,date);
+
+  document.getElementById('wbRow').textContent=[
+    id,date,types.join('/')||'—',shortDesc||'—',children||'—',
+    purpose||'—',factor||'—',also||'—',exhibit||'—','[link]'
+  ].join(' | ');
+}
+function copyRow(){
+  const t=document.getElementById('wbRow').textContent;
+  navigator.clipboard.writeText(t).then(()=>{
+    const b=event.target; const o=b.textContent;
+    b.textContent='Copied'; setTimeout(()=>b.textContent=o,1400);
+  });
+}
+function clearForm(){
+  document.querySelectorAll('input,textarea,select').forEach(el=>{
+    if(el.type==='checkbox'||el.type==='radio')el.checked=false;
+    else if(el.tagName==='SELECT')el.selectedIndex=0;
+    else el.value='';
+  });
+  document.getElementById('exhibits').innerHTML='';
+  document.querySelector('input[value="Parent A"]').checked=true;
+  generate(); syncPills();
+}
+function syncPills(){
+  document.querySelectorAll('.opt').forEach(l=>{
+    const i=l.querySelector('input');
+    if(i) l.classList.toggle('on', i.checked);
+  });
+}
+document.addEventListener('change',syncPills);
+document.addEventListener('DOMContentLoaded',()=>{generate();syncPills();});
+</script>
+</body>
+</html>

@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Court Ready™ Custody Calendar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   COURT READY™ — CUSTODY CALENDAR
+   Vejovis Intelligence Co.™ · House Style v4
+   Built on court-ready-components.css.
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --primary:#1D4435; --primary-d:#12301F; --primary-t:#E4EDE6;
+  --accent1:#C25A34; --accent1-t:#FAE9E1;
+  --accent2:#E8A33D; --accent2-t:#FCF0DA;
+  --garnet:#8C2F26;  --garnet-t:#F8E7E4;
+  --ink:#2E2A24; --body:#453F37; --muted:#7A7167;
+  --border:#E2D9C9; --fill:#F5EEE2; --ground:#FCFAF6; --paper:#FFFFFF;
+  --my-day:#EDF3EE; --their-day:#FBF3E8;
+
+  /* aliases consumed by inline styles inside the engine */
+  --navy:var(--primary); --steel:var(--muted); --sgry:var(--fill);
+  --red:var(--garnet); --lblu:var(--border); --char:var(--body);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+body{font-family:'Figtree','Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.6;
+  color:var(--body);background:var(--ground);padding:22px 16px 60px;}
+h1,h2,h3,h4{font-family:'Outfit','Trebuchet MS','Segoe UI',Arial,sans-serif;letter-spacing:-.015em;line-height:1.2;}
+
+.app{max-width:1080px;margin:0 auto;background:var(--paper);
+  border:1px solid var(--border);border-radius:10px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(29,68,53,.05),0 12px 34px rgba(29,68,53,.07);}
+
+/* ── SECTION HEADER BLOCK ───────────────────────────────── */
+.header{position:relative;background:var(--primary);padding:20px 24px 18px 46px;}
+.header::before{content:"";position:absolute;left:22px;top:21px;width:15px;height:15px;
+  border-left:2px solid #E9DFCB;border-top:2px solid #E9DFCB;}
+.header::after{content:"";position:absolute;left:26px;top:28px;width:4px;height:9px;
+  border-right:2px solid var(--accent1);border-bottom:2px solid var(--accent1);
+  transform:rotate(42deg);}
+.header .brand{position:absolute;right:24px;top:21px;font-family:'Outfit',sans-serif;
+  font-size:11px;font-weight:600;color:#B9CFC1;}
+.header h1{font-size:25px;font-weight:700;color:#fff;}
+.header .desc{display:block;margin-top:7px;font-family:'Outfit',sans-serif;font-size:10px;
+  font-weight:600;letter-spacing:.17em;text-transform:uppercase;color:#C8D8CC;}
+.headrule{height:4px;background:var(--accent1);}
+
+/* ── NAV BAR ────────────────────────────────────────────── */
+.nav-bar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  background:var(--fill);border-bottom:1px solid var(--border);padding:12px 24px;}
+.links{display:flex;gap:8px;flex-wrap:wrap;}
+button{font-family:'Outfit',sans-serif;font-size:12.5px;font-weight:600;border-radius:6px;
+  padding:8px 15px;cursor:pointer;border:1px solid var(--border);
+  background:var(--paper);color:var(--primary);transition:all .15s;}
+button:hover{border-color:var(--primary);}
+.setup-btn{background:var(--accent2);border-color:var(--accent2);color:var(--primary-d);font-weight:700;}
+.setup-btn:hover{background:#DC941F;border-color:#DC941F;}
+:focus-visible{outline:2px solid var(--accent1);outline-offset:2px;}
+
+/* ── SETUP PANEL ────────────────────────────────────────── */
+.setup-panel{display:none;padding:20px 24px;background:var(--primary-t);
+  border-bottom:1px solid var(--border);}
+.setup-panel.active{display:block;}
+.setup-panel h3{font-size:15px;font-weight:700;color:var(--primary);margin-bottom:4px;}
+.setup-grid{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0;}
+.setup-day{flex:1 1 90px;min-width:80px;text-align:center;padding:11px 6px;border-radius:7px;
+  cursor:pointer;border:1.5px solid var(--border);background:var(--paper);
+  font-size:12.5px;font-weight:600;transition:all .15s;}
+.setup-day .day-name{font-family:'Outfit',sans-serif;font-size:9.5px;font-weight:700;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.setup-day.mine{background:var(--my-day);border-color:var(--primary);color:var(--primary);}
+.setup-day.theirs{background:var(--their-day);border-color:var(--accent1);color:var(--accent1);}
+.setup-help{font-size:12px;color:var(--muted);font-style:italic;}
+
+label{display:block;font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--primary);margin-bottom:5px;}
+.form-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
+.form-field{flex:1 1 180px;min-width:0;}
+input[type=text],input[type=date],input[type=time],select,textarea{
+  width:100%;font-family:inherit;font-size:13.5px;color:var(--ink);background:var(--paper);
+  border:1px solid var(--border);border-radius:6px;padding:8px 10px;}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(29,68,53,.10);}
+textarea{resize:vertical;min-height:70px;line-height:1.55;}
+::placeholder{color:#B7B0A5;font-style:italic;}
+
+/* ── MONTH NAV + STATS ──────────────────────────────────── */
+.month-nav{display:flex;align-items:center;gap:12px;padding:18px 24px 4px;}
+.month-nav h2{font-size:20px;font-weight:700;color:var(--primary);min-width:190px;}
+.month-nav button{padding:6px 13px;}
+.today-btn{margin-left:auto;}
+
+.stats{display:flex;gap:10px;flex-wrap:wrap;padding:12px 24px 4px;}
+.stat{flex:1 1 130px;border:1px solid var(--border);border-radius:8px;padding:11px 14px;
+  background:var(--paper);border-top:3px solid var(--border);}
+.stat .num{font-family:'Outfit',sans-serif;font-size:24px;font-weight:800;
+  color:var(--primary);line-height:1;}
+.stat .lbl{font-family:'Outfit',sans-serif;font-size:9.5px;font-weight:700;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-top:5px;}
+.stat.my{border-top-color:var(--primary);}
+.stat.their{border-top-color:var(--accent1);}
+.stat.dev{border-top-color:var(--garnet);} .stat.dev .num{color:var(--garnet);}
+.stat.appt{border-top-color:var(--accent2);}
+
+/* ── CALENDAR GRID ──────────────────────────────────────── */
+.cal-wrap{padding:16px 24px 0;}
+.weekdays,.days{display:flex;flex-wrap:wrap;}
+.weekdays > div,.days > div{width:14.285%;box-sizing:border-box;}
+.weekdays > div{font-family:'Outfit',sans-serif;font-size:9.5px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  text-align:center;padding:7px 0;}
+.days{border-top:1px solid var(--border);border-left:1px solid var(--border);}
+.day{min-height:96px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:6px 7px;cursor:pointer;position:relative;transition:background .15s;}
+.day:hover{background:var(--fill);}
+.day.empty{background:#FBF9F5;cursor:default;}
+.day.empty:hover{background:#FBF9F5;}
+.day.my-day{background:var(--my-day);}
+.day.their-day{background:var(--their-day);}
+.day.today{box-shadow:inset 0 0 0 2px var(--accent2);}
+.day.deviation{box-shadow:inset 4px 0 0 var(--garnet);}
+.day.deviation.today{box-shadow:inset 4px 0 0 var(--garnet),inset 0 0 0 2px var(--accent2);}
+.day .num{font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;color:var(--ink);}
+.day .custody-label{font-family:'Outfit',sans-serif;font-size:7.5px;font-weight:700;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--muted);margin-top:1px;}
+.day.my-day .custody-label{color:var(--primary);}
+.day.their-day .custody-label{color:var(--accent1);}
+.events{margin-top:5px;display:flex;flex-direction:column;gap:3px;}
+.evt{font-size:9.5px;line-height:1.3;padding:3px 5px;border-radius:4px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.evt.deviation-evt{background:var(--garnet-t);color:var(--garnet);font-weight:700;}
+.evt.appointment{background:var(--accent2-t);color:#8A6014;font-weight:600;}
+.evt.communication{background:var(--paper);border:1px solid var(--border);color:var(--muted);}
+
+/* ── LEGEND ─────────────────────────────────────────────── */
+.legend{display:flex;gap:20px;flex-wrap:wrap;padding:16px 24px;
+  border-top:1px solid var(--border);margin-top:16px;}
+.leg-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);}
+.leg-dot{width:14px;height:14px;border-radius:4px;border:1px solid var(--border);}
+.disclaim{padding:0 24px 18px;font-family:'IBM Plex Mono','Consolas',monospace;
+  font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);}
+
+/* ── MODAL ──────────────────────────────────────────────── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(29,68,53,.45);
+  z-index:100;padding:24px 16px;overflow-y:auto;}
+.modal-overlay.active{display:block;}
+.modal{max-width:680px;margin:0 auto;background:var(--paper);border-radius:10px;
+  overflow:hidden;box-shadow:0 20px 60px rgba(18,48,31,.3);}
+.modal-header{position:relative;background:var(--primary);padding:16px 22px 15px 42px;
+  display:flex;align-items:center;justify-content:space-between;}
+.modal-header::before{content:"";position:absolute;left:20px;top:18px;width:13px;height:13px;
+  border-left:2px solid #E9DFCB;border-top:2px solid #E9DFCB;}
+.modal-header::after{content:"";position:absolute;left:23.5px;top:24px;width:3.5px;height:8px;
+  border-right:2px solid var(--accent1);border-bottom:2px solid var(--accent1);
+  transform:rotate(42deg);}
+.modal-header h3{font-size:17px;font-weight:700;color:#fff;}
+.modal-close{background:none;border:0;color:#B9CFC1;font-size:26px;line-height:1;
+  cursor:pointer;padding:0 4px;}
+.modal-close:hover{color:#fff;}
+.modal-body{padding:20px 22px 22px;}
+.form-check{display:inline-flex;align-items:center;gap:8px;cursor:pointer;}
+.form-check input{accent-color:var(--accent1);width:15px;height:15px;cursor:pointer;}
+.modal-actions{display:flex;gap:9px;justify-content:flex-end;flex-wrap:wrap;margin-top:16px;}
+.btn{font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;border-radius:6px;
+  padding:9px 17px;cursor:pointer;border:1px solid var(--border);background:var(--paper);color:var(--primary);}
+.btn-primary,.btn-green{background:var(--primary);border-color:var(--primary);color:#fff;font-weight:700;}
+.btn-secondary{background:var(--paper);color:var(--primary);}
+.btn-danger{background:var(--paper);border-color:var(--border);color:var(--garnet);}
+.btn-danger:hover{background:var(--garnet-t);border-color:var(--garnet);}
+
+/* ── CALLOUT ────────────────────────────────────────────── */
+.call{border-radius:7px;padding:11px 15px;margin:12px 24px;font-size:13px;line-height:1.55;}
+.call .cl{display:block;font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px;}
+.tip{background:var(--accent2-t);border-left:5px solid var(--accent2);} .tip .cl{color:#9A6410;}
+.why{background:var(--primary-t);border-left:5px solid var(--primary);} .why .cl{color:var(--primary);}
+
+@media print{
+  body{background:#fff;padding:0;}
+  .app{border:0;box-shadow:none;max-width:100%;border-radius:0;}
+  .nav-bar,.setup-panel,.modal-overlay,.today-btn,.month-nav button,.call{display:none !important;}
+  .day{min-height:82px;}
+  .cal-wrap{padding:8px 0 0;}
+}
+@media (max-width:640px){
+  .header{padding:18px 18px 16px 42px;}
+  .day{min-height:74px;padding:4px 5px;}
+  .day .custody-label{display:none;}
+  .month-nav,.stats,.cal-wrap,.legend,.nav-bar{padding-left:14px;padding-right:14px;}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none !important;}}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="header">
+    <div class="brand">Vejovis Intelligence Co.™</div>
+    <h1>Court Ready™ Custody Calendar</h1>
+    <span class="desc">Set your schedule, then mark every deviation</span>
+  </div>
+  <div class="headrule"></div>
+
+  <div class="nav-bar">
+    <div class="links">
+      <button class="setup-btn" onclick="toggleSetup()">Custody Schedule Setup</button>
+      <button onclick="alert('Open Court_Ready_Master_Index.xlsx in your 00_START_HERE folder.')">Master Index</button>
+      <button onclick="window.open('Templates/Case_Record_Form.html','_blank')">New Case Record</button>
+    </div>
+    <button onclick="window.print()">Print Month</button>
+  </div>
+
+  <!-- SETUP PANEL -->
+  <div class="setup-panel" id="setupPanel">
+    <h3>Custody Schedule Setup</h3>
+    <p style="font-size:12.5px;color:var(--body);">Click each day to toggle between <strong>My Day</strong> and <strong>Other Parent's Day</strong>. This sets your regular weekly pattern.</p>
+    <div class="setup-grid" id="setupGrid"></div>
+    <div class="setup-help">This is your baseline. Everything the calendar flags later is measured against it.</div>
+    <div class="form-row" style="margin-top:14px;">
+      <div class="form-field"><label>Schedule source</label>
+        <select id="schedSource" onchange="saveSetup()">
+          <option>Court Order</option><option>Written Agreement</option><option>Verbal Agreement</option>
+          <option>Temporary Order</option><option>No Order — Documenting Actual</option>
+        </select></div>
+      <div class="form-field"><label>Order / agreement date</label>
+        <input type="date" id="schedDate" onchange="saveSetup()"></div>
+      <div class="form-field"><label>Exchange time</label>
+        <input type="text" id="schedTime" placeholder="5:00 PM" onchange="saveSetup()"></div>
+      <div class="form-field"><label>Exchange location</label>
+        <input type="text" id="schedLocation" placeholder="School / residence" onchange="saveSetup()"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="saveSetup();toggleSetup();">Save &amp; close</button>
+    </div>
+  </div>
+
+  <!-- MONTH NAV -->
+  <div class="month-nav">
+    <button onclick="changeMonth(-1)">◀</button>
+    <h2 id="monthTitle">July 2026</h2>
+    <button onclick="changeMonth(1)">▶</button>
+    <button class="today-btn" onclick="goToday()">Today</button>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat my"><div class="num" id="statMy">0</div><div class="lbl">My days</div></div>
+    <div class="stat their"><div class="num" id="statTheir">0</div><div class="lbl">Other parent</div></div>
+    <div class="stat dev"><div class="num" id="statDev">0</div><div class="lbl">Deviations</div></div>
+    <div class="stat appt"><div class="num" id="statAppt">0</div><div class="lbl">Appointments</div></div>
+  </div>
+
+  <!-- CALENDAR -->
+  <div class="cal-wrap">
+    <div class="weekdays">
+      <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+    </div>
+    <div class="days" id="calGrid"></div>
+  </div>
+
+  <div class="call why">
+    <span class="cl">Why this matters</span>
+    Twelve printed months showing a pattern of late arrivals is evidence a judge can see in three seconds. Mark the deviation the day it happens — the pattern builds itself.
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="leg-item"><div class="leg-dot" style="background:var(--my-day);border-color:var(--primary)"></div>My custody day</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--their-day);border-color:var(--accent1)"></div>Other parent's day</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--garnet);width:5px;border-radius:2px;border:0"></div>Deviation from schedule</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--accent2-t);border-color:var(--accent2)"></div>Appointment</div>
+    <div class="leg-item"><div class="leg-dot" style="background:transparent;border:2px solid var(--accent2)"></div>Today</div>
+  </div>
+  <div class="disclaim">Court Ready™ · Vejovis Intelligence Co.™ — organizational framework, not legal advice</div>
+</div>
+
+<!-- DAY MODAL -->
+<div class="modal-overlay" id="dayModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modalTitle">July 15, 2026</h3>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div id="modalCustody" style="margin-bottom:14px;"></div>
+
+      <div style="border-bottom:1px solid var(--border);padding-bottom:14px;margin-bottom:14px;">
+        <label class="form-check" style="font-size:13px;font-weight:700;color:var(--primary);letter-spacing:0;text-transform:none;">
+          <input type="checkbox" id="modalDeviation" onchange="toggleDevFields()"> Mark as deviation from custody schedule
+        </label>
+        <div id="devFields" style="display:none;margin-top:12px;">
+          <div class="form-row">
+            <div class="form-field"><label>What was scheduled</label>
+              <input type="text" id="devScheduled" placeholder="Other parent's day, pickup at 5 PM"></div>
+            <div class="form-field"><label>What actually happened</label>
+              <input type="text" id="devActual" placeholder="Arrived 47 min late, no notice"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label>Initiated by</label>
+              <select id="devInitiated"><option>Me</option><option>Other Parent</option><option>Mutual</option></select></div>
+            <div class="form-field"><label>Agreed upon?</label>
+              <select id="devAgreed"><option>Yes</option><option>No</option><option>Not Consulted</option></select></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="border-bottom:1px solid var(--border);padding-bottom:14px;margin-bottom:14px;">
+        <h4 style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.13em;margin-bottom:9px;">Add appointment</h4>
+        <div class="form-row">
+          <div class="form-field"><label>Type</label>
+            <select id="apptType">
+              <option value="">— Select —</option><option>Doctor</option><option>Dentist</option>
+              <option>Therapy</option><option>School Event</option><option>School Conference</option>
+              <option>Activity / Sports</option><option>Court Date</option><option>Attorney Meeting</option>
+              <option>Other</option>
+            </select></div>
+          <div class="form-field"><label>Time</label><input type="time" id="apptTime"></div>
+          <div class="form-field"><label>Description</label>
+            <input type="text" id="apptDesc" placeholder="Dr. Patel, asthma follow-up"></div>
+        </div>
+        <button class="btn btn-secondary" onclick="addAppt()" style="margin-top:4px;">+ Add appointment</button>
+      </div>
+
+      <div id="modalEntries"></div>
+
+      <div>
+        <h4 style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.13em;margin-bottom:9px;">Quick note — facts only</h4>
+        <div class="form-row">
+          <div class="form-field" style="flex:1 1 100%;">
+            <textarea id="dayNote" placeholder="Brief factual note. For significant events, open the Case Record Form."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-danger" onclick="clearDay()">Clear day</button>
+        <button class="btn btn-green" onclick="saveDay()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ENGINE — carried over unchanged from v4. Presentation only was rebuilt. */
+// STATE
+let currentDate = new Date();
+let currentYear = currentDate.getFullYear();
+let currentMonth = currentDate.getMonth();
+let selectedDay = null;
+
+// Default schedule: array of 7 (0=Sun..6=Sat), 'me' or 'other'
+let schedule = ['me','me','other','other','me','me','other'];
+let schedMeta = {source:'',date:'',time:'',location:''};
+// dayData: keyed by 'YYYY-MM-DD'
+let dayData = {};
+
+const MONTHS = ['January','February','March','April','May','June',
+  'July','August','September','October','November','December'];
+
+function init(){
+  loadData();
+  buildSetupGrid();
+  renderMonth();
+}
+
+// STORAGE
+function saveData(){
+  try{
+    localStorage.setItem('cr_schedule', JSON.stringify(schedule));
+    localStorage.setItem('cr_schedMeta', JSON.stringify(schedMeta));
+    localStorage.setItem('cr_dayData', JSON.stringify(dayData));
+  }catch(e){}
+}
+function loadData(){
+  try{
+    const s = localStorage.getItem('cr_schedule');
+    if(s) schedule = JSON.parse(s);
+    const m = localStorage.getItem('cr_schedMeta');
+    if(m) schedMeta = JSON.parse(m);
+    const d = localStorage.getItem('cr_dayData');
+    if(d) dayData = JSON.parse(d);
+  }catch(e){}
+}
+
+// SETUP
+function buildSetupGrid(){
+  const g = document.getElementById('setupGrid');
+  const names = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  g.innerHTML = '';
+  names.forEach((n,i)=>{
+    const d = document.createElement('div');
+    d.className = 'setup-day ' + (schedule[i]==='me'?'mine':'theirs');
+    d.innerHTML = `<div class="day-name">${n}</div><div>${schedule[i]==='me'?'Mine':'Theirs'}</div>`;
+    d.onclick = ()=>{
+      schedule[i] = schedule[i]==='me'?'other':'me';
+      buildSetupGrid();
+      saveData();
+      renderMonth();
+    };
+    g.appendChild(d);
+  });
+  // fill meta fields
+  document.getElementById('schedSource').value = schedMeta.source||'Court Order';
+  document.getElementById('schedDate').value = schedMeta.date||'';
+  document.getElementById('schedTime').value = schedMeta.time||'';
+  document.getElementById('schedLocation').value = schedMeta.location||'';
+}
+function saveSetup(){
+  schedMeta.source = document.getElementById('schedSource').value;
+  schedMeta.date = document.getElementById('schedDate').value;
+  schedMeta.time = document.getElementById('schedTime').value;
+  schedMeta.location = document.getElementById('schedLocation').value;
+  saveData();
+}
+function toggleSetup(){
+  document.getElementById('setupPanel').classList.toggle('active');
+}
+
+// CALENDAR RENDER
+function renderMonth(){
+  const first = new Date(currentYear, currentMonth, 1);
+  const lastDay = new Date(currentYear, currentMonth+1, 0).getDate();
+  const startDow = first.getDay();
+  const grid = document.getElementById('calGrid');
+  grid.innerHTML = '';
+
+  document.getElementById('monthTitle').textContent = `${MONTHS[currentMonth]} ${currentYear}`;
+
+  const today = new Date();
+  let statMy=0, statTheir=0, statDev=0, statAppt=0;
+
+  // empty cells before first
+  for(let i=0;i<startDow;i++){
+    const cell = document.createElement('div');
+    cell.className = 'day empty';
+    grid.appendChild(cell);
+  }
+
+  for(let d=1;d<=lastDay;d++){
+    const dt = new Date(currentYear, currentMonth, d);
+    const key = dateKey(dt);
+    const dow = dt.getDay();
+    const custody = schedule[dow];
+    const data = dayData[key] || {};
+    const isToday = dt.toDateString() === today.toDateString();
+
+    const cell = document.createElement('div');
+    let cls = 'day';
+    if(custody==='me'){cls+=' my-day';statMy++;}
+    else{cls+=' their-day';statTheir++;}
+    if(isToday) cls+=' today';
+    if(data.deviation) {cls+=' deviation';statDev++;}
+    cell.className = cls;
+
+    let eventsHtml = '';
+    if(data.deviation){
+      eventsHtml += `<div class="evt deviation-evt">⚠ Deviation</div>`;
+    }
+    if(data.appointments){
+      data.appointments.forEach(a=>{
+        statAppt++;
+        eventsHtml += `<div class="evt appointment">${a.type}: ${a.desc||''}</div>`;
+      });
+    }
+    if(data.note){
+      eventsHtml += `<div class="evt communication">${data.note.substring(0,30)}</div>`;
+    }
+
+    cell.innerHTML = `
+      <div class="num">${d}</div>
+      <div class="custody-label">${custody==='me'?'MY DAY':'OTHER PARENT'}</div>
+      <div class="events">${eventsHtml}</div>`;
+    cell.onclick = ()=>openDay(dt);
+    grid.appendChild(cell);
+  }
+
+  document.getElementById('statMy').textContent = statMy;
+  document.getElementById('statTheir').textContent = statTheir;
+  document.getElementById('statDev').textContent = statDev;
+  document.getElementById('statAppt').textContent = statAppt;
+}
+
+function changeMonth(delta){
+  currentMonth += delta;
+  if(currentMonth>11){currentMonth=0;currentYear++;}
+  if(currentMonth<0){currentMonth=11;currentYear--;}
+  renderMonth();
+}
+function goToday(){
+  const t = new Date();
+  currentMonth = t.getMonth();
+  currentYear = t.getFullYear();
+  renderMonth();
+}
+
+// DATE HELPERS
+function dateKey(dt){
+  return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');
+}
+function formatDate(dt){
+  return `${MONTHS[dt.getMonth()]} ${dt.getDate()}, ${dt.getFullYear()}`;
+}
+
+// DAY MODAL
+function openDay(dt){
+  selectedDay = dt;
+  const key = dateKey(dt);
+  const data = dayData[key] || {};
+  const dow = dt.getDay();
+  const custody = schedule[dow];
+
+  document.getElementById('modalTitle').textContent = formatDate(dt);
+  document.getElementById('modalCustody').innerHTML =
+    `<span style="font-size:12px;font-weight:bold;color:var(--navy);">Scheduled: ${custody==='me'?'My Day':'Other Parent\'s Day'}</span>` +
+    (schedMeta.time ? ` <span style="font-size:11px;color:var(--steel);">| Exchange at ${schedMeta.time}</span>` : '');
+
+  document.getElementById('modalDeviation').checked = !!data.deviation;
+  toggleDevFields();
+  if(data.deviation){
+    document.getElementById('devScheduled').value = data.devScheduled||'';
+    document.getElementById('devActual').value = data.devActual||'';
+    document.getElementById('devInitiated').value = data.devInitiated||'Me';
+    document.getElementById('devAgreed').value = data.devAgreed||'No';
+  } else {
+    document.getElementById('devScheduled').value='';
+    document.getElementById('devActual').value='';
+  }
+
+  document.getElementById('apptType').selectedIndex = 0;
+  document.getElementById('apptTime').value = '';
+  document.getElementById('apptDesc').value = '';
+  document.getElementById('dayNote').value = data.note||'';
+
+  renderModalEntries(data);
+  document.getElementById('dayModal').classList.add('active');
+}
+function closeModal(){
+  document.getElementById('dayModal').classList.remove('active');
+}
+function toggleDevFields(){
+  document.getElementById('devFields').style.display =
+    document.getElementById('modalDeviation').checked ? 'block':'none';
+}
+
+function renderModalEntries(data){
+  const el = document.getElementById('modalEntries');
+  let html = '';
+  if(data.appointments && data.appointments.length){
+    html += '<h4 style="font-size:11px;color:var(--navy);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;">Appointments</h4>';
+    data.appointments.forEach((a,i)=>{
+      html += `<div style="display:flex;justify-content:space-between;align-items:center;background:var(--sgry);padding:6px 10px;border-radius:4px;margin-bottom:4px;font-size:11px;">
+        <span><strong>${a.type}</strong> ${a.time?'at '+a.time:''} — ${a.desc||''}</span>
+        <button onclick="removeAppt(${i})" style="background:none;border:none;color:var(--red);cursor:pointer;font-size:14px;">×</button>
+      </div>`;
+    });
+    html += '<div style="height:12px;"></div>';
+  }
+  el.innerHTML = html;
+}
+
+function addAppt(){
+  const type = document.getElementById('apptType').value;
+  if(!type) return;
+  const key = dateKey(selectedDay);
+  if(!dayData[key]) dayData[key] = {};
+  if(!dayData[key].appointments) dayData[key].appointments = [];
+  dayData[key].appointments.push({
+    type: type,
+    time: document.getElementById('apptTime').value,
+    desc: document.getElementById('apptDesc').value
+  });
+  document.getElementById('apptType').selectedIndex = 0;
+  document.getElementById('apptTime').value = '';
+  document.getElementById('apptDesc').value = '';
+  saveData();
+  renderModalEntries(dayData[key]);
+  renderMonth();
+}
+function removeAppt(i){
+  const key = dateKey(selectedDay);
+  if(dayData[key] && dayData[key].appointments){
+    dayData[key].appointments.splice(i,1);
+    if(!dayData[key].appointments.length) delete dayData[key].appointments;
+    saveData();
+    renderModalEntries(dayData[key]);
+    renderMonth();
+  }
+}
+
+function saveDay(){
+  const key = dateKey(selectedDay);
+  if(!dayData[key]) dayData[key] = {};
+  const isDev = document.getElementById('modalDeviation').checked;
+  dayData[key].deviation = isDev;
+  if(isDev){
+    dayData[key].devScheduled = document.getElementById('devScheduled').value;
+    dayData[key].devActual = document.getElementById('devActual').value;
+    dayData[key].devInitiated = document.getElementById('devInitiated').value;
+    dayData[key].devAgreed = document.getElementById('devAgreed').value;
+  } else {
+    delete dayData[key].devScheduled;
+    delete dayData[key].devActual;
+    delete dayData[key].devInitiated;
+    delete dayData[key].devAgreed;
+  }
+  dayData[key].note = document.getElementById('dayNote').value;
+  // clean empty entries
+  if(!dayData[key].deviation && !dayData[key].note &&
+     (!dayData[key].appointments || !dayData[key].appointments.length)){
+    delete dayData[key];
+  }
+  saveData();
+  renderMonth();
+  closeModal();
+}
+function clearDay(){
+  const key = dateKey(selectedDay);
+  delete dayData[key];
+  saveData();
+  renderMonth();
+  closeModal();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
