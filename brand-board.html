@@ -1,0 +1,315 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Court Ready™ Brand Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   COURT READY™ — BRAND BOARD
+   Vejovis Intelligence Co.™ · Built entirely from House Style v4
+   tokens (court-ready-components.css). Nothing invented.
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --primary:#1D4435;   --primary-d:#12301F; --primary-t:#E4EDE6;
+  --accent1:#C25A34;   --accent1-t:#FAE9E1;
+  --accent2:#E8A33D;   --accent2-t:#FCF0DA;
+  --garnet:#8C2F26;    --garnet-t:#F8E7E4;
+  --ink:#2E2A24; --body:#453F37; --muted:#7A7167;
+  --border:#E2D9C9; --fill:#F5EEE2; --ground:#FCFAF6; --paper:#FFFFFF;
+  /* the desk the paper sits on — the only tokens that change in dark mode */
+  --desk:#EFE9DD; --desk-ink:#5C5347; --desk-line:#DDD3C2;
+  --shadow:0 1px 2px rgba(29,68,53,.06),0 14px 40px rgba(29,68,53,.10);
+  --disp:'Outfit','Trebuchet MS','Segoe UI',Arial,sans-serif;
+  --text:'Figtree','Segoe UI','Helvetica Neue',Arial,sans-serif;
+  --mono:'IBM Plex Mono','Consolas','Courier New',monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --desk:#191510; --desk-ink:#A79B8A; --desk-line:#2C261E;
+         --shadow:0 1px 2px rgba(0,0,0,.4),0 16px 44px rgba(0,0,0,.5); }
+}
+:root[data-theme="dark"]{ --desk:#191510; --desk-ink:#A79B8A; --desk-line:#2C261E;
+         --shadow:0 1px 2px rgba(0,0,0,.4),0 16px 44px rgba(0,0,0,.5); }
+:root[data-theme="light"]{ --desk:#EFE9DD; --desk-ink:#5C5347; --desk-line:#DDD3C2;
+         --shadow:0 1px 2px rgba(29,68,53,.06),0 14px 40px rgba(29,68,53,.10); }
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:var(--text);font-size:15px;line-height:1.62;color:var(--body);
+  background:var(--desk);padding:34px 18px 70px;}
+h1,h2,h3{font-family:var(--disp);letter-spacing:-.015em;line-height:1.15;text-wrap:balance;}
+
+.wrap{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:26px;}
+
+/* desk-level furniture */
+.deskline{font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--desk-ink);display:flex;
+  justify-content:space-between;gap:12px;flex-wrap:wrap;}
+
+/* each section is a sheet of paper — the product's own metaphor */
+.sheet{background:var(--paper);border:1px solid var(--border);border-radius:10px;
+  overflow:hidden;box-shadow:var(--shadow);}
+.sheet .in{padding:26px 30px 30px;}
+
+/* section head — identical construction to the product's .head */
+.head{position:relative;background:var(--primary);padding:18px 24px 16px 48px;}
+.head::before{content:"";position:absolute;left:23px;top:20px;width:15px;height:15px;
+  border-left:2px solid var(--accent2);border-top:2px solid var(--accent2);}
+.head::after{content:"";position:absolute;left:27px;top:27px;width:4px;height:9px;
+  border-right:2px solid var(--accent1);border-bottom:2px solid var(--accent1);
+  transform:rotate(42deg);}
+.head .cr{position:absolute;right:22px;top:19px;font-family:var(--disp);
+  font-size:11px;font-weight:600;color:#B9CFC1;}
+.head h2{font-size:21px;font-weight:700;color:#fff;}
+.head .desc{display:block;margin-top:5px;font-family:var(--disp);font-size:10px;
+  font-weight:600;letter-spacing:.17em;text-transform:uppercase;color:#C8D8CC;}
+.headrule{height:4px;background:var(--accent1);}
+
+/* ── MASTHEAD ─────────────────────────────────────────────── */
+.mast{padding:44px 34px 38px;}
+.mark{position:relative;padding-left:44px;margin-bottom:26px;display:inline-block;}
+.mark::before{content:"";position:absolute;left:0;top:2px;width:24px;height:24px;
+  border-left:3.5px solid var(--primary);border-top:3.5px solid var(--primary);}
+.mark::after{content:"";position:absolute;left:8px;top:12px;width:7px;height:14px;
+  border-right:3.5px solid var(--accent1);border-bottom:3.5px solid var(--accent1);
+  transform:rotate(42deg);}
+.mark span{font-family:var(--disp);font-size:13px;font-weight:700;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--primary);}
+.mast h1{font-size:clamp(34px,6vw,52px);font-weight:800;color:var(--primary);
+  letter-spacing:-.03em;line-height:1.05;max-width:14em;}
+.mast .tag{font-family:var(--disp);font-size:16px;font-weight:600;
+  color:var(--accent1);margin-top:12px;}
+.mast .meta{font-size:13.5px;color:var(--muted);margin-top:18px;
+  border-left:3px solid var(--accent2);padding-left:12px;max-width:46em;}
+
+/* ── ESSENCE ──────────────────────────────────────────────── */
+.credo{background:var(--primary);color:#fff;border-radius:8px;
+  padding:20px 24px;text-align:center;margin-bottom:20px;}
+.credo b{font-family:var(--disp);font-size:17px;font-weight:700;line-height:1.4;display:block;}
+.credo span{font-size:12px;color:#B9CFC1;display:block;margin-top:7px;}
+.pillars{display:flex;gap:12px;flex-wrap:wrap;}
+.pillar{flex:1 1 200px;border:1px solid var(--border);border-radius:8px;
+  padding:14px 16px;background:var(--ground);}
+.pillar b{font-family:var(--disp);font-size:13px;font-weight:700;color:var(--primary);
+  display:block;margin-bottom:4px;}
+.pillar span{font-size:13px;color:var(--body);}
+
+/* ── PALETTE ──────────────────────────────────────────────── */
+.chips{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px;}
+.chip{flex:1 1 150px;border:1px solid var(--border);border-radius:8px;overflow:hidden;
+  background:var(--ground);}
+.chip .sw{height:76px;}
+.chip .nm{padding:10px 12px 12px;}
+.chip .nm b{font-family:var(--disp);font-size:13.5px;font-weight:700;color:var(--ink);display:block;}
+.chip .nm code{font-family:var(--mono);font-size:11px;color:var(--muted);}
+.chip .nm span{display:block;font-size:11.5px;color:var(--body);margin-top:4px;line-height:1.45;}
+.neutrals{display:flex;border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.neutrals div{flex:1;height:52px;position:relative;}
+.neutrals div i{position:absolute;left:8px;bottom:5px;font-style:normal;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;}
+.rule-note{margin-top:14px;font-size:13px;color:var(--muted);}
+.rule-note b{color:var(--garnet);font-weight:600;}
+
+/* ── TYPOGRAPHY ───────────────────────────────────────────── */
+.type-row{display:flex;gap:16px;align-items:baseline;border-bottom:1px solid var(--border);
+  padding:14px 0;flex-wrap:wrap;}
+.type-row:last-of-type{border-bottom:0;}
+.type-row .role{flex:0 0 150px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--accent1);}
+.type-row .spec{flex:1;min-width:220px;}
+.t-disp{font-family:var(--disp);font-size:27px;font-weight:800;color:var(--primary);letter-spacing:-.02em;}
+.t-body{font-family:var(--text);font-size:15px;color:var(--body);}
+.t-mono{font-family:var(--mono);font-size:13px;color:var(--primary-d);
+  background:var(--fill);border:1px solid var(--border);border-radius:3px;
+  padding:2px 7px;display:inline-block;}
+.type-row .note{flex:1 1 100%;font-size:12px;color:var(--muted);margin-top:2px;}
+
+/* ── SERIES ARCHITECTURE ──────────────────────────────────── */
+.tabs{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px;}
+.tab{flex:1 1 200px;border:1px solid var(--border);border-radius:0 8px 8px 8px;
+  background:var(--ground);position:relative;padding:16px 16px 14px;margin-top:14px;}
+.tab::before{content:attr(data-tab);position:absolute;left:-1px;top:-15px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+  color:#fff;background:var(--tabclr,var(--primary));padding:3px 10px 2px;
+  border-radius:5px 5px 0 0;}
+.tab .bar{height:5px;border-radius:3px;background:var(--tabclr,var(--primary));margin-bottom:10px;}
+.tab b{font-family:var(--disp);font-size:14.5px;font-weight:700;color:var(--ink);display:block;}
+.tab span{font-size:12.5px;color:var(--muted);display:block;margin-top:3px;}
+.anchor-line{margin-top:18px;background:var(--garnet-t);border-left:5px solid var(--garnet);
+  border-radius:7px;padding:12px 16px;font-size:13.5px;}
+.anchor-line b{color:var(--garnet);font-family:var(--disp);}
+
+/* ── SIGNATURE MOVES ──────────────────────────────────────── */
+.moves{display:flex;flex-direction:column;gap:16px;}
+.move b.mt{font-family:var(--disp);font-size:14px;font-weight:700;color:var(--primary);
+  display:block;margin-bottom:8px;}
+.evt-strip{font-family:var(--mono);font-size:12.5px;color:var(--primary-d);
+  background:var(--fill);border:1px dashed var(--border);border-radius:6px;
+  padding:10px 14px;overflow-x:auto;white-space:nowrap;}
+.evt-strip em{font-style:normal;color:var(--accent1);}
+.compare{display:flex;gap:10px;flex-wrap:wrap;}
+.compare > div{flex:1 1 240px;border-radius:7px;padding:12px 14px;font-size:13.5px;line-height:1.55;}
+.feel{background:var(--garnet-t);border:1px solid #EFD3CE;}
+.fact{background:var(--primary-t);border:1px solid #CFDDD3;}
+.compare .t{font-family:var(--disp);font-size:10px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;display:block;margin-bottom:5px;}
+.feel .t{color:var(--garnet);} .fact .t{color:var(--primary);}
+
+/* ── DO / DON'T ───────────────────────────────────────────── */
+.dd{display:flex;gap:14px;flex-wrap:wrap;}
+.dd > div{flex:1 1 260px;border-radius:8px;padding:14px 18px;}
+.dd .do{background:var(--primary-t);border-left:5px solid var(--primary);}
+.dd .dont{background:var(--garnet-t);border-left:5px solid var(--garnet);}
+.dd b{font-family:var(--disp);font-size:11px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;display:block;margin-bottom:8px;}
+.dd .do b{color:var(--primary);} .dd .dont b{color:var(--garnet);}
+.dd ul{list-style:none;}
+.dd li{font-size:13.5px;padding-left:16px;position:relative;margin-bottom:6px;}
+.dd li::before{content:"—";position:absolute;left:0;color:var(--muted);}
+
+.foot{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--desk-ink);text-align:center;margin-top:6px;}
+</style>
+
+<div class="wrap">
+  <div class="deskline"><span>Vejovis Intelligence Co.™ · House Style v4</span><span>Brand Board · 2026</span></div>
+
+  <!-- MASTHEAD -->
+  <section class="sheet"><div class="mast">
+    <div class="mark"><span>The Record Mark</span></div>
+    <h1>Court&nbsp;Ready™</h1>
+    <div class="tag">Document what a camera would see.</div>
+    <p class="meta">The brand looks like the product: a beautifully kept case file.
+      Paper grounds, pine structure, clay action, one marigold highlight —
+      and the corner-bracket-plus-check that means <strong>captured and verified</strong>.</p>
+  </div></section>
+
+  <!-- ESSENCE -->
+  <section class="sheet">
+    <div class="head"><span class="cr">Court Ready™</span><h2>Voice &amp; Essence</h2>
+      <span class="desc">How the brand sounds, everywhere</span></div>
+    <div class="headrule"></div>
+    <div class="in">
+      <div class="credo"><b>The parent with the better record walks into court calmer.</b>
+        <span>Every sentence the brand writes serves that calm.</span></div>
+      <div class="pillars">
+        <div class="pillar"><b>Clinical calm</b><span>Short sentences. No hype, no urgency punctuation, no emoji. Steady like a nurse's chart.</span></div>
+        <div class="pillar"><b>Camera-neutral</b><span>Times, dates, quotes, actions. The voice never editorializes — it demonstrates the method.</span></div>
+        <div class="pillar"><b>Quiet authority</b><span>Built by an RN with 23 years of records that survive scrutiny. Stated once, plainly.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PALETTE -->
+  <section class="sheet">
+    <div class="head"><span class="cr">Court Ready™</span><h2>Palette</h2>
+      <span class="desc">Every color has exactly one job</span></div>
+    <div class="headrule"></div>
+    <div class="in">
+      <div class="chips">
+        <div class="chip"><div class="sw" style="background:#1D4435"></div>
+          <div class="nm"><b>Pine</b> <code>#1D4435</code><span>Structure. Headers, key labels, the Court Ready volume color.</span></div></div>
+        <div class="chip"><div class="sw" style="background:#C25A34"></div>
+          <div class="nm"><b>Clay</b> <code>#C25A34</code><span>Action. Step numbers, checkboxes, buttons, the check in the mark.</span></div></div>
+        <div class="chip"><div class="sw" style="background:#E8A33D"></div>
+          <div class="nm"><b>Marigold</b> <code>#E8A33D</code><span>Highlight. One appearance per section. Never more.</span></div></div>
+        <div class="chip"><div class="sw" style="background:#8C2F26"></div>
+          <div class="nm"><b>Garnet</b> <code>#8C2F26</code><span>The house. Vejovis anchor, warnings, "do not" rules.</span></div></div>
+      </div>
+      <div class="neutrals">
+        <div style="background:#FFFFFF"><i style="color:#7A7167">paper</i></div>
+        <div style="background:#FCFAF6"><i style="color:#7A7167">ground</i></div>
+        <div style="background:#F5EEE2"><i style="color:#7A7167">fill</i></div>
+        <div style="background:#E2D9C9"><i style="color:#5C5347">border</i></div>
+        <div style="background:#7A7167"><i style="color:#F5EEE2">muted</i></div>
+        <div style="background:#453F37"><i style="color:#E2D9C9">body</i></div>
+        <div style="background:#2E2A24"><i style="color:#E2D9C9">ink</i></div>
+      </div>
+      <p class="rule-note"><b>Standing rule:</b> dark colors are for text and accents only.
+        Backgrounds stay paper — the reading experience stays calm.</p>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="sheet">
+    <div class="head"><span class="cr">Court Ready™</span><h2>Typography</h2>
+      <span class="desc">Three faces, three jobs, no substitutes</span></div>
+    <div class="headrule"></div>
+    <div class="in">
+      <div class="type-row"><span class="role">Display · Outfit</span>
+        <span class="spec t-disp">Attorney-ready records.</span>
+        <span class="note">Weights 500–800. Titles, section heads, pull-quotes. Tight tracking (−.015em).</span></div>
+      <div class="type-row"><span class="role">Body · Figtree</span>
+        <span class="spec t-body">Three factual blocks, two minutes per entry. The system does the rest — including a dashboard that shows exactly where the record is strong.</span>
+        <span class="note">Weights 400–700. All running text. Line-height ≈ 1.6, measure ≤ 65 characters.</span></div>
+      <div class="type-row"><span class="role">Utility · IBM Plex Mono</span>
+        <span class="spec"><span class="t-mono">EVT-0012_2026-07-18_Exchange</span></span>
+        <span class="note">File names, timestamps, exhibit codes, footers, eyebrow labels. The "evidence texture" that makes the brand unmistakable.</span></div>
+    </div>
+  </section>
+
+  <!-- SERIES ARCHITECTURE -->
+  <section class="sheet">
+    <div class="head"><span class="cr">Vejovis™</span><h2>Series Architecture</h2>
+      <span class="desc">One variable changes · everything else holds</span></div>
+    <div class="headrule"></div>
+    <div class="in">
+      <div class="tabs">
+        <div class="tab" data-tab="Vol · 01" style="--tabclr:#1D4435"><div class="bar"></div>
+          <b>Court Ready™</b><span>Custody documentation · Pine leads</span></div>
+        <div class="tab" data-tab="Vol · 02" style="--tabclr:#3E5C6B"><div class="bar"></div>
+          <b>Future volume</b><span>e.g. care advocacy · slate-blue leads</span></div>
+        <div class="tab" data-tab="Vol · 03" style="--tabclr:#8A6240"><div class="bar"></div>
+          <b>Future volume</b><span>e.g. estate organizer · toffee leads</span></div>
+      </div>
+      <div class="anchor-line"><b>Garnet is the house thread.</b> The Vejovis Intelligence Co.™
+        line, license furniture, and disclaimers render in Garnet on every product, in every
+        volume — small, constant, unmistakable. Fonts, neutrals, components, and the Record
+        Mark never change between volumes.</div>
+    </div>
+  </section>
+
+  <!-- SIGNATURE MOVES -->
+  <section class="sheet">
+    <div class="head"><span class="cr">Court Ready™</span><h2>Signature Moves</h2>
+      <span class="desc">The evidence aesthetic · marketing looks like the product</span></div>
+    <div class="headrule"></div>
+    <div class="in"><div class="moves">
+      <div class="move"><b class="mt">1 · Mono metadata as decoration</b>
+        <div class="evt-strip">EVT-0012 · 2026-07-18 · 17:12 · <em>EXCHANGE</em> · Parent B notified 17:20 · <em>EXHIBIT A</em> attached · index row pasted ✓</div></div>
+      <div class="move"><b class="mt">2 · The Feelings → Facts flip (best social format)</b>
+        <div class="compare">
+          <div class="feel"><span class="t">What you feel</span>He was late again, on purpose, like always. He does this to get to me.</div>
+          <div class="fact"><span class="t">What you write</span>Exchange scheduled 5:00 PM. Parent B arrived 5:22 PM. No prior notice. Children transferred 5:25 PM.</div>
+        </div></div>
+      <div class="move"><b class="mt">3 · Paper on a desk</b>
+        <p style="font-size:13.5px;">Product mockups read as printed documents — warm ground, one soft
+        shadow, letter proportions — because the end state of the product is a binder handed to an
+        attorney. No floating laptops, no gradient heroes.</p></div>
+    </div></div>
+  </section>
+
+  <!-- DO / DONT -->
+  <section class="sheet">
+    <div class="head"><span class="cr">Court Ready™</span><h2>Do / Don't</h2>
+      <span class="desc">The rules that keep it expensive</span></div>
+    <div class="headrule"></div>
+    <div class="in"><div class="dd">
+      <div class="do"><b>Always</b><ul>
+        <li>Lead with Pine; let Clay do the work</li>
+        <li>One Marigold highlight per section</li>
+        <li>Record Mark on every cover, avatar, favicon</li>
+        <li>Mono labels for anything that is data</li>
+        <li>Whitespace as a feature — breathing room sells calm</li>
+      </ul></div>
+      <div class="dont"><b>Never</b><ul>
+        <li>New hues — no purples, bright blues, pastels</li>
+        <li>Dark backgrounds behind body text</li>
+        <li>Stock gavels, courtrooms, or crying children</li>
+        <li>Hype copy, ALL-CAPS urgency, emoji on product surfaces</li>
+        <li>A fourth typeface</li>
+      </ul></div>
+    </div></div>
+  </section>
+
+  <div class="foot">Court Ready™ · Brand Board · Vejovis Intelligence Co.™ — organizational framework, not legal advice</div>
+</div>
