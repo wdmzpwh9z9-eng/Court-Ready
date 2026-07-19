@@ -1,6 +1,8 @@
 # Court Ready™ — Notion Edition
 
-**Vejovis Intelligence Co.™ · Custody Documentation System**
+**Custody Documentation Intelligence System · Vejovis Intelligence Co.™**
+
+> *Documentation uncovers patterns. Patterns reveal truth. Truth tells the story from facts.*
 
 Welcome. This is the same Court Ready™ system as the download package, rebuilt as a Notion workspace: the Case Record Form as a duplicatable page template, and your Event Index, Exhibit Index, Expense Summary, and Visitation Log as Notion databases.
 

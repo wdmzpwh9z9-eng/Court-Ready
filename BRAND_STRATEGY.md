@@ -1,4 +1,8 @@
-# Court Ready™ — Brand Review & Distinctive Identity Strategy
+# Court Ready™ — Custody Documentation Intelligence System
+## Brand Review & Distinctive Identity Strategy
+
+**Official tagline:** *"Documentation uncovers patterns. Patterns reveal truth. Truth tells the story from facts."*
+**Working principle (inside the product):** *"Document what a camera would see."*
 
 **Vejovis Intelligence Co.™ · Prepared 2026-07-19**
 **Scope:** full review of the Court Ready v5.3 product system (templates, manual, design
