@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Court Ready™ Documentation Manual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   COURT READY™ — DOCUMENTATION MANUAL
+   Vejovis Intelligence Co.™ · House Style v4
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --primary:#1D4435;      /* PINE — headers, key labels */
+  --primary-d:#12301F;
+  --primary-t:#E4EDE6;    /* pine tint */
+  --accent1:#C25A34;      /* CLAY — step numbers, icons */
+  --accent1-t:#FAE9E1;
+  --accent2:#E8A33D;      /* MARIGOLD — one highlight per section */
+  --accent2-t:#FCF0DA;
+  --garnet:#8C2F26;       /* DO NOT */
+  --garnet-t:#F8E7E4;
+  --ink:#2E2A24;
+  --body:#453F37;
+  --muted:#7A7167;
+  --border:#E2D9C9;
+  --fill:#F5EEE2;
+  --ground:#FCFAF6;
+  --paper:#FFFFFF;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+@page{ size:letter; margin:0.55in 0.6in 0.6in; }
+
+html{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+body{
+  font-family:'Figtree','Segoe UI','Helvetica Neue',Arial,sans-serif;
+  font-size:10.2pt; line-height:1.62; color:var(--body);
+  background:var(--ground);
+}
+.sheet{
+  width:auto; max-width:7.3in; margin:0 auto 30px; padding:0 0 22pt;
+  background:#FFFFFF; border:1pt solid var(--border); border-radius:10pt;
+  overflow:hidden; box-shadow:0 1px 2px rgba(29,68,53,.05),0 10px 28px rgba(29,68,53,.06);
+  page-break-after:always; break-after:page;
+}
+.sheet > *:not(.head):not(.headrule):not(.mast):not(.mastrule){ margin-left:20pt; margin-right:20pt; }
+.sheet .head{ border-radius:9pt 9pt 0 0; }
+body{ padding:26px 12px 60px; }
+.sheet:last-child{page-break-after:auto;break-after:auto;}
+
+h1,h2,h3,h4{font-family:'Outfit','Trebuchet MS','Segoe UI',Arial,sans-serif;letter-spacing:-.015em;line-height:1.18;}
+
+/* ── SECTION HEADER BLOCK ──────────────────────────────────
+   Filled block, bracket + micro-check, Court Ready™ top-right,
+   ALL CAPS descriptor. Identical on every section. ───────── */
+.head{
+  position:relative; background:var(--primary);
+  border-radius:9pt 9pt 0 0; padding:15pt 18pt 14pt 34pt;
+  break-inside:avoid;
+}
+.head::before{ content:""; position:absolute; left:16pt; top:15pt;
+  width:11pt; height:11pt;
+  border-left:1.6pt solid #E9DFCB; border-top:1.6pt solid #E9DFCB; }
+.head::after{ content:""; position:absolute; left:19.5pt; top:20.5pt;
+  width:3pt; height:6.5pt;
+  border-right:1.6pt solid var(--accent1); border-bottom:1.6pt solid var(--accent1);
+  transform:rotate(42deg); }
+.head .cr{ position:absolute; right:18pt; top:15pt;
+  font-family:'Outfit','Trebuchet MS','Segoe UI',Arial,sans-serif; font-size:7.6pt; font-weight:600;
+  color:#B9CFC1; letter-spacing:.02em; }
+.head .part{ font-family:'IBM Plex Mono','Consolas','Courier New',monospace; font-size:7pt;
+  font-weight:500; letter-spacing:.2em; text-transform:uppercase;
+  color:#F2EDE2; margin-bottom:4pt; }
+.head h2{ font-size:19pt; font-weight:700; color:#fff; }
+.head .desc{ display:block; margin-top:6pt;
+  font-family:'Outfit','Trebuchet MS','Segoe UI',Arial,sans-serif; font-size:7.4pt; font-weight:600;
+  letter-spacing:.17em; text-transform:uppercase; color:#C8D8CC; }
+.headrule{ height:3pt; background:var(--accent1); margin:0 0 16pt; }
+
+/* ── BODY TEXT ─────────────────────────────────────────── */
+p{ margin-bottom:8pt; }
+.sub{ font-family:'Outfit','Trebuchet MS','Segoe UI',Arial,sans-serif; font-size:11.2pt; font-weight:600;
+  color:var(--primary); margin:16pt 0 7pt; }
+.sub:first-of-type{margin-top:0;}
+h4{ font-size:9.6pt; font-weight:700; color:var(--primary);
+  text-transform:uppercase; letter-spacing:.11em; margin:14pt 0 6pt; }
+strong{ color:var(--ink); font-weight:600; }
+em{ font-style:italic; }
+
+/* ── ANCHOR BLOCK — the one idea to remember ───────────── */
+.anchor{
+  background:var(--primary-t); border:1pt solid var(--border);
+  border-left:5pt solid var(--primary);
+  border-radius:7pt; padding:14pt 18pt; margin:14pt 0;
+  text-align:center; break-inside:avoid;
+}
+.anchor .lbl{ font-family:'IBM Plex Mono','Consolas','Courier New',monospace; font-size:7pt;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--primary);
+  margin-bottom:6pt; }
+.anchor .big{ font-family:'Outfit','Trebuchet MS','Segoe UI',Arial,sans-serif; font-size:16pt; font-weight:700;
+  color:var(--primary); line-height:1.25; }
+.anchor .small{ font-size:9pt; color:var(--muted); margin-top:5pt; }
+
+/* ── CALLOUT BOXES ─────────────────────────────────────── */
+.call{ border-radius:7pt; padding:10pt 14pt 10pt 15pt;
+  margin:11pt 0; break-inside:avoid; font-size:9.6pt; line-height:1.55; }
+.call .cl{ display:block; font-family:'Outfit','Trebuchet MS','Segoe UI',Arial,sans-serif; font-size:7.6pt;
+  font-weight:700; letter-spacing:.16em; text-transform:uppercase; margin-bottom:4pt; }
+.call p{margin-bottom:5pt;} .call p:last-child{margin-bottom:0;}
+.tip    { background:var(--accent2-t); border-left:5pt solid var(--accent2); }
+.tip .cl{ color:#9A6410; }
+.dont   { background:var(--garnet-t);  border-left:5pt solid var(--garnet); }
+.dont .cl{ color:var(--garnet); }
+.why    { background:var(--primary-t); border-left:5pt solid var(--primary); }
+.why .cl{ color:var(--primary); }
+.note   { background:var(--fill);      border-left:5pt solid var(--muted); }
+.note .cl{ color:var(--muted); }
+
+/* ── NUMBERED STEPS ────────────────────────────────────── */
+ol.steps{ list-style:none; margin:10pt 0 0; }
+ol.steps li{ position:relative; padding-left:26pt; margin-bottom:9pt;
+  break-inside:avoid; font-size:9.8pt; line-height:1.58; }
+ol.steps li::before{
+  counter-increment:st; content:counter(st);
+  position:absolute; left:0; top:.5pt;
+  width:17pt; height:17pt; border-radius:50%;
+  background:var(--accent1); color:#fff;
+  font-family:'Outfit','Trebuchet MS','Segoe UI',Arial,sans-serif; font-size:8.6pt; font-weight:700;
+  display:flex; align-items:center; justify-content:center;
+}
+ol.steps{ counter-reset:st; }
+ol.steps li b{ color:var(--primary); font-weight:700; }
+
+/* ── SOP CARD ──────────────────────────────────────────── */
+.sop{ border:1pt solid var(--border); border-radius:8pt;
+  overflow:hidden; margin-bottom:16pt; break-inside:avoid; background:var(--paper); }
+.sop .bar{ background:var(--fill); border-bottom:1pt solid var(--border);
+  padding:8pt 14pt; display:flex; align-items:baseline; gap:9pt; }
+.sop .no{ font-family:'IBM Plex Mono','Consolas','Courier New',monospace; font-size:7.4pt; font-weight:500;
+  letter-spacing:.14em; color:#fff; background:var(--primary);
+  padding:2.5pt 7pt; border-radius:3pt; }
+.sop .bar h3{ font-size:12pt; font-weight:700; color:var(--primary); }
+.sop .in{ padding:11pt 14pt 13pt; }
+.trigger{ font-size:9.2pt; color:var(--muted); font-style:italic;
+  border-bottom:1pt dotted var(--border); padding-bottom:7pt; margin-bottom:2pt; }
+.trigger b{ font-style:normal; color:var(--primary); }
+
+/* ── COMPARISON CARDS (fact vs feeling) ────────────────── */
+.compare{ display:flex; gap:9pt; margin:9pt 0; break-inside:avoid; }
+.compare > div{ flex:1; border-radius:6pt; padding:9pt 11pt; font-size:9.2pt; line-height:1.5; }
+.feel{ background:var(--garnet-t); border:1pt solid var(--border); }
+.fact{ background:var(--primary-t); border:1pt solid var(--border); }
+.compare .t{ font-family:'Outfit','Trebuchet MS','Segoe UI',Arial,sans-serif; font-size:7pt; font-weight:700;
+  letter-spacing:.16em; text-transform:uppercase; margin-bottom:4pt; display:block; }
+.feel .t{ color:var(--garnet); } .fact .t{ color:var(--primary); }
+
+/* ── FILE NAME / MONO ──────────────────────────────────── */
+.fname{ font-family:'IBM Plex Mono','Consolas','Courier New',monospace; font-size:8.8pt;
+  background:var(--fill); border:1pt solid var(--border); border-radius:3pt;
+  padding:1pt 5pt; color:var(--primary-d); white-space:nowrap; }
+.convention{ text-align:center; background:var(--primary); color:#fff;
+  font-family:'IBM Plex Mono','Consolas','Courier New',monospace; font-size:13pt; letter-spacing:.05em;
+  padding:13pt; border-radius:7pt; margin:10pt 0; }
+
+/* ── TAG GRID ──────────────────────────────────────────── */
+.tags{ display:flex; flex-wrap:wrap; margin:10pt -3.5pt; }
+.tag{ width:22.5%; border:1pt solid var(--border); border-radius:6pt; padding:8pt 9pt;
+  margin:3.5pt; background:var(--paper); break-inside:avoid; box-sizing:border-box; flex:0 0 auto; }
+.tag b{ display:block; font-family:'Outfit','Trebuchet MS','Segoe UI',Arial,sans-serif; font-size:12pt;
+  font-weight:800; color:var(--accent1); line-height:1; }
+.tag span{ font-size:8pt; color:var(--body); display:block; margin-top:3pt; line-height:1.3; }
+
+/* ── COMPONENT LIST ────────────────────────────────────── */
+.comp{ border-bottom:1pt solid var(--border); padding:9pt 0; break-inside:avoid; }
+.comp:last-child{border-bottom:0;}
+.comp b{ font-family:'Outfit','Trebuchet MS','Segoe UI',Arial,sans-serif; font-size:10pt; font-weight:700;
+  color:var(--primary); display:block; margin-bottom:2pt; }
+.comp span{ font-size:9.4pt; display:block; }
+
+/* ── CHECKLIST ─────────────────────────────────────────── */
+.chk{ list-style:none; margin:7pt 0; }
+.chk li{ position:relative; padding-left:19pt; margin-bottom:5.5pt;
+  font-size:9.4pt; line-height:1.5; break-inside:avoid; }
+.chk li::before{ content:""; position:absolute; left:0; top:2.5pt;
+  width:9.5pt; height:9.5pt; border:1.4pt solid var(--accent1); border-radius:2.5pt; }
+.chkgrid{ display:flex; gap:24pt; }
+.chkgrid > div{ flex:1 1 0; min-width:0; }
+.chkhead{ font-family:'Outfit','Trebuchet MS','Segoe UI',Arial,sans-serif; font-size:8.4pt; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--primary);
+  border-bottom:1.5pt solid var(--accent1); padding-bottom:3pt;
+  margin:12pt 0 7pt; break-after:avoid; }
+
+/* ── TOC ───────────────────────────────────────────────── */
+.toc{ margin-top:20pt; border-top:1pt solid var(--border); padding-top:14pt; }
+.toc div{ display:flex; gap:12pt; padding:6pt 0; border-bottom:1pt solid var(--border);
+  font-size:10pt; align-items:baseline; }
+.toc .p{ font-family:'IBM Plex Mono','Consolas','Courier New',monospace; font-size:8pt; font-weight:500;
+  color:var(--accent1); letter-spacing:.1em; flex:0 0 46pt; }
+.toc .t{ color:var(--ink); font-weight:500; }
+
+/* ── COVER ─────────────────────────────────────────────── */
+.cover{ padding:0 0 22pt; }
+.mast{ position:relative; background:var(--primary); padding:44pt 26pt 30pt 26pt; }
+.mast .mk{ position:relative; padding-left:30pt; margin-bottom:26pt; }
+.mast .mk::before{ content:""; position:absolute; left:0; top:0;
+  width:16pt; height:16pt; border-left:2.4pt solid #E9DFCB; border-top:2.4pt solid #E9DFCB; }
+.mast .mk::after{ content:""; position:absolute; left:5.5pt; top:8pt;
+  width:4.5pt; height:9.5pt; border-right:2.4pt solid var(--accent1);
+  border-bottom:2.4pt solid var(--accent1); transform:rotate(42deg); }
+.mast .mk span{ font-family:'Outfit','Trebuchet MS','Segoe UI',Arial,sans-serif;
+  font-size:11pt; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+  color:#F2EDE2; }
+.mast h1{ font-size:46pt; font-weight:800; color:#FFFFFF; line-height:1.04;
+  letter-spacing:-.028em; }
+.mast .tagline{ font-family:'Outfit','Trebuchet MS','Segoe UI',Arial,sans-serif;
+  font-size:9.5pt; font-weight:600; letter-spacing:.17em; text-transform:uppercase;
+  color:#C8D8CC; margin-top:14pt; }
+.mastrule{ height:4pt; background:var(--accent1); }
+.buildstamp{ position:absolute; right:22pt; bottom:12pt;
+  font-family:'IBM Plex Mono','Consolas',monospace; font-size:7.5pt;
+  letter-spacing:.14em; color:#C8D8CC; }
+.cover .meta{ font-size:9.4pt; color:var(--muted); margin:18pt 0 0;
+  border-left:3pt solid var(--accent1); padding-left:11pt; }
+.cover .toc{ margin:20pt 0 0; border-top:1pt solid var(--border); padding-top:14pt; }
+.cover .credo{ margin-top:20pt; }
+
+/* ── FOOTER ────────────────────────────────────────────── */
+.foot{ margin-top:20pt; border-top:1pt solid var(--border); padding-top:6pt;
+  font-family:'IBM Plex Mono','Consolas','Courier New',monospace; font-size:6.6pt; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--muted); display:flex; justify-content:space-between; }
+
+.disclaimer{ background:var(--fill); border-radius:7pt; padding:11pt 14pt;
+  font-size:8.2pt; line-height:1.5; color:var(--muted); margin-top:14pt; }
+.disclaimer b{ color:var(--garnet); }
+@media print{
+  body{background:#fff;padding:0;}
+  .sheet{width:7.3in;max-width:none;margin:0 auto;padding:0 0 26pt;background:#fff;border:0;border-radius:0;box-shadow:none;overflow:visible;}
+  .sheet > *:not(.head):not(.headrule):not(.mast):not(.mastrule){margin-left:0;margin-right:0;}
+  .head,.anchor,.call,.sop,.compare,.tag,.comp,.credo{break-inside:avoid;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ COVER ═══════════════ -->
+<div class="sheet cover">
+  <div class="mast">
+    <div class="mk"><span>Court Ready™</span></div>
+    <h1>Documentation<br>Manual</h1>
+    <div class="tagline">Custody Documentation Intelligence System</div>
+    <div class="buildstamp">BUILD v5.3</div>
+  </div>
+  <div class="mastrule"></div>
+  <div class="meta">
+    15 Standard Operating Procedures &nbsp;·&nbsp; 7 AI Prompts &nbsp;·&nbsp; Complete Case Management System<br>
+    Built by a Registered Nurse with 23 years of documentation experience.
+  </div>
+
+  <div class="toc">
+    <div><span class="p">1</span><span class="t">Foundations <em>— the principles behind every step</em></span></div>
+    <div><span class="p">2</span><span class="t">Setup <em>— your system in twenty minutes</em></span></div>
+    <div><span class="p">3</span><span class="t">Something Happened <em>— ten step-by-step SOPs</em></span></div>
+    <div><span class="p">4</span><span class="t">Maintenance <em>— weekly review and monthly ritual</em></span></div>
+    <div><span class="p">5</span><span class="t">Court Preparation <em>— exhibits, binder and go-bag</em></span></div>
+    <div><span class="p">6</span><span class="t">AI Prompt Pack <em>— and the master checklist</em></span></div>
+  </div>
+
+  <div class="credo">
+    <b>Documentation uncovers patterns. Patterns reveal truth.<br>Truth tells the story from facts.</b>
+    <span>An organizational framework, not legal advice. Confirm specifics with your attorney.</span>
+  </div>
+</div>
+
+<!-- ═══════════════ INTRODUCTION ═══════════════ -->
+<div class="sheet">
+  <div class="head">
+    <div class="cr">Court Ready™</div>
+    <div class="part">Introduction</div>
+    <h2>What This System Does</h2>
+    <span class="desc">Documentation intelligence for high-stakes situations</span>
+  </div>
+  <div class="headrule"></div>
+
+  <p>Court Ready™ is a documentation methodology that helps parents consistently capture, organize and preserve the facts that matter. Each event is documented from the moment it occurs, supported by its related evidence, and linked into a chronological master index.</p>
+
+  <p>Over time, individual events become an organized timeline that reveals patterns and provides context. Rather than handing an attorney a collection of scattered documents, you deliver an organized system where events, evidence and reference materials are connected and readily accessible.</p>
+
+  <div class="anchor">
+    <div class="lbl">The one rule</div>
+    <div class="big">Document what a camera would see.</div>
+    <div class="small">Times. Dates. Direct quotes. Observable actions. Nothing else.</div>
+  </div>
+
+  <div class="sub">What documentation intelligence means</div>
+  <p>Collecting, organizing, indexing and analyzing records so they become meaningful and defensible. The system transforms isolated records into organized intelligence — simple enough to follow with limited technical experience, structured enough for a legal professional to navigate in minutes.</p>
+
+  <div class="sub">About the author</div>
+  <p>I am a Registered Nurse with 23 years of experience creating and implementing practical documentation systems in high-stakes healthcare settings. I began in hospital care, advanced to Director of Nursing at two facilities, and built my own company of four residential group homes with a full nursing department, guiding it through CARF accreditation.</p>
+
+  <div class="call why">
+    <span class="cl">Why this system exists</span>
+    <p>I went through two custody proceedings without adequate documentation support. This system is what I wish I'd had.</p>
+  </div>
+
+  <div class="call note">
+    <span class="cl">Important</span>
+    <p>Court Ready™ does not provide legal advice or determine the outcome of a case. It provides a structured framework so you can present the most complete, organized and factually supported record possible to your legal representative.</p>
+  </div>
+
+  <div class="foot"><span>Court Ready™ · Documentation Manual</span><span>Introduction</span></div>
+</div>
+
+<!-- ═══════════════ WHAT'S INCLUDED ═══════════════ -->
+<div class="sheet">
+  <div class="head">
+    <div class="cr">Court Ready™</div>
+    <div class="part">Introduction</div>
+    <h2>What's in Your Download</h2>
+    <span class="desc">Every component and what it does for you</span>
+  </div>
+  <div class="headrule"></div>
+
+  <div class="comp"><b>Calendar.html</b><span>Your daily entry point. Opens in any browser. Set your custody schedule, mark deviations, track appointments. This is the first thing you open every day.</span></div>
+  <div class="comp"><b>Court Ready Master Index</b><span>The chronological index of your entire case. One lean row per event, linked to its Case Management File. The Dashboard shows your documentation coverage at a glance. A filled-in sample copy is included for reference.</span></div>
+  <div class="comp"><b>Case Record Form</b><span>The form you fill out when something happens. Mostly checkboxes. Three short writing blocks for significant events: Context, Event, Outcome. Its built-in Evidence section holds one exhibit card per piece of evidence — each card records what the evidence shows, when it was captured, and generates its court-ready file name.</span></div>
+  <div class="comp"><b>Reference Library</b><span>Six named folders for documents that span your entire case: court orders, medical records, school records, parenting plan, attorney files and contacts.</span></div>
+  <div class="comp"><b>Case Management File folder</b><span>Where each event lives. Every event gets its own subfolder containing the Case Record Form and its exhibits.</span></div>
+  <div class="comp"><b>Prompts folder</b><span>Seven AI prompts as standalone text files. Copy, paste into any AI assistant, receive entries formatted for your Case Record Form.</span></div>
+  <div class="comp"><b>Quick Start Checklist</b><span>A three-page printable with the setup steps, the Evidence Collection Checklist and a scanner guide for your phone.</span></div>
+  <div class="comp"><b>This manual</b><span>Standard operating procedures for every situation you will encounter.</span></div>
+
+  <div class="call tip">
+    <span class="cl">Start here</span>
+    <p>You do not need to read this manual cover to cover before you begin. Read Part 1, do Part 2, then come back to Part 3 the first time something happens.</p>
+  </div>
+
+  <div class="foot"><span>Court Ready™ · Documentation Manual</span><span>Introduction</span></div>
+</div>
+
+<!-- ═══════════════ PART 1 — CAMERA RULE ═══════════════ -->
+<div class="sheet">
+  <div class="head">
+    <div class="cr">Court Ready™</div>
+    <div class="part">Part 1 — Foundations</div>
+    <h2>The Camera Rule</h2>
+    <span class="desc">The single principle behind every step</span>
+  </div>
+  <div class="headrule"></div>
+
+  <p>Before you document a single event, you need one rule: <strong>document what a camera would see.</strong> Not what you feel. Not what you think. Not what you believe the other parent is doing. Only what a camera placed in the room would have recorded.</p>
+
+  <p>This is how nurses chart. A nurse does not write "patient seems like they don't care about getting better." A nurse writes "patient refused medication at 2:15 PM. Stated: 'I don't want it.' Physician notified at 2:20 PM." Facts. Times. Direct quotes. Observable behavior. That is what your documentation needs to look like.</p>
+
+  <div class="sub">The same moment, written twice</div>
+
+  <div class="compare">
+    <div class="feel"><span class="t">Feeling</span>He was late AGAIN because he doesn't care about the kids.</div>
+    <div class="fact"><span class="t">Fact</span>Scheduled exchange 5:00 PM. Parent B arrived 5:47 PM. No advance notice. Third late arrival in 30 days.</div>
+  </div>
+  <div class="compare">
+    <div class="feel"><span class="t">Feeling</span>She screamed at me like a lunatic in front of Emma.</div>
+    <div class="fact"><span class="t">Fact</span>At the 5:00 PM exchange, Parent B raised her voice and said "you'll regret this" while Emma stood beside Parent A.</div>
+  </div>
+  <div class="compare">
+    <div class="feel"><span class="t">Feeling</span>Jack came home a mess — obviously neglected.</div>
+    <div class="fact"><span class="t">Fact</span>Jack returned in Friday's clothes. He stated he had not bathed. His inhaler was not returned.</div>
+  </div>
+
+  <div class="call tip">
+    <span class="cl">Tip</span>
+    <p>Your feelings tell you <em>what</em> to document. They just don't go <em>in</em> the entry. Feel the anger, then write the facts.</p>
+  </div>
+
+  <div class="sub">Parent A and Parent B</div>
+  <p>All documentation uses Parent A (you) and Parent B (the other parent). This keeps every entry neutral.</p>
+
+  <div class="call why">
+    <span class="cl">Why this matters</span>
+    <p>Notice the second example: Parent A admitting their own lateness is what makes the whole record believable. A record that only ever favors you reads as advocacy. A record that includes your own misses reads as truth.</p>
+  </div>
+
+  <div class="foot"><span>Court Ready™ · Documentation Manual</span><span>Part 1 — Foundations</span></div>
+</div>
+
+<!-- ═══════════════ PART 1 — THREE BLOCKS ═══════════════ -->
+<div class="sheet">
+  <div class="head">
+    <div class="cr">Court Ready™</div>
+    <div class="part">Part 1 — Foundations</div>
+    <h2>The Three-Block Narrative</h2>
+    <span class="desc">Context, event, outcome — every single time</span>
+  </div>
+  <div class="headrule"></div>
+
+  <p>When something significant happens, your Case Record Form captures it in three blocks. This structure comes from clinical documentation — it is how nurses chart assessments. Most events only need checkboxes. The three blocks are for when detail matters.</p>
+
+  <ol class="steps">
+    <li><b>Block 1 — Event leading to the incident.</b> What was scheduled or expected? What was the context before the event occurred? This establishes the baseline: what should have happened.<br>
+      <span style="color:var(--muted);font-size:9pt;">Example: Visitation exchange scheduled for 5:00 PM at Parent A's residence per court order. Parent A arrived at 5:10 PM.</span></li>
+    <li><b>Block 2 — Description of event.</b> What happened, in order? Include exact times, direct quotes and what you personally observed. No interpretation.<br>
+      <span style="color:var(--muted);font-size:9pt;">Example: Parent A was 10 minutes late. Parent B stated: "I am very upset that you're 10 minutes late." Parent A acknowledged the delay. Children transferred at 5:12 PM.</span></li>
+    <li><b>Block 3 — Immediate outcome and impact.</b> What happened right after? How was it resolved? What was the child's visible state?<br>
+      <span style="color:var(--muted);font-size:9pt;">Example: Child was visibly upset during exchange. Parent A drove home. No further communication between parties. Evening continued with normal routine.</span></li>
+  </ol>
+
+  <div class="call tip">
+    <span class="cl">Tip</span>
+    <p>Routine events — a calm exchange, a normal day — only need checkboxes. Save the three blocks for significant events. But do log the routine. It proves your baseline.</p>
+  </div>
+
+  <div class="sub">The naming convention</div>
+  <p>Every file. Every time. No exceptions.</p>
+  <div class="convention">YYYY-MM-DD_Type_Description</div>
+
+  <div class="foot"><span>Court Ready™ · Documentation Manual</span><span>Part 1 — Foundations</span></div>
+</div>
+
+<!-- ═══════════════ PART 1 — FACTOR TAGS ═══════════════ -->
+<div class="sheet">
+  <div class="head">
+    <div class="cr">Court Ready™</div>
+    <div class="part">Part 1 — Foundations</div>
+    <h2>Factor Tags</h2>
+    <span class="desc">Eight tags your dashboard counts automatically</span>
+  </div>
+  <div class="headrule"></div>
+
+  <p>Every event gets tagged with the factor it supports. Your Dashboard counts these automatically and shows you where your record is strong and where it is thin.</p>
+
+  <div class="tags">
+    <div class="tag"><b>ST</b><span>Stability &amp; Routine</span></div>
+    <div class="tag"><b>PI</b><span>Parental Involvement</span></div>
+    <div class="tag"><b>HS</b><span>Health &amp; Safety</span></div>
+    <div class="tag"><b>CC</b><span>Co-Parenting Conduct</span></div>
+    <div class="tag"><b>EW</b><span>Emotional Wellbeing</span></div>
+    <div class="tag"><b>ED</b><span>Education</span></div>
+    <div class="tag"><b>FS</b><span>Financial Support</span></div>
+    <div class="tag"><b>PF</b><span>Parental Fitness</span></div>
+  </div>
+
+  <div class="call note">
+    <span class="cl">Note</span>
+    <p>Factors vary by state. Confirm yours with your attorney. These are organizational tags, not legal conclusions.</p>
+  </div>
+
+  <div class="call why">
+    <span class="cl">Why this matters</span>
+    <p>Tagging turns a pile of events into an argument. When your Dashboard shows four entries under Health &amp; Safety and none under Education, you know exactly what to document next — before someone else notices the gap for you.</p>
+  </div>
+
+  <div class="foot"><span>Court Ready™ · Documentation Manual</span><span>Part 1 — Foundations</span></div>
+</div>
+
+<!-- ═══════════════ PART 2 — SETUP ═══════════════ -->
+<div class="sheet">
+  <div class="head">
+    <div class="cr">Court Ready™</div>
+    <div class="part">Part 2 — Setup</div>
+    <h2>SOP 0 · Setting Up Your System</h2>
+    <span class="desc">Do this once, in twenty minutes, then you are ready</span>
+  </div>
+  <div class="headrule"></div>
+
+  <ol class="steps">
+    <li><b>Unzip your download.</b> You should see the 00_START_HERE folder and four numbered folders: 01_Case_Management_File, 02_Reference_Library, 03_Exhibit_Production, 04_Backups.</li>
+    <li><b>Choose your template format.</b> The Case Record Form comes in HTML and PDF. HTML opens in your browser with interactive dropdowns and auto-generated file names. PDF is a traditional fillable form. Pick one and use it every time.</li>
+    <li><b>Open Calendar.html</b> in your browser. Click Custody Schedule Setup. Toggle each day between "Mine" and "Theirs" to match your arrangement. Enter your exchange time and location. Select your schedule source. Click Save.</li>
+    <li><b>Open the Master Index.</b> Go to the Lists &amp; Setup tab and review the dropdown options. Everything here flows to every other tab automatically.</li>
+    <li><b>Open the sample index.</b> Browse the Event Index to see how lean rows link to event folders. Open the Dashboard to see how factor coverage looks with data. This is your reference — do not edit it.</li>
+    <li><b>Set up your Reference Library.</b> Place existing court orders, your parenting plan, medical records, school records, attorney documents and contacts in their named folders. These are baseline documents that span your whole case.</li>
+    <li><b>Read the Quick Start Checklist.</b> Page 1 is your setup checklist. Page 2 is the Evidence Collection Checklist. Page 3 teaches you to scan documents with your phone.</li>
+    <li><b>You're ready.</b> When something happens, go to Part 3.</li>
+  </ol>
+
+  <div class="call tip">
+    <span class="cl">Tip</span>
+    <p>Save a backup copy of your Master Index immediately after setup. Name it with today's date. Keep the original untouched.</p>
+  </div>
+
+  <div class="foot"><span>Court Ready™ · Documentation Manual</span><span>Part 2 — Setup</span></div>
+</div>
+
+<!-- ═══════════════ PART 3 — SOP 1 & 2 ═══════════════ -->
+<div class="sheet">
+  <div class="head">
+    <div class="cr">Court Ready™</div>
+    <div class="part">Part 3 — Something Happened</div>
+    <h2>Communication &amp; Exchanges</h2>
+    <span class="desc">A text arrives, an exchange occurs — do this</span>
+  </div>
+  <div class="headrule"></div>
+
+  <div class="sop">
+    <div class="bar"><span class="no">SOP 1</span><h3>A Text Message Arrives</h3></div>
+    <div class="in">
+      <p class="trigger"><b>When this happens:</b> you receive a text from Parent B about the children, the schedule, or anything case-related.</p>
+      <ol class="steps">
+        <li>Screenshot the <b>entire thread</b> — scroll up to capture the full context, not just the latest message. Make sure the contact name, date and time are visible.</li>
+        <li>Save it using the naming convention: <span class="fname">2026-07-16_Text_ScheduleChange.png</span></li>
+        <li>Open your Case Record Form. Check "Communication" as the event type. Fill in date, time, parties. Routine? Checkboxes are enough. Significant? Write the three blocks.</li>
+        <li>In the Evidence section, add an exhibit card for the screenshot. The card generates the court-ready file name — rename your screenshot to match.</li>
+        <li>Create the Case Management File: <span class="fname">EVT-0015_2026-07-16_Communication</span>. Place the form inside, with an Exhibits subfolder for the screenshot.</li>
+        <li>Open the Master Index. Paste a lean row into the Event Index.</li>
+      </ol>
+      <div class="call dont">
+        <span class="cl">Do not</span>
+        <p>Crop the screenshot to show only the good parts. A cropped screenshot invites the question: what aren't we seeing?</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sop">
+    <div class="bar"><span class="no">SOP 2</span><h3>A Visitation Exchange Occurs</h3></div>
+    <div class="in">
+      <p class="trigger"><b>When this happens:</b> it's exchange day — whether it goes well or not.</p>
+      <ol class="steps">
+        <li>Open your Calendar. Note whether the exchange was on time, late or missed. Mark any deviation with details.</li>
+        <li>Open the Case Record Form. Check "Exchange." Fill in time, location and parties present.</li>
+        <li>If anything notable happened, capture the evidence and add an exhibit card for it.</li>
+        <li>Create the Case Management File. Place the form and any exhibits inside.</li>
+        <li>Paste the lean row into your Master Index.</li>
+        <li>If the exchange was completely normal and calm, <b>still log it.</b> Mark it routine.</li>
+      </ol>
+      <div class="call why">
+        <span class="cl">Why this matters</span>
+        <p>A record that only captures problems looks like a grudge. A record that captures everything — including calm, on-time handoffs — looks like the truth.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><span>Court Ready™ · Documentation Manual</span><span>Part 3 — SOPs 1–2</span></div>
+</div>
+
+<!-- ═══════════════ PART 3 — SOP 3 & 4 ═══════════════ -->
+<div class="sheet">
+  <div class="head">
+    <div class="cr">Court Ready™</div>
+    <div class="part">Part 3 — Something Happened</div>
+    <h2>Concerns &amp; School Records</h2>
+    <span class="desc">A child returns hurt, the school sends word</span>
+  </div>
+  <div class="headrule"></div>
+
+  <div class="sop">
+    <div class="bar"><span class="no">SOP 3</span><h3>Child Returns with an Injury or Concern</h3></div>
+    <div class="in">
+      <p class="trigger"><b>When this happens:</b> your child comes home with an injury, illness, emotional distress or missing belongings.</p>
+      <ol class="steps">
+        <li>Photograph the injury or condition immediately. Clear, well-lit, showing context.</li>
+        <li>Name the photo: <span class="fname">2026-07-16_Photo_BruiseLeftArm.jpg</span> — do not leave it in your camera roll.</li>
+        <li>If medical attention is needed, seek it. Save the visit summary and any prescriptions. These are third-party records that independently verify your documentation.</li>
+        <li>Open the Case Record Form. Check "Incident" and/or "Medical." Write the three blocks: what was expected, what you observed, what you did about it.</li>
+        <li>Note in Block 2 whether you notified Parent B, when and how. This builds co-parenting conduct evidence.</li>
+        <li>Add an exhibit card for every piece of evidence, then paste the lean row into your Master Index.</li>
+      </ol>
+      <div class="call dont">
+        <span class="cl">Do not</span>
+        <p>Interrogate your child about what happened at the other parent's house. Document what you observe, not what you investigate.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sop">
+    <div class="bar"><span class="no">SOP 4</span><h3>School Sends a Communication</h3></div>
+    <div class="in">
+      <p class="trigger"><b>When this happens:</b> you receive an email, note, report card, attendance record or conference request.</p>
+      <ol class="steps">
+        <li>Save it as a PDF: <span class="fname">2026-07-16_School_AttendanceReport.pdf</span></li>
+        <li>Open the Case Record Form. Check "School." Note the school contact name and topic.</li>
+        <li>In Block 2, note whether you forwarded it to Parent B. If it was a conference, note who attended.</li>
+        <li>Add an exhibit card for it, place everything in the Case Management File, paste the lean row.</li>
+      </ol>
+      <div class="call tip">
+        <span class="cl">Tip</span>
+        <p>School records are some of your strongest evidence because they come from a neutral third party. Request attendance printouts, report cards and conference summaries proactively — don't wait for them to arrive.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><span>Court Ready™ · Documentation Manual</span><span>Part 3 — SOPs 3–4</span></div>
+</div>
+
+<!-- ═══════════════ PART 3 — SOP 5 & 6 ═══════════════ -->
+<div class="sheet">
+  <div class="head">
+    <div class="cr">Court Ready™</div>
+    <div class="part">Part 3 — Something Happened</div>
+    <h2>Medical Visits &amp; Joint Decisions</h2>
+    <span class="desc">An appointment happens, a decision needs both parents</span>
+  </div>
+  <div class="headrule"></div>
+
+  <div class="sop">
+    <div class="bar"><span class="no">SOP 5</span><h3>A Medical Appointment Happens</h3></div>
+    <div class="in">
+      <p class="trigger"><b>When this happens:</b> a doctor visit, dental appointment, therapy session or urgent care visit.</p>
+      <ol class="steps">
+        <li>Attend the appointment. Ask for a visit summary or discharge papers before you leave.</li>
+        <li>Name the document: <span class="fname">2026-07-16_Medical_AsthmaPatel.pdf</span></li>
+        <li>Open the Case Record Form. Check "Medical." Include provider name, reason, outcome and instructions.</li>
+        <li>In Block 2, document whether you notified Parent B about the appointment — before and after — when and how.</li>
+        <li>Add an exhibit card, place everything in the Case Management File, paste the lean row.</li>
+        <li>Add any copay or cost to the Expense Summary tab.</li>
+      </ol>
+      <div class="call why">
+        <span class="cl">Why this matters</span>
+        <p>Medical documents prove Health &amp; Safety <em>and</em> Parental Involvement at the same time. Every appointment you attend and document counts twice.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sop">
+    <div class="bar"><span class="no">SOP 6</span><h3>A Joint Decision Needs to Be Made</h3></div>
+    <div class="in">
+      <p class="trigger"><b>When this happens:</b> camp enrollment, school choice, sports signup, medical treatment — anything requiring input from both parents.</p>
+      <ol class="steps">
+        <li>Send your proposal to Parent B <b>in writing.</b> Include what, when, cost and a deadline for response. Save the communication.</li>
+        <li>If Parent B responds, save the response. If Parent B does not respond by the deadline, <b>that non-response is the documentation.</b></li>
+        <li>Open the Case Record Form. Check "Decision." Block 1: what was needed and when you proposed it. Block 2: response or silence. Block 3: what was decided and by whom.</li>
+        <li>Create the Case Management File with the proposal, any response and related receipts.</li>
+        <li>Paste the lean row into your Master Index.</li>
+      </ol>
+      <div class="call tip">
+        <span class="cl">Tip</span>
+        <p>A pattern of unanswered proposals is powerful co-parenting evidence. Document every proposal with the date sent and the deadline given, then document the response or the silence.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><span>Court Ready™ · Documentation Manual</span><span>Part 3 — SOPs 5–6</span></div>
+</div>
+
+<!-- ═══════════════ PART 3 — SOP 7 & 8 ═══════════════ -->
+<div class="sheet">
+  <div class="head">
+    <div class="cr">Court Ready™</div>
+    <div class="part">Part 3 — Something Happened</div>
+    <h2>Expenses &amp; Phone Calls</h2>
+    <span class="desc">Money leaves your account, a call takes place</span>
+  </div>
+  <div class="headrule"></div>
+
+  <div class="sop">
+    <div class="bar"><span class="no">SOP 7</span><h3>A Child-Related Expense Occurs</h3></div>
+    <div class="in">
+      <p class="trigger"><b>When this happens:</b> you pay for something related to the children — copay, school supplies, clothing, activities, childcare.</p>
+      <ol class="steps">
+        <li>Keep the receipt. Photograph it immediately: <span class="fname">2026-07-16_Receipt_CampEnrollment.jpg</span></li>
+        <li>Open the Case Record Form. Check "Expense." Include the amount, what it was for and which child.</li>
+        <li>Add an exhibit card for the receipt.</li>
+        <li>Paste the lean row into the Event Index <b>and</b> add the details to the Expense Summary tab.</li>
+        <li>If you are requesting reimbursement from Parent B, note when and how you requested it.</li>
+      </ol>
+      <div class="call dont">
+        <span class="cl">Do not</span>
+        <p>Throw away receipts. Photograph them the same day, name them, file them. Every dollar is documented.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sop">
+    <div class="bar"><span class="no">SOP 8</span><h3>A Phone Call Happens</h3></div>
+    <div class="in">
+      <p class="trigger"><b>When this happens:</b> you have a phone conversation with Parent B about the children.</p>
+      <ol class="steps">
+        <li>Immediately after the call ends, open the Case Record Form. Check "Communication." Fill in date, time and approximate duration.</li>
+        <li>Write the three blocks from memory while the conversation is fresh. Use direct quotes where you remember them.</li>
+        <li>If you took notes during the call, save them. If not, your Case Record Form <b>is</b> the contemporaneous note — it was written immediately after.</li>
+        <li>Create the Case Management File. Paste the lean row into your Master Index.</li>
+        <li>If the call produced an agreement, follow up with a confirming text: "Just confirming what we discussed — I'll take Tuesday transport, you'll take Thursday." Screenshot that confirmation.</li>
+      </ol>
+      <div class="call tip">
+        <span class="cl">Tip</span>
+        <p>A confirming text after a phone call is one of the most powerful habits you can build. It creates a written record of a verbal conversation and gives Parent B a fair chance to correct any misunderstanding.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><span>Court Ready™ · Documentation Manual</span><span>Part 3 — SOPs 7–8</span></div>
+</div>
+
+<!-- ═══════════════ PART 3 — SOP 9 & 10 ═══════════════ -->
+<div class="sheet">
+  <div class="head">
+    <div class="cr">Court Ready™</div>
+    <div class="part">Part 3 — Something Happened</div>
+    <h2>Anger &amp; Schedule Changes</h2>
+    <span class="desc">You want to respond, the schedule shifts</span>
+  </div>
+  <div class="headrule"></div>
+
+  <div class="sop">
+    <div class="bar"><span class="no">SOP 9</span><h3>You're Angry and Need to Respond</h3></div>
+    <div class="in">
+      <p class="trigger"><b>When this happens:</b> something has made you furious, hurt or overwhelmed — and you want to fire off a response.</p>
+      <ol class="steps">
+        <li><b>Stop.</b> Do not send anything to Parent B yet.</li>
+        <li>Open a blank document or notes app. Write everything you want to say. All of it. Every feeling. Get it out.</li>
+        <li>Save it as <span class="fname">2026-07-16_Private_Vent_Letter.pdf</span> in a private location — never in your shared Court Ready folder, never anywhere Parent B could access.</li>
+        <li>Wait at least 30 minutes. Then open AI Prompt 1 and add its "from emotional venting" option line. Paste your vent. The AI strips every emotion and returns only the facts.</li>
+        <li>Open the Case Record Form. Use the output to fill the three blocks with clean, neutral facts.</li>
+        <li>If you need to reply to Parent B, write a brief, factual response.</li>
+      </ol>
+      <div class="call dont">
+        <span class="cl">Do not</span>
+        <p>Send the emotional version. Ever. One angry text can undermine months of careful documentation.</p>
+      </div>
+      <div class="call why">
+        <span class="cl">Why this matters</span>
+        <p>The unsent version becomes a private record. The clean version goes on the record. Your credibility stays intact.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sop">
+    <div class="bar"><span class="no">SOP 10</span><h3>Something Changes from the Schedule</h3></div>
+    <div class="in">
+      <p class="trigger"><b>When this happens:</b> Parent B is late, a visit is missed, the schedule is altered without agreement, or a makeup day is requested.</p>
+      <ol class="steps">
+        <li>Open your Calendar. Click the day. Check "Mark as Deviation." Fill in what was scheduled versus what happened, who initiated it, and whether it was agreed.</li>
+        <li>Open the Case Record Form. Check "Exchange." Write the three blocks with exact times.</li>
+        <li>If there's evidence — a text saying they'll be late, or no communication at all — capture it and add an exhibit card.</li>
+        <li>Create the Case Management File and paste the lean row into your Master Index.</li>
+        <li>Add the deviation to the Custody Schedule tab's Deviation Log with the Event ID.</li>
+      </ol>
+      <div class="call tip">
+        <span class="cl">Tip</span>
+        <p>Over time the Calendar's deviation markers tell a visual story. Twelve months of printed Calendar views showing a pattern of late arrivals is evidence a judge can see at a glance.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><span>Court Ready™ · Documentation Manual</span><span>Part 3 — SOPs 9–10</span></div>
+</div>
+
+<!-- ═══════════════ PART 4 — MAINTENANCE ═══════════════ -->
+<div class="sheet">
+  <div class="head">
+    <div class="cr">Court Ready™</div>
+    <div class="part">Part 4 — Maintenance</div>
+    <h2>Keeping the System Healthy</h2>
+    <span class="desc">Fifteen minutes on Sunday, fifteen on the first</span>
+  </div>
+  <div class="headrule"></div>
+
+  <div class="sop">
+    <div class="bar"><span class="no">SOP 11</span><h3>Sunday Evening Review</h3></div>
+    <div class="in">
+      <p class="trigger"><b>When this happens:</b> every Sunday evening. Fifteen minutes. Non-negotiable.</p>
+      <ol class="steps">
+        <li>Open your Calendar. Review the week. Anything undocumented? Create the Case Record Form now and note: "Recalled on [today] re: [date of event]."</li>
+        <li>Open your Dashboard. Check factor coverage. Any factor showing thin or blind spot? Plan what to document this week to fill it.</li>
+        <li>Check that every Case Management File from this week is complete: form saved as PDF, exhibits named to match their cards, lean row in the Master Index.</li>
+        <li>Verify no original evidence files have been altered. If you annotated anything, confirm you worked on a copy.</li>
+      </ol>
+      <div class="call tip">
+        <span class="cl">Tip</span>
+        <p>Sunday reviews catch gaps before they become permanent. A missing form from Tuesday is easy to create on Sunday. A missing form from six months ago is unreliable.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sop">
+    <div class="bar"><span class="no">SOP 12</span><h3>Monthly Ritual</h3></div>
+    <div class="in">
+      <p class="trigger"><b>When this happens:</b> the first of the month. Fifteen minutes. Backup and review.</p>
+      <ul class="chk">
+        <li>Export last month's text threads and app messages to PDF. Name them by convention.</li>
+        <li>Create a dated backup of your entire Court Ready folder.</li>
+        <li>Print the Calendar's monthly view. File it in your binder or Reference Library.</li>
+        <li>Open the Dashboard. Review factor coverage. Plan entries for thin areas.</li>
+        <li>Confirm your cloud backup synced successfully.</li>
+        <li>Archive completed events older than six months if your folder is getting large.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot"><span>Court Ready™ · Documentation Manual</span><span>Part 4 — Maintenance</span></div>
+</div>
+
+<!-- ═══════════════ PART 5 — COURT PREP ═══════════════ -->
+<div class="sheet">
+  <div class="head">
+    <div class="cr">Court Ready™</div>
+    <div class="part">Part 5 — Court Preparation</div>
+    <h2>Exhibits &amp; Your Binder</h2>
+    <span class="desc">Turn your record into something handed across a table</span>
+  </div>
+  <div class="headrule"></div>
+
+  <div class="sop">
+    <div class="bar"><span class="no">SOP 13</span><h3>Preparing Your Exhibits</h3></div>
+    <div class="in">
+      <p class="trigger"><b>When this happens:</b> your attorney needs your documentation, or a hearing is coming.</p>
+      <ol class="steps">
+        <li>Open the Exhibit Index tab. This shows every event you marked exhibit-worthy. Sort by Primary Factor.</li>
+        <li>Review each description. Use AI Prompt 4 to polish them into professional one-line summaries.</li>
+        <li>For each exhibit, verify the Case Management File is complete and every evidence file is named to match its card.</li>
+        <li>Mark each exhibit's status: Ready, In Progress or Filed.</li>
+        <li>Print the Exhibit Index. This becomes your binder's table of contents.</li>
+      </ol>
+      <div class="call dont">
+        <span class="cl">Do not</span>
+        <p>Send the Attorney Communication Log. It is privileged. It never leaves your Attorney Documents folder and never goes in a binder.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sop">
+    <div class="bar"><span class="no">SOP 14</span><h3>Assembling Your Binder</h3></div>
+    <div class="in">
+      <p class="trigger"><b>When this happens:</b> your exhibits are ready. Now make them presentable.</p>
+      <ol class="steps">
+        <li><b>Table of contents</b> — your printed Exhibit Index, sorted by factor.</li>
+        <li><b>Court documents</b> — current orders, petitions, hearing notices, newest first.</li>
+        <li><b>Opening notes</b> — one page: two or three points you must make, each with Event IDs.</li>
+        <li><b>Evidence by factor</b> — tabbed sections matching the Dashboard, forms and exhibits inside each.</li>
+        <li><b>Witnesses</b> — printed Witness List plus any attorney-approved statements.</li>
+        <li><b>Closing notes</b> — one page: what you're asking the court for, tied to factors.</li>
+      </ol>
+      <div class="call tip">
+        <span class="cl">Tip</span>
+        <p>Three copies of everything: one for the court, one for the other party, one for you. Never surrender your only copy. Originals stay in your Court Ready folder.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><span>Court Ready™ · Documentation Manual</span><span>Part 5 — Court Preparation</span></div>
+</div>
+
+<!-- ═══════════════ PART 5 — GO BAG ═══════════════ -->
+<div class="sheet">
+  <div class="head">
+    <div class="cr">Court Ready™</div>
+    <div class="part">Part 5 — Court Preparation</div>
+    <h2>SOP 15 · The Court-Day Go-Bag</h2>
+    <span class="desc">Packed the night before, calm by design</span>
+  </div>
+  <div class="headrule"></div>
+
+  <div class="chkgrid">
+    <div>
+      <div class="chkhead">Documents</div>
+      <ul class="chk">
+        <li>Binder — all three copies</li>
+        <li>Extra Exhibit Index printouts</li>
+        <li>Certified copy of current orders</li>
+        <li>Photo ID</li>
+        <li>Legal pad and two pens</li>
+        <li>Calendar monthly printouts</li>
+      </ul>
+      <div class="chkhead">Yourself</div>
+      <ul class="chk">
+        <li>Professional outfit — laid out tonight</li>
+        <li>Water and a protein snack</li>
+        <li>Phone off before the courtroom door</li>
+        <li>Tissues</li>
+        <li>Daily medications</li>
+        <li>Support person confirmed</li>
+      </ul>
+    </div>
+    <div>
+      <div class="chkhead">Logistics</div>
+      <ul class="chk">
+        <li>Courthouse address and courtroom number</li>
+        <li>Parking plan plus a backup plan</li>
+        <li>Arrive 45 minutes early</li>
+        <li>Childcare confirmed plus backup</li>
+        <li>Work notified, full day blocked</li>
+        <li>Attorney's cell number on paper</li>
+      </ul>
+      <div class="chkhead">The night before</div>
+      <ul class="chk">
+        <li>Gas tank filled</li>
+        <li>Two alarms set</li>
+        <li>Outfit hanging</li>
+        <li>Go-bag by the door</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="anchor">
+    <div class="lbl">Then close the binder and rest</div>
+    <div class="big">You didn't just tell your story.<br>You proved it.</div>
+  </div>
+
+  <div class="foot"><span>Court Ready™ · Documentation Manual</span><span>Part 5 — Court Preparation</span></div>
+</div>
+
+<!-- ═══════════════ PART 6 — PROMPTS ═══════════════ -->
+<div class="sheet">
+  <div class="head">
+    <div class="cr">Court Ready™</div>
+    <div class="part">Part 6</div>
+    <h2>AI Prompt Pack</h2>
+    <span class="desc">Seven prompts, also saved in your prompts folder</span>
+  </div>
+  <div class="headrule"></div>
+
+  <p>These prompts work with ChatGPT, Claude, Gemini or any AI assistant. Each is also saved as a standalone text file for easy copy-paste. Always paste the Master System Prompt first when starting a new conversation.</p>
+
+  <div class="call note">
+    <span class="cl">Master system prompt — paste first, every conversation</span>
+    <p>You are a documentation assistant for Court Ready. Use neutral, fact-only language. Use Parent A and Parent B. Never fabricate details. Flag missing information as [NEEDS: date]. Structure output in three blocks: Context, Event, Outcome.</p>
+  </div>
+
+  <ol class="steps">
+    <li><b>Complete Case Record</b> — converts raw notes into a full three-block entry with tags. Includes option lines for medical, school and expense events, journal notes, and emotional venting.</li>
+    <li><b>Single Block</b> — rewrites just Block 1, 2 or 3 from raw notes.</li>
+    <li><b>Evidence Context Notes</b> — writes two context lines for an exhibit card: what the evidence shows and why it matters.</li>
+    <li><b>Exhibit Index Description</b> — creates a professional one-line exhibit description with factor tag.</li>
+    <li><b>Co-Parenting Pattern Summary</b> — reviews multiple events and summarizes patterns in neutral language.</li>
+    <li><b>Monthly Review</b> — reviews recent events, suggests additions, identifies thin factors.</li>
+  </ol>
+
+  <div class="call tip">
+    <span class="cl">Tip</span>
+    <p>Specialized needs from earlier editions — medical, school, expense, journal, vent — are now option lines inside Prompt 1. Nothing was removed.</p>
+  </div>
+
+  <div class="foot"><span>Court Ready™ · Documentation Manual</span><span>Part 6 — AI Prompt Pack</span></div>
+</div>
+
+<!-- ═══════════════ PART 6 — MASTER CHECKLIST ═══════════════ -->
+<div class="sheet">
+  <div class="head">
+    <div class="cr">Court Ready™</div>
+    <div class="part">Part 6</div>
+    <h2>Master Documentation Checklist</h2>
+    <span class="desc">Print this page and tape it to the wall</span>
+  </div>
+  <div class="headrule"></div>
+
+  <div class="chkgrid">
+    <div>
+      <div class="chkhead">When something happens</div>
+      <ul class="chk">
+        <li>Capture evidence immediately.</li>
+        <li>Name the file: YYYY-MM-DD_Type_Description.</li>
+        <li>Open the Case Record Form. Check boxes. Three blocks if significant.</li>
+        <li>Add an exhibit card for each piece of evidence.</li>
+        <li>Create the Case Management File: EVT-####_Date_Type.</li>
+        <li>Place the form and exhibits in the folder.</li>
+        <li>Paste the lean row into the Event Index.</li>
+        <li>Mark the Calendar if deviation or appointment.</li>
+      </ul>
+      <div class="chkhead">Sunday evening · 15 minutes</div>
+      <ul class="chk">
+        <li>Review Calendar — anything undocumented?</li>
+        <li>Check Dashboard factor coverage.</li>
+        <li>Verify Case Management Files are complete.</li>
+        <li>Confirm no originals were altered.</li>
+      </ul>
+    </div>
+    <div>
+      <div class="chkhead">Monthly ritual · first of the month</div>
+      <ul class="chk">
+        <li>Export texts and messages to PDF.</li>
+        <li>Backup entire folder with today's date.</li>
+        <li>Print Calendar monthly view.</li>
+        <li>Review Dashboard, fill thin factor areas.</li>
+        <li>Confirm cloud backup synced.</li>
+      </ul>
+      <div class="chkhead">Court preparation</div>
+      <ul class="chk">
+        <li>Review Exhibit Index by factor.</li>
+        <li>Polish descriptions with AI Prompt 4.</li>
+        <li>Assemble binder: three copies, SOP 14 order.</li>
+        <li>Confirm Attorney Log stays private.</li>
+        <li>Pack the go-bag the night before.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    <b>Disclaimer</b> — The Court Ready™ Custody Documentation System is an organizational and record-management tool inspired by clinical documentation principles. It does not provide legal advice, legal strategy or legal representation. Laws, evidentiary rules and custody standards vary by jurisdiction. Consult a licensed attorney. Users are solely responsible for ensuring documentation is truthful, authentic, lawfully obtained and compliant with applicable laws. Never create, alter, embellish or misrepresent evidence.
+  </div>
+
+  <div class="foot"><span>Court Ready™ · Vejovis Intelligence Co.™</span><span>Organizational framework, not legal advice</span></div>
+</div>
+
+</body>
+</html>
