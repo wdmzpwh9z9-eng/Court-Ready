@@ -1,0 +1,3 @@
+Event ID,Date,Time,Event Type,Location,Children Present,Parent B Notified,Notification Method,Exhibit-Worthy,Primary Factor,Summary,Status
+EVT-0001,2026-07-18,5:00 PM,Exchange,Parent A residence,Sample Child,Yes,Text,No,Co-parenting conduct,"Scheduled 5:00 PM exchange. Parent A arrived 5:10 PM, acknowledged delay. Children transferred 5:12 PM.",Complete
+EVT-0002,2026-07-19,2:30 PM,Medical,Pediatric clinic,Sample Child,Yes,Co-parenting app,Yes,Health & medical care,"Well-child visit. Provider: Dr. Sample. Instructions received. Parent B notified 3:05 PM via app.",Complete
