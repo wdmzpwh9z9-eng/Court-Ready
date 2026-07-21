@@ -368,7 +368,7 @@ button.cta:hover{background:#DC941F;border-color:#DC941F;}
         <div class="val" id="folderName">EVT-0001_2026-07-18_Event</div>
         <div class="ol">Master Index row</div>
         <div class="val" id="wbRow">—</div>
-        <div class="note">Create the folder, save this form into it as a PDF, then paste the row into your Event Index tab.</div>
+        <div class="note">Create the folder, save this form into it as a PDF. Then click the Event ID cell of a new row in your Event Index tab and paste — it fills across all the columns automatically.</div>
       </div>
       <div class="bar">
         <button type="button" class="cta" onclick="window.print()">Save as PDF</button>
@@ -461,22 +461,39 @@ function generate(){
   const factor=fSel.value?fSel.selectedOptions[0].text:'';
   const aSel=document.getElementById('alsoSupports');
   const also=aSel.value?aSel.selectedOptions[0].text:'';
-  const purpose=document.getElementById('docPurpose').value||'';
   const exhibit=getRadio('exhibitWorthy')||'';
   const children=document.getElementById('children').value||'';
-  const b2=document.getElementById('block2').value;
-  const shortDesc=b2?b2.substring(0,50).replace(/[^a-zA-Z0-9 ]/g,'').trim().replace(/ +/g,'_'):'';
+  const time=document.getElementById('evtTime').value||'';
+  const location=document.getElementById('evtLocation').value||'';
+  const present=getChecked('present').join('; ');
+  const witnesses=document.getElementById('witnesses').value||'';
+  const notified=getRadio('opNotified')||'';
+  const mSel=document.getElementById('notifMethod');
+  const method=mSel&&mSel.value?mSel.value:'';
+  const notifTime=document.getElementById('notifTime').value||'';
+  const followUpNeeded=getRadio('followUp')||'';
+  const followUpAction=document.getElementById('followUpAction').value||'';
+  const followUpBy=document.getElementById('followUpDate').value||'';
+  const clean=s=>String(s||'').replace(/[\t\r\n]+/g,' ').trim();
+  const summary=clean([document.getElementById('block1').value,
+                       document.getElementById('block2').value,
+                       document.getElementById('block3').value].filter(Boolean).join(' '));
+  const folder=id+'_'+date+'_'+typeStr;
 
-  document.getElementById('folderName').textContent=id+'_'+date+'_'+typeStr;
+  document.getElementById('folderName').textContent=folder;
   updateExhibits(id,date);
 
-  document.getElementById('wbRow').textContent=[
-    id,date,types.join('/')||'—',shortDesc||'—',children||'—',
-    purpose||'—',factor||'—',also||'—',exhibit||'—','[link]'
-  ].join(' | ');
+  // 19 values, in the exact order of the Event Index columns
+  const vals=[id,date,time,types.join('/'),location,children,present,witnesses,
+    notified,method,notifTime,followUpNeeded,followUpAction,followUpBy,
+    summary,factor,also,exhibit,folder].map(clean);
+  const wbEl=document.getElementById('wbRow');
+  wbEl.textContent=vals.map(v=>v||'·').join('  |  ');
+  wbEl.dataset.tsv=vals.join('\t');
 }
 function copyRow(){
-  const t=document.getElementById('wbRow').textContent;
+  const el=document.getElementById('wbRow');
+  const t=el.dataset.tsv||el.textContent;
   navigator.clipboard.writeText(t).then(()=>{
     const b=event.target; const o=b.textContent;
     b.textContent='Copied'; setTimeout(()=>b.textContent=o,1400);
