@@ -135,6 +135,8 @@ textarea{resize:vertical;line-height:1.6;}
 .fname{font-family:'IBM Plex Mono','Consolas',monospace;font-size:12px;
   background:var(--fill);border:1px solid var(--border);border-radius:4px;
   padding:6px 9px;color:var(--primary-d);display:block;word-break:break-all;}
+.fnote{font-size:11px;color:var(--muted);margin-top:5px;}
+.fnote b{color:var(--body);font-weight:600;}
 
 /* ── BUTTONS ────────────────────────────────────────────── */
 .bar{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px;}
@@ -414,8 +416,11 @@ button.cta:hover{background:#DC941F;border-color:#DC941F;}
         <div class="field half"><label>Backup storage</label>
           <input type="text" placeholder="Cloud backup, external drive"></div>
       </div>
+      <div class="field" style="margin-bottom:12px"><label>File label — optional, keeps names readable</label>
+        <input type="text" class="ex-label" placeholder="e.g. LateArrival" oninput="generate()"></div>
       <label>Court-ready file name — rename your file to match</label>
       <span class="fname">—</span>
+      <div class="fnote">Rename your <b>copy</b> to this. Keep the file's real extension if it differs (.jpg, .mp4, .m4a…).</div>
     </div>
   </div>
 </template>
@@ -435,14 +440,27 @@ function addExhibit(){
 }
 function removeExhibit(btn){ btn.closest('.exhibit').remove(); generate(); }
 
-function updateExhibits(id,date){
+function extFor(type){
+  if(type==='Photo'||type==='Screenshot') return '.png';
+  if(type==='Video') return '.mp4';
+  if(type==='Audio') return '.m4a';
+  return '.pdf';                      // Receipt, Document, Other, unset
+}
+function fileSlug(s){                  // "Late Arrival!" -> "LateArrival"
+  return String(s||'').trim().replace(/\s+/g,'').replace(/[^A-Za-z0-9]/g,'');
+}
+// Every evidence file starts with its event folder name, so a loose file
+// still says which event and folder it belongs to.
+function updateExhibits(folder){
   document.querySelectorAll('#exhibits .exhibit').forEach((card,i)=>{
     const letter=String.fromCharCode(65+i);
     card.querySelector('.ex-letter').textContent=letter;
     card.querySelector('.eh h3').textContent='Exhibit '+letter;
     const type=card.querySelector('.ex-type').value||'Evidence';
-    const ext=(type==='Photo'||type==='Screenshot')?'.png':'.pdf';
-    card.querySelector('.fname').textContent=date+'_'+type+'_'+id+'_Ex'+letter+ext;
+    const labelEl=card.querySelector('.ex-label');
+    const label=labelEl?fileSlug(labelEl.value):'';
+    card.querySelector('.fname').textContent=
+      folder+'_Ex'+letter+'_'+type+(label?'_'+label:'')+extFor(type);
   });
 }
 function generate(){
@@ -474,7 +492,7 @@ function generate(){
   const folder=id+'_'+date+'_'+typeStr;
 
   document.getElementById('folderName').textContent=folder;
-  updateExhibits(id,date);
+  updateExhibits(folder);
 
   // 19 values, in the exact order of the Event Index columns
   const vals=[id,date,time,types.join('/'),location,children,present,witnesses,

@@ -19,7 +19,7 @@ Block 3: Immediate Outcome / Impact (resolution, child's state, what happened af
 ## 01 · Complete Case Record
 
 ```
-Convert these raw notes into a complete 3-block Case Record Form entry. Include suggested Event Type, Documentation Purpose, and Factor tags. Use Parent A and Parent B. Facts only — no emotions, opinions, or interpretations.
+Convert these raw notes into a complete 3-block Case Record Form entry. Include suggested Event Type, Primary Factor, and Also-Supports factor tags. Use Parent A and Parent B. Facts only — no emotions, opinions, or interpretations.
 
 OPTIONS — add any of these lines to the prompt if they apply:
 - Medical event: "Include provider name, outcome/instructions, and whether Parent B was notified (and how)."

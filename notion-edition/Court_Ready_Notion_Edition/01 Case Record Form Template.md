@@ -80,7 +80,6 @@
 
 ## 5 · Classification
 
-- **Documentation purpose:**
 - **Primary factor:**
 - **Also supports:**
 - **Exhibit-worthy?**  Yes / No
@@ -90,6 +89,9 @@
 ## 6 · Evidence
 
 *Drag evidence files (photos, screenshots, PDFs) directly here. One block per piece. For each: what it shows (facts only), capture date/time, original file name.*
+
+**Name each evidence copy so it starts with this event's folder name**, then adds its exhibit letter and type — so a file that ever leaves this page still says exactly where it belongs:
+`EVT-0015_2026-07-16_Communication_ExA_Screenshot.png`
 
 > **Do not** crop, edit, annotate or rename the original file. Work on a copy.
 

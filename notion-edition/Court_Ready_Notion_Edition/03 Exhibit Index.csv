@@ -1,2 +1,2 @@
-Exhibit ID,Linked Event ID,Date,Evidence Type,Description,Original File Name,Stored Where,Status
-EX-0001,EVT-0002,2026-07-19,Document,"Visit summary from pediatric clinic, one page, provider instructions listed",EVT-0002_2026-07-19_VisitSummary.pdf,Event page + backup folder,Draft
+Exhibit ID,Linked Event ID,Date,Evidence Type,Description,Court-Ready File Name,Original File Name,Stored Where,Status
+EX-0001,EVT-0002,2026-07-19,Document,"Visit summary from pediatric clinic, one page, provider instructions listed",EVT-0002_2026-07-19_Medical_ExA_Document.pdf,visit_summary.pdf,Event page + backup folder,Draft

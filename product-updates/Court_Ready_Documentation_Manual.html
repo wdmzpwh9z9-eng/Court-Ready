@@ -410,8 +410,14 @@ ol.steps li b{ color:var(--primary); font-weight:700; }
   </div>
 
   <div class="sub">The naming convention</div>
-  <p>Every file. Every time. No exceptions.</p>
-  <div class="convention">YYYY-MM-DD_Type_Description</div>
+  <p>Two names, one rule: <b>every file starts with its event folder name.</b> A screenshot that ends up in an email still says exactly which event it belongs to. And the form builds both names for you — you never type them.</p>
+  <div class="convention">
+    <div style="font-size:9pt;letter-spacing:.14em;text-transform:uppercase;color:#C8D8CC;margin-bottom:5pt;">Event folder</div>
+    EVT-ID_YYYY-MM-DD_EventType
+    <div style="font-size:9pt;letter-spacing:.14em;text-transform:uppercase;color:#C8D8CC;margin:12pt 0 5pt;">Evidence file inside it</div>
+    <span style="font-size:11pt;">…folder…_ExLetter_EvidenceType_Label</span>
+  </div>
+  <p style="font-size:9pt;color:var(--muted);">Example — the folder <span class="fname">EVT-0015_2026-07-16_Communication</span> holds <span class="fname">EVT-0015_2026-07-16_Communication_ExA_Screenshot.png</span>. The label is optional; the form adds it when you type one.</p>
 
   <div class="foot"><span>Court Ready™ · Documentation Manual</span><span>Part 1 — Foundations</span></div>
 </div>
@@ -497,10 +503,9 @@ ol.steps li b{ color:var(--primary); font-weight:700; }
       <p class="trigger"><b>When this happens:</b> you receive a text from Parent B about the children, the schedule, or anything case-related.</p>
       <ol class="steps">
         <li>Screenshot the <b>entire thread</b> — scroll up to capture the full context, not just the latest message. Make sure the contact name, date and time are visible.</li>
-        <li>Save it using the naming convention: <span class="fname">2026-07-16_Text_ScheduleChange.png</span></li>
         <li>Open your Case Record Form. Check "Communication" as the event type. Fill in date, time, parties. Routine? Checkboxes are enough. Significant? Write the three blocks.</li>
-        <li>In the Evidence section, add an exhibit card for the screenshot. The card generates the court-ready file name — rename your screenshot to match.</li>
-        <li>Create the Case Management File: <span class="fname">EVT-0015_2026-07-16_Communication</span>. Place the form inside, with an Exhibits subfolder for the screenshot.</li>
+        <li>In the Evidence section, add an exhibit card for the screenshot. The card generates its court-ready file name — <b>rename your copy</b> of the screenshot to match. Never rename the original.</li>
+        <li>The form also generates the Case Management File name, e.g. <span class="fname">EVT-0015_2026-07-16_Communication</span>. Create that folder, save the form into it as a PDF, and drop your renamed screenshot in an Exhibits subfolder — its name already starts with the folder name, so it can never get lost.</li>
         <li>Open the Master Index. Click the Event ID cell of the next empty row in the Event Index and paste — the row fills across the columns automatically.</li>
       </ol>
       <div class="call dont">
@@ -547,8 +552,8 @@ ol.steps li b{ color:var(--primary); font-weight:700; }
     <div class="in">
       <p class="trigger"><b>When this happens:</b> your child comes home with an injury, illness, emotional distress or missing belongings.</p>
       <ol class="steps">
-        <li>Photograph the injury or condition immediately. Clear, well-lit, showing context.</li>
-        <li>Name the photo: <span class="fname">2026-07-16_Photo_BruiseLeftArm.jpg</span> — do not leave it in your camera roll.</li>
+        <li>Photograph the injury or condition immediately. Clear, well-lit, showing context. Get it out of your camera roll — save a copy somewhere safe.</li>
+        <li>When you add it as an exhibit card below, the form generates its court-ready name — rename your copy to match, e.g. <span class="fname">EVT-0021_2026-07-16_Incident_ExA_Photo_BruiseLeftArm.jpg</span>.</li>
         <li>If medical attention is needed, seek it. Save the visit summary and any prescriptions. These are third-party records that independently verify your documentation.</li>
         <li>Open the Case Record Form. Check "Incident" and/or "Medical." Write the three blocks: what was expected, what you observed, what you did about it.</li>
         <li>Note in Block 2 whether you notified Parent B, when and how. This builds co-parenting conduct evidence.</li>
@@ -566,7 +571,7 @@ ol.steps li b{ color:var(--primary); font-weight:700; }
     <div class="in">
       <p class="trigger"><b>When this happens:</b> you receive an email, note, report card, attendance record or conference request.</p>
       <ol class="steps">
-        <li>Save it as a PDF: <span class="fname">2026-07-16_School_AttendanceReport.pdf</span></li>
+        <li>Save it as a PDF. When you add it as an exhibit card, the form generates its court-ready name, e.g. <span class="fname">EVT-0022_2026-07-16_School_ExA_Document_AttendanceReport.pdf</span>.</li>
         <li>Open the Case Record Form. Check "School." Note the school contact name and topic.</li>
         <li>In Block 2, note whether you forwarded it to Parent B. If it was a conference, note who attended.</li>
         <li>Add an exhibit card for it, place everything in the Case Management File, paste the lean row.</li>
@@ -597,7 +602,7 @@ ol.steps li b{ color:var(--primary); font-weight:700; }
       <p class="trigger"><b>When this happens:</b> a doctor visit, dental appointment, therapy session or urgent care visit.</p>
       <ol class="steps">
         <li>Attend the appointment. Ask for a visit summary or discharge papers before you leave.</li>
-        <li>Name the document: <span class="fname">2026-07-16_Medical_AsthmaPatel.pdf</span></li>
+        <li>Save the summary as a PDF. When you add it as an exhibit card, the form generates its court-ready name, e.g. <span class="fname">EVT-0023_2026-07-16_Medical_ExA_Document_AsthmaPatel.pdf</span>.</li>
         <li>Open the Case Record Form. Check "Medical." Include provider name, reason, outcome and instructions.</li>
         <li>In Block 2, document whether you notified Parent B about the appointment — before and after — when and how.</li>
         <li>Add an exhibit card, place everything in the Case Management File, paste the lean row.</li>
@@ -646,7 +651,7 @@ ol.steps li b{ color:var(--primary); font-weight:700; }
     <div class="in">
       <p class="trigger"><b>When this happens:</b> you pay for something related to the children — copay, school supplies, clothing, activities, childcare.</p>
       <ol class="steps">
-        <li>Keep the receipt. Photograph it immediately: <span class="fname">2026-07-16_Receipt_CampEnrollment.jpg</span></li>
+        <li>Keep the receipt. Photograph it immediately. When you add it as an exhibit card, the form generates its court-ready name, e.g. <span class="fname">EVT-0024_2026-07-16_Expense_ExA_Receipt_CampEnrollment.jpg</span>.</li>
         <li>Open the Case Record Form. Check "Expense." Include the amount, what it was for and which child.</li>
         <li>Add an exhibit card for the receipt.</li>
         <li>Paste the lean row into the Event Index <b>and</b> add the details to the Expense tab.</li>
@@ -936,11 +941,10 @@ ol.steps li b{ color:var(--primary); font-weight:700; }
     <div>
       <div class="chkhead">When something happens</div>
       <ul class="chk">
-        <li>Capture evidence immediately.</li>
-        <li>Name the file: YYYY-MM-DD_Type_Description.</li>
+        <li>Capture evidence immediately — get it out of your camera roll.</li>
         <li>Open the Case Record Form. Check boxes. Three blocks if significant.</li>
-        <li>Add an exhibit card for each piece of evidence.</li>
-        <li>Create the Case Management File: EVT-####_Date_Type.</li>
+        <li>Add an exhibit card for each piece of evidence — the form names each file for you; rename your copies to match.</li>
+        <li>Create the Case Management File the form names for you: EVT-ID_YYYY-MM-DD_EventType.</li>
         <li>Place the form and exhibits in the folder.</li>
         <li>Paste the lean row into the Event Index.</li>
         <li>Mark the Calendar if deviation or appointment.</li>
