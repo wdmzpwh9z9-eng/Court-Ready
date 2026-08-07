@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="popup.css" />
+    <title>Aura</title>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">Aura</span>
+        <span class="brand-sub">Shopping Intelligence</span>
+      </div>
+      <span class="phase-tag" title="Phase 1 — local catalog, offline engine">v0.1</span>
+    </header>
+
+    <main id="content">
+      <!-- Loading -->
+      <section id="state-loading" class="state">
+        <div class="spinner" aria-hidden="true"></div>
+        <p>Reading this page…</p>
+      </section>
+
+      <!-- No product found -->
+      <section id="state-empty" class="state hidden">
+        <p class="empty-title">No product detected here.</p>
+        <p class="empty-sub">
+          Open a product page on most online stores and reopen Aura — or try a
+          live demo:
+        </p>
+        <div id="demo-picker" class="demo-picker"></div>
+      </section>
+
+      <!-- Results -->
+      <section id="state-results" class="state hidden">
+        <!-- Detected product -->
+        <div class="detected card">
+          <img id="d-image" class="d-image" alt="" />
+          <div class="d-info">
+            <div id="d-brand" class="d-brand"></div>
+            <div id="d-title" class="d-title"></div>
+            <div class="d-priceline">
+              <span id="d-price" class="d-price"></span>
+              <span id="d-source" class="source-badge"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Signal row -->
+        <div class="signals" id="signals"></div>
+
+        <!-- Best value callout -->
+        <div id="bestvalue" class="bestvalue hidden"></div>
+
+        <!-- Alternatives -->
+        <div class="alts-header">
+          <h2>Smarter alternatives</h2>
+          <span id="alts-count" class="alts-count"></span>
+        </div>
+        <ul id="alts" class="alts"></ul>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span class="disclaimer" id="disclaimer">Offline demo catalog · signals are heuristic</span>
+    </footer>
+
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>
