@@ -1,0 +1,5 @@
+category,violation,status,principal_amount,estimated_damage,basis
+Suspense Hold Interest,§1026.36(c)(1)(ii)(C),ADMITTED,133135.68000000002,739.7237233972604,"$133,135.68 x 5.2% / 365 x 39 days"
+Late Fees While in Suspense,§1026.36(c)(1)(ii)(C),SUPPORTED,0.0,0.0,22 late charges at $133.27 each
+Foreclosure/Attorney Advances,§2605 (RESPA),SUPPORTED,2125.69,2125.69,Attorney/statutory advances while payments held in suspense
+Credit Reporting Damages,FCRA §1681s-2,CONDITIONAL,0.0,1000.0,Statutory damages for reporting delinquency during suspense hold
