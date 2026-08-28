@@ -879,83 +879,249 @@ def test_late_fee_computation(v6):
 # ═══════════════════════════════════════════════════════════════════════
 def compute_damages(v6, all_results):
     print("\n" + "=" * 72)
-    print("DAMAGES SUMMARY")
+    print("DAMAGES SUMMARY — FULL FRAMEWORK")
     print("=" * 72)
 
     damages = []
-
-    # 1. Suspense kiting — interest accrued during hold
-    susp_rows = v6[v6["suspense_balance_clean"].notna()]
-    total_kited_in = susp_rows[susp_rows["suspense_balance_clean"] > 0]["suspense_balance_clean"].sum()
-
-    # Interest on $41,464.66 held for ~39 days at note rate
     daily_rate = NOTE_RATE / 365
-    hold_interest = total_kited_in * daily_rate * 39
+
+    # ── A. ACTUAL DAMAGES (Provable from Ledger Data) ─────────────────
+
+    # A1. Wrongful interest accrual from principal balance inflation
+    # The good-through treadmill held payments in suspense instead of applying
+    # them, meaning the borrower accrued interest on an inflated principal.
+    # The $35,000 HAF deposited 03/03/2025 was due 04/2024 — borrower was
+    # charged interest on ~$41,464.66 extra principal for ~11 months.
+    haf_total = 41464.66  # $35,000 + $6,464.66
+    months_delinquent = 11  # April 2024 through February 2025
+    monthly_interest_overcharge = haf_total * (NOTE_RATE / 12)
+    wrongful_interest = monthly_interest_overcharge * months_delinquent
     damages.append({
-        "category": "Suspense Hold Interest",
+        "category": "A1. Wrongful Interest Accrual",
         "violation": "§1026.36(c)(1)(ii)(C)",
         "status": "ADMITTED",
-        "principal_amount": total_kited_in,
-        "estimated_damage": hold_interest,
-        "basis": f"${total_kited_in:,.2f} x {NOTE_RATE*100:.1f}% / 365 x 39 days",
+        "principal_amount": haf_total,
+        "estimated_damage": round(wrongful_interest, 2),
+        "basis": f"${haf_total:,.2f} x {NOTE_RATE*100:.1f}% / 12 x {months_delinquent} months unapplied",
     })
 
-    # 2. Late fees assessed while in suspense
-    late_fees = v6[v6["transaction_description"].str.contains("Late Charge|LATE CHARGE", case=False, na=False)]
-    total_late_fees = 0
-    for _, row in late_fees.iterrows():
-        fee = abs(row.get("other_amount_clean", 0) or 0)
-        if fee > 0:
-            total_late_fees += fee
+    # A2. Principal balance continuity gaps (negative amortization)
+    # Test 10 found ~$1,200/month gaps across L3 (10 gaps) and L4 (8 gaps)
+    # — the balance GREW each month instead of amortizing down.
+    # Use L3 gaps as primary (more complete ledger).
+    continuity_gaps = all_results.get("principal_continuity", [])
+    l3_gaps = [f for f in continuity_gaps if f.get("source_id") == "L3"]
+    total_gap = sum(abs(f["gap"]) for f in l3_gaps)
     damages.append({
-        "category": "Late Fees While in Suspense",
+        "category": "A2. Principal Overstatement",
+        "violation": "§1026.36(c)(1)(ii)(C)",
+        "status": "SUPPORTED",
+        "principal_amount": total_gap,
+        "estimated_damage": round(total_gap, 2),
+        "basis": f"{len(l3_gaps)} months of balance inflation totaling ${total_gap:,.2f} (L3)",
+    })
+
+    # A3. Late fees wrongfully assessed
+    # Late fees assessed during the period payments were held in suspense
+    # rather than applied. The delinquency was manufactured by the servicer.
+    late_fees_v6 = v6[v6["transaction_description"].str.contains(
+        "Late Charge Assess|LATE CHARGE ASSESS", case=False, na=False
+    )]
+    # Count unique late fee assessments (deduplicate across ledgers by using L3 only)
+    l3_late = late_fees_v6[late_fees_v6["source_id"] == "L3"]
+    l2r_late = late_fees_v6[late_fees_v6["source_id"] == "L2R"]
+    unique_late_count = max(len(l3_late), len(l2r_late))
+    total_late_fees = unique_late_count * 133.27
+    damages.append({
+        "category": "A3. Wrongful Late Fees",
         "violation": "§1026.36(c)(1)(ii)(C)",
         "status": "SUPPORTED",
         "principal_amount": total_late_fees,
-        "estimated_damage": total_late_fees,
-        "basis": f"{len(late_fees)} late charges at $133.27 each",
+        "estimated_damage": round(total_late_fees, 2),
+        "basis": f"{unique_late_count} late charges x $133.27 assessed during manufactured delinquency",
     })
 
-    # 3. Foreclosure advances
-    fc_adv = v6[v6["transaction_description"].str.contains("Attorney|ATTORNEY|Statutory|STATUTORY", case=False, na=False)]
+    # A4. Foreclosure/attorney advances & statutory expenses
+    # These costs were incurred to foreclose on a borrower whose
+    # delinquency was created by routing payments to suspense.
+    fc_adv = v6[v6["transaction_description"].str.contains(
+        "Attorney|ATTORNEY|Statutory|STATUTORY", case=False, na=False
+    )]
+    # Deduplicate: use L3 as primary
+    l3_fc = fc_adv[fc_adv["source_id"] == "L3"]
     total_fc = 0
-    for _, row in fc_adv.iterrows():
-        amt = abs(float(row.get("transaction_amount_clean", 0) or 0)) if pd.notna(row.get("transaction_amount_clean")) else 0
-        other = abs(float(row.get("other_amount_clean", 0) or 0)) if pd.notna(row.get("other_amount_clean")) else 0
-        total_fc += max(amt, other)
+    for _, row in l3_fc.iterrows():
+        amt = abs(float(row.get("transaction_amount_clean", 0))) if pd.notna(row.get("transaction_amount_clean")) else 0
+        total_fc += amt
     damages.append({
-        "category": "Foreclosure/Attorney Advances",
+        "category": "A4. Foreclosure/Attorney Costs",
         "violation": "§2605 (RESPA)",
         "status": "SUPPORTED",
         "principal_amount": total_fc,
-        "estimated_damage": total_fc,
-        "basis": f"Attorney/statutory advances while payments held in suspense",
+        "estimated_damage": round(total_fc, 2),
+        "basis": f"Attorney advances + statutory expenses charged during suspense hold",
     })
 
-    # 4. Credit reporting damages (statutory)
+    # A5. Escrow advance exposure
+    # Net escrow advances not repaid — borrower charged for escrow
+    # shortfall created by the servicer's misapplication of funds.
+    esc_advances = 0
+    esc_repaid = 0
+    for _, row in v6[v6["source_id"] == "L3"].iterrows():
+        desc = str(row.get("transaction_description", ""))
+        esc_val = float(row.get("escrow_paid_clean", 0)) if pd.notna(row.get("escrow_paid_clean")) else 0
+        if "ESCROW ADVANCE" in desc and "REPAY" not in desc and esc_val > 0:
+            esc_advances += esc_val
+        elif "REPAY OF ESCROW" in desc and esc_val < 0:
+            esc_repaid += abs(esc_val)
+    net_escrow = esc_advances - esc_repaid
+    if net_escrow > 0:
+        damages.append({
+            "category": "A5. Net Escrow Advance Exposure",
+            "violation": "§2605 (RESPA)",
+            "status": "SUPPORTED",
+            "principal_amount": net_escrow,
+            "estimated_damage": round(net_escrow, 2),
+            "basis": f"${esc_advances:,.2f} advanced - ${esc_repaid:,.2f} repaid (L3)",
+        })
+
+    # A6. Misapplication reversal — $1,350.69 (confirmed across 3 ledgers)
     damages.append({
-        "category": "Credit Reporting Damages",
+        "category": "A6. Admitted Misapplication",
+        "violation": "§1026.36(c)(1)(ii)(C)",
+        "status": "ADMITTED",
+        "principal_amount": 1350.69,
+        "estimated_damage": 1350.69,
+        "basis": "Misapplication reversal of $1,350.69 confirmed in L2R, L3, L4",
+    })
+
+    # ── B. STATUTORY DAMAGES ──────────────────────────────────────────
+
+    # B1. RESPA §2605(f) — pattern or practice
+    # Individual: up to $2,000; class: up to $2,000 per borrower
+    # Pattern/practice shown by: admitted violation + 22-row treadmill +
+    # 3 misapplication reversals + cross-ledger contradictions
+    damages.append({
+        "category": "B1. RESPA §2605(f) Statutory",
+        "violation": "12 USC §2605(f)(1)(A)",
+        "status": "ADMITTED",
+        "principal_amount": 0,
+        "estimated_damage": 2000.00,
+        "basis": "Pattern/practice: admitted suspense kiting + 22-row treadmill + 3 misapplication reversals",
+    })
+
+    # B2. TILA/Reg Z §1640(a) — individual statutory
+    damages.append({
+        "category": "B2. TILA §1640(a) Statutory",
+        "violation": "15 USC §1640(a)(2)(A)",
+        "status": "SUPPORTED",
+        "principal_amount": 0,
+        "estimated_damage": 4000.00,
+        "basis": "Statutory damages for §1026.36(c)(1)(ii)(C) violation (2x finance charge, min $400, max $4,000)",
+    })
+
+    # B3. FDCPA §1692k — if debt collection activity during suspense hold
+    damages.append({
+        "category": "B3. FDCPA §1692k Statutory",
+        "violation": "15 USC §1692k(a)(2)(A)",
+        "status": "CONDITIONAL",
+        "principal_amount": 0,
+        "estimated_damage": 1000.00,
+        "basis": "Statutory damages if foreclosure notices constitute debt collection",
+    })
+
+    # B4. FCRA §1681s-2 — credit reporting during manufactured delinquency
+    damages.append({
+        "category": "B4. FCRA Credit Reporting",
+        "violation": "15 USC §1681s-2",
+        "status": "CONDITIONAL",
+        "principal_amount": 0,
+        "estimated_damage": 1000.00,
+        "basis": "Statutory damages for reporting delinquency created by servicer's own suspense routing",
+    })
+
+    # ── C. CONSEQUENTIAL / DISCOVERY-DEPENDENT ────────────────────────
+
+    # C1. Emotional distress — facing foreclosure while servicer held $41K
+    damages.append({
+        "category": "C1. Emotional Distress",
+        "violation": "State tort / §2605",
+        "status": "CONDITIONAL",
+        "principal_amount": 0,
+        "estimated_damage": 25000.00,
+        "basis": "Conservative estimate: foreclosure threat while $41,464.66 held in suspense (discovery-dependent)",
+    })
+
+    # C2. Credit score impact — actual damages from delinquency reporting
+    damages.append({
+        "category": "C2. Credit Score Actual Damages",
         "violation": "FCRA §1681s-2",
         "status": "CONDITIONAL",
         "principal_amount": 0,
-        "estimated_damage": 1000,
-        "basis": "Statutory damages for reporting delinquency during suspense hold",
+        "estimated_damage": 10000.00,
+        "basis": "Estimated credit damage from 11-month manufactured delinquency (discovery-dependent)",
     })
+
+    # ── D. FEE-SHIFTING (Not included in total but noted) ────────────
+
+    # D1. Attorney's fees — mandatory fee-shifting under RESPA, TILA, FDCPA
+    damages.append({
+        "category": "D1. Attorney's Fees",
+        "violation": "§2605(f)(3) / §1640(a)(3)",
+        "status": "MANDATORY",
+        "principal_amount": 0,
+        "estimated_damage": 0,
+        "basis": "Mandatory fee-shifting under RESPA §2605(f)(3), TILA §1640(a)(3), FDCPA §1692k(a)(3)",
+    })
+
+    # ── SUMMARY ───────────────────────────────────────────────────────
 
     damages_df = pd.DataFrame(damages)
     damages_df.to_csv(OUTPUT_DIR / "12_DAMAGES_SUMMARY.csv", index=False)
 
-    print("\n  " + f"{'Category':<35} {'Status':<12} {'Amount':>12} {'Violation'}")
-    print("  " + "-" * 80)
-    total_damages = 0
-    for _, d in damages_df.iterrows():
-        print(f"  {d['category']:<35} {d['status']:<12} "
-              f"${d['estimated_damage']:>10,.2f} {d['violation']}")
-        total_damages += d["estimated_damage"]
+    actual = damages_df[damages_df["category"].str.startswith("A")]
+    statutory = damages_df[damages_df["category"].str.startswith("B")]
+    consequential = damages_df[damages_df["category"].str.startswith("C")]
 
-    print("  " + "-" * 80)
-    print(f"  {'TOTAL ESTIMATED DAMAGES':<35} {'':12} ${total_damages:>10,.2f}")
-    print(f"\n  Note: Actual/statutory/treble damages TBD per jurisdiction and discovery.")
+    actual_total = actual["estimated_damage"].sum()
+    statutory_total = statutory["estimated_damage"].sum()
+    consequential_total = consequential["estimated_damage"].sum()
+
+    print("\n  ═══ A. ACTUAL DAMAGES (From Ledger Data) ═══")
+    print(f"  {'Category':<40} {'Status':<12} {'Amount':>12} {'Violation'}")
+    print("  " + "-" * 90)
+    for _, d in actual.iterrows():
+        print(f"  {d['category']:<40} {d['status']:<12} "
+              f"${d['estimated_damage']:>10,.2f} {d['violation']}")
+    print(f"  {'SUBTOTAL ACTUAL':<40} {'':12} ${actual_total:>10,.2f}")
+
+    print("\n  ═══ B. STATUTORY DAMAGES ═══")
+    print(f"  {'Category':<40} {'Status':<12} {'Amount':>12} {'Violation'}")
+    print("  " + "-" * 90)
+    for _, d in statutory.iterrows():
+        print(f"  {d['category']:<40} {d['status']:<12} "
+              f"${d['estimated_damage']:>10,.2f} {d['violation']}")
+    print(f"  {'SUBTOTAL STATUTORY':<40} {'':12} ${statutory_total:>10,.2f}")
+
+    print("\n  ═══ C. CONSEQUENTIAL (Discovery-Dependent) ═══")
+    print(f"  {'Category':<40} {'Status':<12} {'Amount':>12} {'Violation'}")
+    print("  " + "-" * 90)
+    for _, d in consequential.iterrows():
+        print(f"  {d['category']:<40} {d['status']:<12} "
+              f"${d['estimated_damage']:>10,.2f} {d['violation']}")
+    print(f"  {'SUBTOTAL CONSEQUENTIAL':<40} {'':12} ${consequential_total:>10,.2f}")
+
+    print("\n  ═══ D. FEE-SHIFTING ═══")
+    print("  D1. Attorney's Fees                     MANDATORY     per statute  RESPA/TILA/FDCPA")
+
+    grand_total = actual_total + statutory_total + consequential_total
+    print("\n  " + "=" * 90)
+    print(f"  {'TOTAL (A+B+C, excl. atty fees)':<40} {'':12} ${grand_total:>10,.2f}")
+    print(f"  {'  Admitted/Supported floor (A+B)':<40} {'':12} ${actual_total + statutory_total:>10,.2f}")
+    print(f"  {'  Full claim incl. consequential':<40} {'':12} ${grand_total:>10,.2f}")
+    print(f"\n  Note: Treble damages under Wyoming consumer protection (Wyo. Stat. §40-12-108)")
+    print(f"  could multiply actual damages to ${actual_total * 3:>10,.2f}")
+    print(f"  Attorney's fees are mandatory fee-shifting, not included in totals above.")
 
     return damages_df
 

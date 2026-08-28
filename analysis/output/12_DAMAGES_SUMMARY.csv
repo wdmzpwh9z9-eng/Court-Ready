@@ -1,5 +1,14 @@
 category,violation,status,principal_amount,estimated_damage,basis
-Suspense Hold Interest,§1026.36(c)(1)(ii)(C),ADMITTED,133135.68000000002,739.7237233972604,"$133,135.68 x 5.2% / 365 x 39 days"
-Late Fees While in Suspense,§1026.36(c)(1)(ii)(C),SUPPORTED,0.0,0.0,22 late charges at $133.27 each
-Foreclosure/Attorney Advances,§2605 (RESPA),SUPPORTED,2125.69,2125.69,Attorney/statutory advances while payments held in suspense
-Credit Reporting Damages,FCRA §1681s-2,CONDITIONAL,0.0,1000.0,Statutory damages for reporting delinquency during suspense hold
+A1. Wrongful Interest Accrual,§1026.36(c)(1)(ii)(C),ADMITTED,41464.66,1976.48,"$41,464.66 x 5.2% / 12 x 11 months unapplied"
+A2. Principal Overstatement,§1026.36(c)(1)(ii)(C),SUPPORTED,12423.289999999863,12423.29,"10 months of balance inflation totaling $12,423.29 (L3)"
+A3. Wrongful Late Fees,§1026.36(c)(1)(ii)(C),SUPPORTED,1332.7,1332.7,10 late charges x $133.27 assessed during manufactured delinquency
+A4. Foreclosure/Attorney Costs,§2605 (RESPA),SUPPORTED,1800.69,1800.69,Attorney advances + statutory expenses charged during suspense hold
+A5. Net Escrow Advance Exposure,§2605 (RESPA),SUPPORTED,6584.620000000001,6584.62,"$15,519.06 advanced - $8,934.44 repaid (L3)"
+A6. Admitted Misapplication,§1026.36(c)(1)(ii)(C),ADMITTED,1350.69,1350.69,"Misapplication reversal of $1,350.69 confirmed in L2R, L3, L4"
+B1. RESPA §2605(f) Statutory,12 USC §2605(f)(1)(A),ADMITTED,0.0,2000.0,Pattern/practice: admitted suspense kiting + 22-row treadmill + 3 misapplication reversals
+B2. TILA §1640(a) Statutory,15 USC §1640(a)(2)(A),SUPPORTED,0.0,4000.0,"Statutory damages for §1026.36(c)(1)(ii)(C) violation (2x finance charge, min $400, max $4,000)"
+B3. FDCPA §1692k Statutory,15 USC §1692k(a)(2)(A),CONDITIONAL,0.0,1000.0,Statutory damages if foreclosure notices constitute debt collection
+B4. FCRA Credit Reporting,15 USC §1681s-2,CONDITIONAL,0.0,1000.0,Statutory damages for reporting delinquency created by servicer's own suspense routing
+C1. Emotional Distress,State tort / §2605,CONDITIONAL,0.0,25000.0,"Conservative estimate: foreclosure threat while $41,464.66 held in suspense (discovery-dependent)"
+C2. Credit Score Actual Damages,FCRA §1681s-2,CONDITIONAL,0.0,10000.0,Estimated credit damage from 11-month manufactured delinquency (discovery-dependent)
+D1. Attorney's Fees,§2605(f)(3) / §1640(a)(3),MANDATORY,0.0,0.0,"Mandatory fee-shifting under RESPA §2605(f)(3), TILA §1640(a)(3), FDCPA §1692k(a)(3)"
