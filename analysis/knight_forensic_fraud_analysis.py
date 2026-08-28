@@ -1196,6 +1196,294 @@ def test_escrow_from_origination(v6):
 
 
 # ═══════════════════════════════════════════════════════════════════════
+# TEST 14: ANNUAL ESCROW DISCLOSURE ANALYSIS
+# Source: AmeriSave Annual Escrow Account Disclosure Statements
+# Analysis dates: 06/20/2023, 06/26/2024, 06/05/2025
+# From "Escrow & Insurance.pdf" in Google Drive (servicer-mailed originals)
+# ═══════════════════════════════════════════════════════════════════════
+def test_annual_escrow_disclosures(v6):
+    print("\n" + "=" * 72)
+    print("TEST 14: ANNUAL ESCROW DISCLOSURE STATEMENT ANALYSIS")
+    print("  Source: AmeriSave servicer-mailed Annual Escrow Disclosures")
+    print("  File: Escrow & Insurance.pdf (Google Drive)")
+    print("=" * 72)
+
+    findings = []
+    RESPA_STANDARD_SPREAD_MONTHS = 12
+
+    disclosures = [
+        {
+            "analysis_date": "06/20/2023",
+            "period": "08/2023–07/2024",
+            "effective_date": "08/01/2023",
+            "payment_pi": 2665.46,
+            "escrow_required": 594.86,
+            "shortage_spread": 152.22,
+            "total_payment": 3412.54,
+            "county_tax_anticipated": 2754.32,
+            "hazard_ins_anticipated": 4384.00,
+            "total_disbursements": 7138.32,
+            "projected_low_point": -636.93,
+            "required_reserve": 1189.72,
+            "shortage_amount": 1826.65,
+            "spread_months": 12,
+            "starting_bal_projected": 0.00,
+            "starting_bal_actual": 0.00,
+            "prior_payment": 3138.56,
+            "prior_escrow_portion": 473.10,
+        },
+        {
+            "analysis_date": "06/26/2024",
+            "period": "08/2024–07/2025",
+            "effective_date": "08/01/2024",
+            "payment_pi": 2665.46,
+            "escrow_required": 863.62,
+            "shortage_spread": 115.28,
+            "total_payment": 3644.36,
+            "county_tax_anticipated": 3578.40,
+            "hazard_ins_anticipated": 6785.00,
+            "total_disbursements": 10363.40,
+            "projected_low_point": -4382.52,
+            "required_reserve": 1727.23,
+            "shortage_amount": 6109.75,
+            "spread_months": 53,
+            "starting_bal_projected": 3519.09,
+            "starting_bal_actual": 0.00,
+            "prior_payment": 3387.64,
+            "prior_escrow_portion": 722.18,
+        },
+        {
+            "analysis_date": "06/05/2025",
+            "period": "08/2025–07/2026",
+            "effective_date": "08/01/2025",
+            "payment_pi": 2665.46,
+            "escrow_required": 913.44,
+            "shortage_spread": 108.06,
+            "total_payment": 3686.96,
+            "county_tax_anticipated": 3609.18,
+            "hazard_ins_anticipated": 7352.00,
+            "total_disbursements": 10961.18,
+            "projected_low_point": -2603.46,
+            "required_reserve": 1826.86,
+            "shortage_amount": 4430.32,
+            "spread_months": 41,
+            "starting_bal_projected": 2590.81,
+            "starting_bal_actual": -6407.66,
+            "prior_payment": 3644.36,
+            "prior_escrow_portion": 978.90,
+        },
+    ]
+
+    # --- Phase A: Starting Balance Discrepancies ---
+    print("\n  ─── Phase A: Starting Balance Discrepancies ───")
+    for d in disclosures:
+        gap = d["starting_bal_projected"] - d["starting_bal_actual"]
+        if abs(gap) > 1.00:
+            print(f"  {d['analysis_date']}: Projected ${d['starting_bal_projected']:,.2f} "
+                  f"vs Actual ${d['starting_bal_actual']:,.2f} → "
+                  f"DISCREPANCY ${gap:,.2f}")
+            findings.append({
+                "finding": "STARTING_BALANCE_DISCREPANCY",
+                "analysis_date": d["analysis_date"],
+                "period": d["period"],
+                "projected_starting": d["starting_bal_projected"],
+                "actual_starting": d["starting_bal_actual"],
+                "discrepancy": round(gap, 2),
+                "explanation": f"Servicer projected ${d['starting_bal_projected']:,.2f} but actual was ${d['starting_bal_actual']:,.2f} — ${gap:,.2f} unaccounted for",
+            })
+        else:
+            print(f"  {d['analysis_date']}: Projected ${d['starting_bal_projected']:,.2f} "
+                  f"= Actual ${d['starting_bal_actual']:,.2f} (OK)")
+
+    # --- Phase B: Non-Standard Shortage Spreads ---
+    print("\n  ─── Phase B: Shortage Spread vs RESPA 12-Month Standard ───")
+    for d in disclosures:
+        spread = d["spread_months"]
+        shortage = d["shortage_amount"]
+        monthly_at_12 = shortage / 12 if shortage > 0 else 0
+        monthly_actual = d["shortage_spread"]
+
+        if spread > RESPA_STANDARD_SPREAD_MONTHS:
+            excess_months = spread - RESPA_STANDARD_SPREAD_MONTHS
+            print(f"  {d['analysis_date']}: ${shortage:,.2f} shortage spread over "
+                  f"{spread} months (RESPA standard: 12)")
+            print(f"    12-month spread would be: ${monthly_at_12:,.2f}/mo")
+            print(f"    Actual spread: ${monthly_actual:,.2f}/mo ({spread} months)")
+            print(f"    EXCESS: {excess_months} months beyond standard")
+            findings.append({
+                "finding": "NON_STANDARD_SHORTAGE_SPREAD",
+                "analysis_date": d["analysis_date"],
+                "period": d["period"],
+                "shortage_amount": shortage,
+                "spread_months": spread,
+                "respa_standard": RESPA_STANDARD_SPREAD_MONTHS,
+                "excess_months": excess_months,
+                "monthly_at_12mo": round(monthly_at_12, 2),
+                "monthly_actual": monthly_actual,
+                "explanation": f"${shortage:,.2f} spread over {spread} months vs 12-month RESPA standard — keeps deficit alive {excess_months} extra months",
+            })
+        else:
+            print(f"  {d['analysis_date']}: ${shortage:,.2f} spread over "
+                  f"{spread} months (standard)")
+
+    # --- Phase C: Projected Low Point Trend ---
+    print("\n  ─── Phase C: Projected Low Point Trajectory ───")
+    for d in disclosures:
+        low = d["projected_low_point"]
+        reserve = d["required_reserve"]
+        print(f"  {d['analysis_date']}: Low point ${low:,.2f} | "
+              f"Required reserve ${reserve:,.2f} | "
+              f"Shortage ${d['shortage_amount']:,.2f}")
+
+    low_2023 = disclosures[0]["projected_low_point"]
+    low_2024 = disclosures[1]["projected_low_point"]
+    low_2025 = disclosures[2]["projected_low_point"]
+    if low_2024 < low_2023:
+        findings.append({
+            "finding": "DEEPENING_DEFICIT",
+            "analysis_date": "2023→2024",
+            "low_2023": low_2023,
+            "low_2024": low_2024,
+            "low_2025": low_2025,
+            "explanation": f"Projected low point worsened from ${low_2023:,.2f} to ${low_2024:,.2f} despite monthly escrow increasing from $473.10 to $722.18",
+        })
+        print(f"  PATTERN: Low point deepened from ${low_2023:,.2f} → "
+              f"${low_2024:,.2f} → ${low_2025:,.2f}")
+
+    # --- Phase D: Insurance Timing vs Escrow Analysis Timing ---
+    print("\n  ─── Phase D: Insurance Payment Timing vs Annual Analysis ───")
+    ins_payments = [
+        {"date": "05/25/2023", "premium": 4384.00, "analysis_after": "06/20/2023",
+         "days_early": 28, "policy_due": "06/22/2023"},
+        {"date": "05/28/2024", "premium": 6785.00, "analysis_after": "06/26/2024",
+         "days_early": 25, "policy_due": "06/22/2024"},
+        {"date": "05/15/2025", "premium": 7352.00, "analysis_after": "06/05/2025",
+         "days_early": 38, "policy_due": "06/22/2025"},
+    ]
+    for ip in ins_payments:
+        print(f"  Insurance ${ip['premium']:,.2f} paid {ip['date']} "
+              f"({ip['days_early']} days before {ip['policy_due']} due date)")
+        print(f"    → Escrow analysis ran {ip['analysis_after']} "
+              f"(captures escrow at annual low point)")
+        findings.append({
+            "finding": "EARLY_INSURANCE_BEFORE_ANALYSIS",
+            "insurance_paid": ip["date"],
+            "premium": ip["premium"],
+            "policy_due": ip["policy_due"],
+            "days_early": ip["days_early"],
+            "analysis_date": ip["analysis_after"],
+            "explanation": f"Insurance paid {ip['days_early']} days early, escrow depleted before annual analysis captures low point as 'shortage'",
+        })
+
+    # --- Phase E: Account History — 2024 Disclosure (01/2024–07/2024) ---
+    print("\n  ─── Phase E: 2024 Account History (01/2024–07/2024) ───")
+    print("  From servicer's own 06/26/2024 disclosure:")
+    history_2024 = [
+        {"month": "JAN", "projected_escrow": 4182.62, "actual_escrow": 722.18},
+        {"month": "FEB", "projected_escrow": 4846.15, "actual_escrow": 1444.36},
+        {"month": "MAR", "projected_escrow": 5509.68, "actual_escrow": 1444.36},
+        {"month": "APR (tax)", "projected_escrow": 4384.01, "actual_escrow": -344.84},
+        {"month": "MAY (ins)", "projected_escrow": -1327.07, "actual_escrow": -7129.84},
+        {"month": "JUN", "projected_escrow": -663.53, "actual_escrow": -4241.12},
+        {"month": "JUL", "projected_escrow": -3518.94, "actual_escrow": -3518.94},
+    ]
+    print(f"  {'Month':<15} {'Projected':>12} {'Actual':>12} {'Gap':>12}")
+    print("  " + "-" * 55)
+    for h in history_2024:
+        gap = h["projected_escrow"] - h["actual_escrow"]
+        print(f"  {h['month']:<15} ${h['projected_escrow']:>10,.2f} "
+              f"${h['actual_escrow']:>10,.2f} ${gap:>10,.2f}")
+
+    findings.append({
+        "finding": "2024_PROJECTED_VS_ACTUAL_HISTORY",
+        "analysis_date": "06/26/2024",
+        "starting_projected": 3519.09,
+        "starting_actual": 0.00,
+        "gap_at_start": 3519.09,
+        "may_projected": -1327.07,
+        "may_actual": -7129.84,
+        "gap_at_may": 5802.77,
+        "explanation": "Projected starting balance $3,519.09 vanished — actual $0.00. By May (insurance), projected -$1,327 vs actual -$7,130 = $5,803 gap",
+    })
+
+    # --- Phase F: Account History — 2025 Disclosure (08/2024–07/2025) ---
+    print("\n  ─── Phase F: 2025 Account History (08/2024–07/2025) ───")
+    print("  From servicer's own 06/05/2025 disclosure:")
+    print(f"  Starting: Projected $2,590.81 vs Actual -$6,407.66 = $8,998.47 gap")
+    print(f"  March 2025: HAF deposit $10,733.91 → escrow briefly +$2,571.97")
+    print(f"  May 2025: Insurance $7,352.00 → escrow -$6,584.62 again")
+    print(f"  Ending: Projected $2,590.85 vs Actual -$1,690.12")
+    print(f"  Total actual payments IN: $15,678.73 (incl HAF)")
+    print(f"  Total actual payments OUT: $10,961.19")
+    print(f"  Interest on escrow: $60.00")
+
+    findings.append({
+        "finding": "2025_STARTING_BALANCE_GAP",
+        "analysis_date": "06/05/2025",
+        "starting_projected": 2590.81,
+        "starting_actual": -6407.66,
+        "gap": 8998.47,
+        "haf_deposit_march": 10733.91,
+        "escrow_after_haf": 2571.97,
+        "escrow_after_may_ins": -6584.62,
+        "explanation": "Projected +$2,590.81 vs actual -$6,407.66 = $8,998 gap at start. HAF briefly restored balance but manufactured cycle immediately recaptured it",
+    })
+
+    # --- Phase G: Shortage Spread Harm Calculation ---
+    print("\n  ─── Phase G: Quantified Harm from Non-Standard Spreads ───")
+    spread_2024 = disclosures[1]
+    monthly_12mo = spread_2024["shortage_amount"] / 12
+    monthly_53mo = spread_2024["shortage_spread"]
+    monthly_underpayment = monthly_12mo - monthly_53mo
+    total_deficit_months = spread_2024["spread_months"] - 12
+    carried_deficit = monthly_underpayment * total_deficit_months
+    print(f"  2024 Disclosure:")
+    print(f"    12-month payment: ${monthly_12mo:,.2f}/mo")
+    print(f"    53-month payment: ${monthly_53mo:,.2f}/mo")
+    print(f"    Monthly underfunding: ${monthly_underpayment:,.2f}")
+    print(f"    Extra months in deficit: {total_deficit_months}")
+    print(f"    Carried deficit cost: ${carried_deficit:,.2f}")
+
+    spread_2025 = disclosures[2]
+    monthly_12mo_25 = spread_2025["shortage_amount"] / 12
+    monthly_41mo = spread_2025["shortage_spread"]
+    monthly_underpayment_25 = monthly_12mo_25 - monthly_41mo
+    total_deficit_months_25 = spread_2025["spread_months"] - 12
+    carried_deficit_25 = monthly_underpayment_25 * total_deficit_months_25
+    print(f"  2025 Disclosure:")
+    print(f"    12-month payment: ${monthly_12mo_25:,.2f}/mo")
+    print(f"    41-month payment: ${monthly_41mo:,.2f}/mo")
+    print(f"    Monthly underfunding: ${monthly_underpayment_25:,.2f}")
+    print(f"    Extra months in deficit: {total_deficit_months_25}")
+    print(f"    Carried deficit cost: ${carried_deficit_25:,.2f}")
+
+    findings.append({
+        "finding": "SHORTAGE_SPREAD_HARM",
+        "disclosure_2024_shortage": spread_2024["shortage_amount"],
+        "disclosure_2024_spread": spread_2024["spread_months"],
+        "deficit_2024": round(carried_deficit, 2),
+        "disclosure_2025_shortage": spread_2025["shortage_amount"],
+        "disclosure_2025_spread": spread_2025["spread_months"],
+        "deficit_2025": round(carried_deficit_25, 2),
+        "total_harm": round(carried_deficit + carried_deficit_25, 2),
+        "explanation": "Extended shortage spreads (53mo/41mo vs 12mo standard) keep escrow in perpetual deficit, generating unnecessary advances and inflating payments",
+    })
+
+    # --- Summary ---
+    print(f"\n  ═══ TEST 14 SUMMARY ═══")
+    print(f"  Total findings: {len(findings)}")
+    balance_findings = [f for f in findings if f["finding"].endswith("DISCREPANCY") or f["finding"].endswith("GAP")]
+    spread_findings = [f for f in findings if "SPREAD" in f["finding"]]
+    timing_findings = [f for f in findings if "EARLY" in f["finding"]]
+    print(f"  Balance discrepancies: {len(balance_findings)}")
+    print(f"  Non-standard spreads: {len(spread_findings)}")
+    print(f"  Insurance timing issues: {len(timing_findings)}")
+
+    pd.DataFrame(findings).to_csv(OUTPUT_DIR / "14_EX_Annual_Escrow_Disclosures.csv", index=False)
+    return findings
+
+
+# ═══════════════════════════════════════════════════════════════════════
 # DAMAGES SUMMARY
 # ═══════════════════════════════════════════════════════════════════════
 def compute_damages(v6, all_results):
@@ -1484,6 +1772,7 @@ def main():
     all_results["late_fees"] = test_late_fee_computation(v6)
     all_results["escrow_fraud_chain"] = test_escrow_fraud_chain(v6)
     all_results["escrow_from_origination"] = test_escrow_from_origination(v6)
+    all_results["annual_escrow_disclosures"] = test_annual_escrow_disclosures(v6)
 
     # Damages
     damages = compute_damages(v6, all_results)
