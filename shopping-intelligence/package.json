@@ -1,0 +1,14 @@
+{
+  "name": "aura-shopping-intelligence",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Aura — AI Shopping Intelligence Platform (Phase 1: MV3 Chrome extension, offline engine).",
+  "type": "module",
+  "scripts": {
+    "build:catalog": "node tools/build-catalog.mjs",
+    "build:icons": "node tools/make-icons.mjs",
+    "build": "npm run build:catalog && npm run build:icons",
+    "test": "node tools/smoke-test.mjs"
+  },
+  "license": "UNLICENSED"
+}

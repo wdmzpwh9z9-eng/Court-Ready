@@ -1,0 +1,1286 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-07",
+  "count": 40,
+  "products": [
+    {
+      "currency": "USD",
+      "materials": [
+        "merino wool"
+      ],
+      "keywords": [
+        "crewneck",
+        "sweater",
+        "merino",
+        "minimal",
+        "layering",
+        "fall"
+      ],
+      "authorizedSeller": true,
+      "id": "ap-001",
+      "title": "Merino Crewneck Sweater",
+      "brand": "Everlane",
+      "category": "apparel",
+      "subcategory": "knitwear",
+      "price": 98,
+      "msrp": 110,
+      "image": "https://picsum.photos/seed/ap-001/400/400",
+      "url": "https://example-affiliate.com/ap-001?tag=aura",
+      "retailer": "Everlane",
+      "quality": {
+        "construction": 0.82,
+        "durability": 0.8,
+        "materialGrade": 0.85,
+        "rating": 4.5,
+        "reviewCount": 2100
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "cashmere"
+      ],
+      "keywords": [
+        "crewneck",
+        "sweater",
+        "cashmere",
+        "soft",
+        "minimal",
+        "layering"
+      ],
+      "authorizedSeller": true,
+      "id": "ap-002",
+      "title": "Recycled Cashmere Crew Sweater",
+      "brand": "Quince",
+      "category": "apparel",
+      "subcategory": "knitwear",
+      "price": 60,
+      "msrp": 60,
+      "image": "https://picsum.photos/seed/ap-002/400/400",
+      "url": "https://example-affiliate.com/ap-002?tag=aura",
+      "retailer": "Quince",
+      "quality": {
+        "construction": 0.78,
+        "durability": 0.72,
+        "materialGrade": 0.88,
+        "rating": 4.4,
+        "reviewCount": 5400
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "lambswool"
+      ],
+      "keywords": [
+        "crewneck",
+        "sweater",
+        "wool",
+        "budget",
+        "layering",
+        "basic"
+      ],
+      "authorizedSeller": true,
+      "id": "ap-003",
+      "title": "Lambswool Crew Jumper",
+      "brand": "Uniqlo",
+      "category": "apparel",
+      "subcategory": "knitwear",
+      "price": 39,
+      "msrp": 49,
+      "image": "https://picsum.photos/seed/ap-003/400/400",
+      "url": "https://example-affiliate.com/ap-003?tag=aura",
+      "retailer": "Uniqlo",
+      "quality": {
+        "construction": 0.7,
+        "durability": 0.68,
+        "materialGrade": 0.72,
+        "rating": 4.3,
+        "reviewCount": 8800
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "cashmere"
+      ],
+      "keywords": [
+        "crewneck",
+        "sweater",
+        "cashmere",
+        "luxury",
+        "soft"
+      ],
+      "authorizedSeller": true,
+      "id": "ap-004",
+      "title": "Cashmere Crewneck Sweater",
+      "brand": "Naadam",
+      "category": "apparel",
+      "subcategory": "knitwear",
+      "price": 145,
+      "msrp": 165,
+      "image": "https://picsum.photos/seed/ap-004/400/400",
+      "url": "https://example-affiliate.com/ap-004?tag=aura",
+      "retailer": "Naadam",
+      "quality": {
+        "construction": 0.86,
+        "durability": 0.8,
+        "materialGrade": 0.92,
+        "rating": 4.6,
+        "reviewCount": 1600
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "cashmere"
+      ],
+      "keywords": [
+        "crewneck",
+        "sweater",
+        "cashmere",
+        "luxury",
+        "designer"
+      ],
+      "authorizedSeller": true,
+      "id": "ap-005",
+      "title": "Luxury Cashmere Crewneck",
+      "brand": "Loro Piana",
+      "category": "apparel",
+      "subcategory": "knitwear",
+      "price": 1050,
+      "msrp": 1050,
+      "image": "https://picsum.photos/seed/ap-005/400/400",
+      "url": "https://example-affiliate.com/ap-005?tag=aura",
+      "retailer": "Loro Piana",
+      "quality": {
+        "construction": 0.96,
+        "durability": 0.9,
+        "materialGrade": 0.99,
+        "rating": 4.8,
+        "reviewCount": 240
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "organic cotton"
+      ],
+      "keywords": [
+        "t-shirt",
+        "tee",
+        "heavyweight",
+        "boxy",
+        "cotton",
+        "basic"
+      ],
+      "authorizedSeller": true,
+      "id": "ap-010",
+      "title": "Heavyweight Cotton Boxy Tee",
+      "brand": "Everlane",
+      "category": "apparel",
+      "subcategory": "tops",
+      "price": 38,
+      "msrp": 38,
+      "image": "https://picsum.photos/seed/ap-010/400/400",
+      "url": "https://example-affiliate.com/ap-010?tag=aura",
+      "retailer": "Everlane",
+      "quality": {
+        "construction": 0.8,
+        "durability": 0.82,
+        "materialGrade": 0.8,
+        "rating": 4.4,
+        "reviewCount": 3400
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "supima cotton"
+      ],
+      "keywords": [
+        "t-shirt",
+        "tee",
+        "cotton",
+        "basic",
+        "budget",
+        "crew"
+      ],
+      "authorizedSeller": true,
+      "id": "ap-011",
+      "title": "Supima Cotton Crew Tee",
+      "brand": "Uniqlo",
+      "category": "apparel",
+      "subcategory": "tops",
+      "price": 15,
+      "msrp": 20,
+      "image": "https://picsum.photos/seed/ap-011/400/400",
+      "url": "https://example-affiliate.com/ap-011?tag=aura",
+      "retailer": "Uniqlo",
+      "quality": {
+        "construction": 0.74,
+        "durability": 0.75,
+        "materialGrade": 0.78,
+        "rating": 4.5,
+        "reviewCount": 12000
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "cotton"
+      ],
+      "keywords": [
+        "t-shirt",
+        "tee",
+        "heavyweight",
+        "premium",
+        "curved hem"
+      ],
+      "authorizedSeller": true,
+      "id": "ap-012",
+      "title": "Premium Heavyweight Tee",
+      "brand": "Buck Mason",
+      "category": "apparel",
+      "subcategory": "tops",
+      "price": 42,
+      "msrp": 42,
+      "image": "https://picsum.photos/seed/ap-012/400/400",
+      "url": "https://example-affiliate.com/ap-012?tag=aura",
+      "retailer": "Buck Mason",
+      "quality": {
+        "construction": 0.83,
+        "durability": 0.84,
+        "materialGrade": 0.82,
+        "rating": 4.6,
+        "reviewCount": 2900
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "selvedge denim",
+        "cotton"
+      ],
+      "keywords": [
+        "jeans",
+        "denim",
+        "slim",
+        "selvedge",
+        "raw"
+      ],
+      "authorizedSeller": true,
+      "id": "ap-020",
+      "title": "Slim Fit Selvedge Jeans",
+      "brand": "Levi's",
+      "category": "apparel",
+      "subcategory": "denim",
+      "price": 98,
+      "msrp": 128,
+      "image": "https://picsum.photos/seed/ap-020/400/400",
+      "url": "https://example-affiliate.com/ap-020?tag=aura",
+      "retailer": "Levi's",
+      "quality": {
+        "construction": 0.85,
+        "durability": 0.9,
+        "materialGrade": 0.86,
+        "rating": 4.5,
+        "reviewCount": 4100
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "organic cotton"
+      ],
+      "keywords": [
+        "jeans",
+        "denim",
+        "straight",
+        "organic"
+      ],
+      "authorizedSeller": true,
+      "id": "ap-021",
+      "title": "Straight Leg Organic Jeans",
+      "brand": "Everlane",
+      "category": "apparel",
+      "subcategory": "denim",
+      "price": 88,
+      "msrp": 98,
+      "image": "https://picsum.photos/seed/ap-021/400/400",
+      "url": "https://example-affiliate.com/ap-021?tag=aura",
+      "retailer": "Everlane",
+      "quality": {
+        "construction": 0.8,
+        "durability": 0.83,
+        "materialGrade": 0.8,
+        "rating": 4.2,
+        "reviewCount": 1900
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "cotton",
+        "elastane"
+      ],
+      "keywords": [
+        "jeans",
+        "denim",
+        "slim",
+        "tapered",
+        "stretch",
+        "budget"
+      ],
+      "authorizedSeller": true,
+      "id": "ap-022",
+      "title": "Slim Tapered Stretch Jeans",
+      "brand": "Uniqlo",
+      "category": "apparel",
+      "subcategory": "denim",
+      "price": 50,
+      "msrp": 50,
+      "image": "https://picsum.photos/seed/ap-022/400/400",
+      "url": "https://example-affiliate.com/ap-022?tag=aura",
+      "retailer": "Uniqlo",
+      "quality": {
+        "construction": 0.72,
+        "durability": 0.74,
+        "materialGrade": 0.72,
+        "rating": 4.3,
+        "reviewCount": 6600
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "recycled nylon",
+        "down"
+      ],
+      "keywords": [
+        "puffer",
+        "jacket",
+        "down",
+        "warm",
+        "winter",
+        "outdoor"
+      ],
+      "authorizedSeller": true,
+      "id": "ap-030",
+      "title": "Recycled Nylon Puffer Jacket",
+      "brand": "Patagonia",
+      "category": "apparel",
+      "subcategory": "outerwear",
+      "price": 229,
+      "msrp": 229,
+      "image": "https://picsum.photos/seed/ap-030/400/400",
+      "url": "https://example-affiliate.com/ap-030?tag=aura",
+      "retailer": "Patagonia",
+      "quality": {
+        "construction": 0.9,
+        "durability": 0.92,
+        "materialGrade": 0.88,
+        "rating": 4.7,
+        "reviewCount": 3300
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "nylon",
+        "down"
+      ],
+      "keywords": [
+        "puffer",
+        "jacket",
+        "down",
+        "light",
+        "packable",
+        "winter"
+      ],
+      "authorizedSeller": true,
+      "id": "ap-031",
+      "title": "Ultra Light Down Jacket",
+      "brand": "Uniqlo",
+      "category": "apparel",
+      "subcategory": "outerwear",
+      "price": 70,
+      "msrp": 90,
+      "image": "https://picsum.photos/seed/ap-031/400/400",
+      "url": "https://example-affiliate.com/ap-031?tag=aura",
+      "retailer": "Uniqlo",
+      "quality": {
+        "construction": 0.76,
+        "durability": 0.75,
+        "materialGrade": 0.78,
+        "rating": 4.5,
+        "reviewCount": 15000
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "polyester",
+        "down alternative"
+      ],
+      "keywords": [
+        "puffer",
+        "jacket",
+        "coat",
+        "warm",
+        "winter",
+        "budget"
+      ],
+      "authorizedSeller": true,
+      "id": "ap-032",
+      "title": "Down Puffer Coat",
+      "brand": "Amazon Essentials",
+      "category": "apparel",
+      "subcategory": "outerwear",
+      "price": 55,
+      "msrp": 65,
+      "image": "https://picsum.photos/seed/ap-032/400/400",
+      "url": "https://example-affiliate.com/ap-032?tag=aura",
+      "retailer": "Amazon",
+      "quality": {
+        "construction": 0.62,
+        "durability": 0.6,
+        "materialGrade": 0.6,
+        "rating": 4.1,
+        "reviewCount": 9200
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "leather"
+      ],
+      "keywords": [
+        "sneakers",
+        "leather",
+        "minimal",
+        "white",
+        "court",
+        "designer"
+      ],
+      "authorizedSeller": true,
+      "id": "fw-001",
+      "title": "Leather Court Sneakers",
+      "brand": "Common Projects",
+      "category": "footwear",
+      "subcategory": "sneakers",
+      "price": 425,
+      "msrp": 425,
+      "image": "https://picsum.photos/seed/fw-001/400/400",
+      "url": "https://example-affiliate.com/fw-001?tag=aura",
+      "retailer": "SSENSE",
+      "quality": {
+        "construction": 0.92,
+        "durability": 0.85,
+        "materialGrade": 0.93,
+        "rating": 4.6,
+        "reviewCount": 640
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "italian leather"
+      ],
+      "keywords": [
+        "sneakers",
+        "leather",
+        "minimal",
+        "white",
+        "court"
+      ],
+      "authorizedSeller": true,
+      "id": "fw-002",
+      "title": "Minimalist Leather Sneakers",
+      "brand": "Oliver Cabell",
+      "category": "footwear",
+      "subcategory": "sneakers",
+      "price": 198,
+      "msrp": 198,
+      "image": "https://picsum.photos/seed/fw-002/400/400",
+      "url": "https://example-affiliate.com/fw-002?tag=aura",
+      "retailer": "Oliver Cabell",
+      "quality": {
+        "construction": 0.88,
+        "durability": 0.83,
+        "materialGrade": 0.9,
+        "rating": 4.4,
+        "reviewCount": 2100
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "leather"
+      ],
+      "keywords": [
+        "sneakers",
+        "leather",
+        "minimal",
+        "white",
+        "low"
+      ],
+      "authorizedSeller": true,
+      "id": "fw-003",
+      "title": "Clean Leather Low Sneakers",
+      "brand": "GREATS",
+      "category": "footwear",
+      "subcategory": "sneakers",
+      "price": 159,
+      "msrp": 179,
+      "image": "https://picsum.photos/seed/fw-003/400/400",
+      "url": "https://example-affiliate.com/fw-003?tag=aura",
+      "retailer": "GREATS",
+      "quality": {
+        "construction": 0.83,
+        "durability": 0.8,
+        "materialGrade": 0.84,
+        "rating": 4.3,
+        "reviewCount": 3800
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "leather"
+      ],
+      "keywords": [
+        "sneakers",
+        "leather",
+        "white",
+        "trainers",
+        "classic"
+      ],
+      "authorizedSeller": true,
+      "id": "fw-004",
+      "title": "Classic Leather Trainers",
+      "brand": "Cole Haan",
+      "category": "footwear",
+      "subcategory": "sneakers",
+      "price": 110,
+      "msrp": 150,
+      "image": "https://picsum.photos/seed/fw-004/400/400",
+      "url": "https://example-affiliate.com/fw-004?tag=aura",
+      "retailer": "Cole Haan",
+      "quality": {
+        "construction": 0.79,
+        "durability": 0.78,
+        "materialGrade": 0.8,
+        "rating": 4.2,
+        "reviewCount": 5200
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "leather"
+      ],
+      "keywords": [
+        "sneakers",
+        "leather",
+        "white",
+        "ethical",
+        "everyday"
+      ],
+      "authorizedSeller": true,
+      "id": "fw-005",
+      "title": "Everyday Leather Sneakers",
+      "brand": "Nisolo",
+      "category": "footwear",
+      "subcategory": "sneakers",
+      "price": 138,
+      "msrp": 138,
+      "image": "https://picsum.photos/seed/fw-005/400/400",
+      "url": "https://example-affiliate.com/fw-005?tag=aura",
+      "retailer": "Nisolo",
+      "quality": {
+        "construction": 0.85,
+        "durability": 0.82,
+        "materialGrade": 0.86,
+        "rating": 4.5,
+        "reviewCount": 1700
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "merino wool"
+      ],
+      "keywords": [
+        "shoes",
+        "running",
+        "wool",
+        "comfort",
+        "sustainable"
+      ],
+      "authorizedSeller": true,
+      "id": "fw-010",
+      "title": "Wool Runner Shoes",
+      "brand": "Allbirds",
+      "category": "footwear",
+      "subcategory": "running",
+      "price": 110,
+      "msrp": 110,
+      "image": "https://picsum.photos/seed/fw-010/400/400",
+      "url": "https://example-affiliate.com/fw-010?tag=aura",
+      "retailer": "Allbirds",
+      "quality": {
+        "construction": 0.8,
+        "durability": 0.72,
+        "materialGrade": 0.82,
+        "rating": 4.2,
+        "reviewCount": 14000
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "knit",
+        "waterproof membrane"
+      ],
+      "keywords": [
+        "shoes",
+        "running",
+        "knit",
+        "waterproof",
+        "comfort"
+      ],
+      "authorizedSeller": true,
+      "id": "fw-011",
+      "title": "Knit Everyday Runners",
+      "brand": "Vessi",
+      "category": "footwear",
+      "subcategory": "running",
+      "price": 135,
+      "msrp": 145,
+      "image": "https://picsum.photos/seed/fw-011/400/400",
+      "url": "https://example-affiliate.com/fw-011?tag=aura",
+      "retailer": "Vessi",
+      "quality": {
+        "construction": 0.82,
+        "durability": 0.78,
+        "materialGrade": 0.8,
+        "rating": 4.3,
+        "reviewCount": 6100
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "leather"
+      ],
+      "keywords": [
+        "boots",
+        "chelsea",
+        "leather",
+        "goodyear",
+        "dress"
+      ],
+      "authorizedSeller": true,
+      "id": "fw-020",
+      "title": "Leather Chelsea Boots",
+      "brand": "Thursday Boot Co.",
+      "category": "footwear",
+      "subcategory": "boots",
+      "price": 200,
+      "msrp": 200,
+      "image": "https://picsum.photos/seed/fw-020/400/400",
+      "url": "https://example-affiliate.com/fw-020?tag=aura",
+      "retailer": "Thursday",
+      "quality": {
+        "construction": 0.88,
+        "durability": 0.9,
+        "materialGrade": 0.87,
+        "rating": 4.6,
+        "reviewCount": 7200
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "suede"
+      ],
+      "keywords": [
+        "boots",
+        "chelsea",
+        "suede",
+        "durable",
+        "classic"
+      ],
+      "authorizedSeller": true,
+      "id": "fw-021",
+      "title": "Suede Chelsea Boots",
+      "brand": "Blundstone",
+      "category": "footwear",
+      "subcategory": "boots",
+      "price": 220,
+      "msrp": 220,
+      "image": "https://picsum.photos/seed/fw-021/400/400",
+      "url": "https://example-affiliate.com/fw-021?tag=aura",
+      "retailer": "Blundstone",
+      "quality": {
+        "construction": 0.9,
+        "durability": 0.93,
+        "materialGrade": 0.86,
+        "rating": 4.7,
+        "reviewCount": 9800
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "full-grain leather"
+      ],
+      "keywords": [
+        "tote",
+        "bag",
+        "leather",
+        "structured",
+        "work",
+        "minimal"
+      ],
+      "authorizedSeller": true,
+      "id": "ac-001",
+      "title": "Full-Grain Leather Tote",
+      "brand": "Cuyana",
+      "category": "accessories",
+      "subcategory": "bags",
+      "price": 198,
+      "msrp": 198,
+      "image": "https://picsum.photos/seed/ac-001/400/400",
+      "url": "https://example-affiliate.com/ac-001?tag=aura",
+      "retailer": "Cuyana",
+      "quality": {
+        "construction": 0.88,
+        "durability": 0.87,
+        "materialGrade": 0.9,
+        "rating": 4.5,
+        "reviewCount": 2600
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "leather"
+      ],
+      "keywords": [
+        "tote",
+        "bag",
+        "leather",
+        "work",
+        "carryall"
+      ],
+      "authorizedSeller": true,
+      "id": "ac-002",
+      "title": "Leather Work Tote",
+      "brand": "Madewell",
+      "category": "accessories",
+      "subcategory": "bags",
+      "price": 168,
+      "msrp": 188,
+      "image": "https://picsum.photos/seed/ac-002/400/400",
+      "url": "https://example-affiliate.com/ac-002?tag=aura",
+      "retailer": "Madewell",
+      "quality": {
+        "construction": 0.82,
+        "durability": 0.82,
+        "materialGrade": 0.83,
+        "rating": 4.3,
+        "reviewCount": 4400
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "vegan leather"
+      ],
+      "keywords": [
+        "tote",
+        "bag",
+        "vegan",
+        "work",
+        "minimal",
+        "budget"
+      ],
+      "authorizedSeller": true,
+      "id": "ac-003",
+      "title": "Vegan Leather Tote",
+      "brand": "Quince",
+      "category": "accessories",
+      "subcategory": "bags",
+      "price": 80,
+      "msrp": 80,
+      "image": "https://picsum.photos/seed/ac-003/400/400",
+      "url": "https://example-affiliate.com/ac-003?tag=aura",
+      "retailer": "Quince",
+      "quality": {
+        "construction": 0.72,
+        "durability": 0.68,
+        "materialGrade": 0.7,
+        "rating": 4.1,
+        "reviewCount": 3100
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "stainless steel",
+        "sapphire"
+      ],
+      "keywords": [
+        "watch",
+        "automatic",
+        "field",
+        "mechanical",
+        "classic"
+      ],
+      "authorizedSeller": true,
+      "id": "ac-010",
+      "title": "Automatic Field Watch",
+      "brand": "Hamilton",
+      "category": "accessories",
+      "subcategory": "watches",
+      "price": 495,
+      "msrp": 545,
+      "image": "https://picsum.photos/seed/ac-010/400/400",
+      "url": "https://example-affiliate.com/ac-010?tag=aura",
+      "retailer": "Hamilton",
+      "quality": {
+        "construction": 0.93,
+        "durability": 0.9,
+        "materialGrade": 0.92,
+        "rating": 4.7,
+        "reviewCount": 1200
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "stainless steel",
+        "hardlex"
+      ],
+      "keywords": [
+        "watch",
+        "automatic",
+        "field",
+        "mechanical",
+        "value"
+      ],
+      "authorizedSeller": true,
+      "id": "ac-011",
+      "title": "Mechanical Field Watch",
+      "brand": "Seiko",
+      "category": "accessories",
+      "subcategory": "watches",
+      "price": 195,
+      "msrp": 250,
+      "image": "https://picsum.photos/seed/ac-011/400/400",
+      "url": "https://example-affiliate.com/ac-011?tag=aura",
+      "retailer": "Seiko",
+      "quality": {
+        "construction": 0.86,
+        "durability": 0.88,
+        "materialGrade": 0.84,
+        "rating": 4.6,
+        "reviewCount": 5600
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "stainless steel",
+        "mineral glass"
+      ],
+      "keywords": [
+        "watch",
+        "automatic",
+        "field",
+        "affordable",
+        "classic"
+      ],
+      "authorizedSeller": true,
+      "id": "ac-012",
+      "title": "Automatic Field Watch 38mm",
+      "brand": "Timex",
+      "category": "accessories",
+      "subcategory": "watches",
+      "price": 109,
+      "msrp": 139,
+      "image": "https://picsum.photos/seed/ac-012/400/400",
+      "url": "https://example-affiliate.com/ac-012?tag=aura",
+      "retailer": "Timex",
+      "quality": {
+        "construction": 0.74,
+        "durability": 0.76,
+        "materialGrade": 0.72,
+        "rating": 4.3,
+        "reviewCount": 3400
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "acetate",
+        "glass lens"
+      ],
+      "keywords": [
+        "sunglasses",
+        "wayfarer",
+        "acetate",
+        "classic",
+        "uv"
+      ],
+      "authorizedSeller": true,
+      "id": "ac-020",
+      "title": "Acetate Wayfarer Sunglasses",
+      "brand": "Ray-Ban",
+      "category": "accessories",
+      "subcategory": "sunglasses",
+      "price": 171,
+      "msrp": 171,
+      "image": "https://picsum.photos/seed/ac-020/400/400",
+      "url": "https://example-affiliate.com/ac-020?tag=aura",
+      "retailer": "Ray-Ban",
+      "quality": {
+        "construction": 0.86,
+        "durability": 0.82,
+        "materialGrade": 0.88,
+        "rating": 4.6,
+        "reviewCount": 20000
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "acetate",
+        "polycarbonate lens"
+      ],
+      "keywords": [
+        "sunglasses",
+        "wayfarer",
+        "acetate",
+        "classic",
+        "uv",
+        "value"
+      ],
+      "authorizedSeller": true,
+      "id": "ac-021",
+      "title": "Handmade Acetate Sunglasses",
+      "brand": "Warby Parker",
+      "category": "accessories",
+      "subcategory": "sunglasses",
+      "price": 95,
+      "msrp": 95,
+      "image": "https://picsum.photos/seed/ac-021/400/400",
+      "url": "https://example-affiliate.com/ac-021?tag=aura",
+      "retailer": "Warby Parker",
+      "quality": {
+        "construction": 0.8,
+        "durability": 0.78,
+        "materialGrade": 0.8,
+        "rating": 4.4,
+        "reviewCount": 7800
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "plastic",
+        "synthetic leather"
+      ],
+      "keywords": [
+        "headphones",
+        "wireless",
+        "noise cancelling",
+        "anc",
+        "over-ear",
+        "bluetooth"
+      ],
+      "authorizedSeller": true,
+      "id": "el-001",
+      "title": "Wireless Noise Cancelling Headphones",
+      "brand": "Sony",
+      "category": "electronics",
+      "subcategory": "headphones",
+      "price": 348,
+      "msrp": 399,
+      "image": "https://picsum.photos/seed/el-001/400/400",
+      "url": "https://example-affiliate.com/el-001?tag=aura",
+      "retailer": "Amazon",
+      "quality": {
+        "construction": 0.88,
+        "durability": 0.85,
+        "materialGrade": 0.86,
+        "rating": 4.7,
+        "reviewCount": 42000
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "plastic",
+        "memory foam"
+      ],
+      "keywords": [
+        "headphones",
+        "wireless",
+        "noise cancelling",
+        "anc",
+        "over-ear",
+        "bluetooth",
+        "value"
+      ],
+      "authorizedSeller": true,
+      "id": "el-002",
+      "title": "Over-Ear ANC Headphones",
+      "brand": "Anker Soundcore",
+      "category": "electronics",
+      "subcategory": "headphones",
+      "price": 99,
+      "msrp": 130,
+      "image": "https://picsum.photos/seed/el-002/400/400",
+      "url": "https://example-affiliate.com/el-002?tag=aura",
+      "retailer": "Amazon",
+      "quality": {
+        "construction": 0.76,
+        "durability": 0.74,
+        "materialGrade": 0.72,
+        "rating": 4.4,
+        "reviewCount": 31000
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "plastic",
+        "protein leather"
+      ],
+      "keywords": [
+        "headphones",
+        "wireless",
+        "noise cancelling",
+        "anc",
+        "over-ear",
+        "bluetooth",
+        "premium"
+      ],
+      "authorizedSeller": true,
+      "id": "el-003",
+      "title": "Premium ANC Headphones",
+      "brand": "Bose",
+      "category": "electronics",
+      "subcategory": "headphones",
+      "price": 379,
+      "msrp": 429,
+      "image": "https://picsum.photos/seed/el-003/400/400",
+      "url": "https://example-affiliate.com/el-003?tag=aura",
+      "retailer": "Amazon",
+      "quality": {
+        "construction": 0.9,
+        "durability": 0.86,
+        "materialGrade": 0.88,
+        "rating": 4.6,
+        "reviewCount": 18000
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "plastic"
+      ],
+      "keywords": [
+        "earbuds",
+        "wireless",
+        "noise cancelling",
+        "anc",
+        "bluetooth",
+        "in-ear"
+      ],
+      "authorizedSeller": true,
+      "id": "el-010",
+      "title": "Wireless ANC Earbuds",
+      "brand": "Apple",
+      "category": "electronics",
+      "subcategory": "earbuds",
+      "price": 249,
+      "msrp": 249,
+      "image": "https://picsum.photos/seed/el-010/400/400",
+      "url": "https://example-affiliate.com/el-010?tag=aura",
+      "retailer": "Apple",
+      "quality": {
+        "construction": 0.88,
+        "durability": 0.8,
+        "materialGrade": 0.84,
+        "rating": 4.7,
+        "reviewCount": 55000
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "plastic"
+      ],
+      "keywords": [
+        "earbuds",
+        "wireless",
+        "noise cancelling",
+        "anc",
+        "bluetooth",
+        "in-ear",
+        "value"
+      ],
+      "authorizedSeller": true,
+      "id": "el-011",
+      "title": "Noise Cancelling Earbuds",
+      "brand": "Nothing",
+      "category": "electronics",
+      "subcategory": "earbuds",
+      "price": 149,
+      "msrp": 149,
+      "image": "https://picsum.photos/seed/el-011/400/400",
+      "url": "https://example-affiliate.com/el-011?tag=aura",
+      "retailer": "Amazon",
+      "quality": {
+        "construction": 0.8,
+        "durability": 0.76,
+        "materialGrade": 0.78,
+        "rating": 4.4,
+        "reviewCount": 12000
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "plastic"
+      ],
+      "keywords": [
+        "earbuds",
+        "wireless",
+        "noise cancelling",
+        "anc",
+        "bluetooth",
+        "in-ear",
+        "budget"
+      ],
+      "authorizedSeller": true,
+      "id": "el-012",
+      "title": "Budget ANC Earbuds",
+      "brand": "Anker Soundcore",
+      "category": "electronics",
+      "subcategory": "earbuds",
+      "price": 79,
+      "msrp": 100,
+      "image": "https://picsum.photos/seed/el-012/400/400",
+      "url": "https://example-affiliate.com/el-012?tag=aura",
+      "retailer": "Amazon",
+      "quality": {
+        "construction": 0.72,
+        "durability": 0.7,
+        "materialGrade": 0.68,
+        "rating": 4.3,
+        "reviewCount": 28000
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "long-staple cotton"
+      ],
+      "keywords": [
+        "sheets",
+        "bedding",
+        "percale",
+        "cotton",
+        "crisp",
+        "queen"
+      ],
+      "authorizedSeller": true,
+      "id": "hm-001",
+      "title": "Percale Cotton Sheet Set",
+      "brand": "Brooklinen",
+      "category": "home",
+      "subcategory": "bedding",
+      "price": 149,
+      "msrp": 179,
+      "image": "https://picsum.photos/seed/hm-001/400/400",
+      "url": "https://example-affiliate.com/hm-001?tag=aura",
+      "retailer": "Brooklinen",
+      "quality": {
+        "construction": 0.84,
+        "durability": 0.82,
+        "materialGrade": 0.86,
+        "rating": 4.5,
+        "reviewCount": 16000
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "long-staple cotton"
+      ],
+      "keywords": [
+        "sheets",
+        "bedding",
+        "percale",
+        "cotton",
+        "crisp",
+        "value"
+      ],
+      "authorizedSeller": true,
+      "id": "hm-002",
+      "title": "Percale Sheet Set",
+      "brand": "Quince",
+      "category": "home",
+      "subcategory": "bedding",
+      "price": 90,
+      "msrp": 90,
+      "image": "https://picsum.photos/seed/hm-002/400/400",
+      "url": "https://example-affiliate.com/hm-002?tag=aura",
+      "retailer": "Quince",
+      "quality": {
+        "construction": 0.8,
+        "durability": 0.79,
+        "materialGrade": 0.85,
+        "rating": 4.4,
+        "reviewCount": 9400
+      }
+    },
+    {
+      "currency": "USD",
+      "materials": [
+        "organic cotton"
+      ],
+      "keywords": [
+        "sheets",
+        "bedding",
+        "percale",
+        "cotton",
+        "organic",
+        "budget"
+      ],
+      "authorizedSeller": true,
+      "id": "hm-003",
+      "title": "Organic Percale Sheets",
+      "brand": "Target Casaluna",
+      "category": "home",
+      "subcategory": "bedding",
+      "price": 60,
+      "msrp": 70,
+      "image": "https://picsum.photos/seed/hm-003/400/400",
+      "url": "https://example-affiliate.com/hm-003?tag=aura",
+      "retailer": "Target",
+      "quality": {
+        "construction": 0.72,
+        "durability": 0.72,
+        "materialGrade": 0.76,
+        "rating": 4.3,
+        "reviewCount": 6800
+      }
+    }
+  ]
+}
