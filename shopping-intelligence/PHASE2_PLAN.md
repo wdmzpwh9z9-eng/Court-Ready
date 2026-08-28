@@ -149,3 +149,30 @@ Live crawlers/affiliate feeds (Phase 3) and personalization/price-history/feedba
    Plan above assumes *bundle*; say the word if you'd rather go lean.
 2. **Recall target** (+25 pts top‑3 on the fixture) — good as the bar, or set a
    different one?
+
+---
+
+## Resume point (paused — pick up next session)
+
+**Decisions settled so far:**
+- Embedding approach: **in-browser CLIP (image + text)** — approved.
+- Recall target: **+25 pts top‑3 over lexical** — approved.
+- Delivery (bundle vs. download): left to my judgement. Leaning
+  **download-on-first-use, pinned + integrity-checked + IndexedDB-cached**,
+  because it keeps the repo/Web-Store package lean and avoids committing a
+  large binary (see the environment finding below).
+
+**Environment finding (important):** in this session the agent proxy
+**blocks `huggingface.co` (403)**, so the CLIP model can't be downloaded or run
+here. Consequence: `tools/build-embeddings.mjs` must be run somewhere the model
+host is reachable (a normal dev machine / the browser), and any in-session build
+must treat the actual CLIP inference as *coded-but-unverified here*.
+
+**Next action when resuming:** decide the build path — (a) write full Phase 2
+now and verify the model parts later off-session, or (b) build only the
+model-independent plumbing (vector store, matcher wiring, weight
+re-normalization, fallback, tests — all verifiable here) and slot the model in
+when there's model access. This choice was deferred at pause time.
+
+**Repo state at pause:** Phase 1 shipped and green; this plan committed. No CI
+configured. Nothing half-written in the tree.
