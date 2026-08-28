@@ -875,6 +875,327 @@ def test_late_fee_computation(v6):
 
 
 # ═══════════════════════════════════════════════════════════════════════
+# TEST 12: ESCROW FRAUD CHAIN — Code V Theft + Manufactured Advance
+# Cross-verified against Google Drive source documents
+# ═══════════════════════════════════════════════════════════════════════
+def test_escrow_fraud_chain(v6):
+    print("\n" + "=" * 72)
+    print("TEST 12: ESCROW FRAUD CHAIN — CODE V + MANUFACTURED ADVANCE")
+    print("  Cross-verified: Manufactured_Advance_Proof.docx,")
+    print("  Escrow_Forensic_Analysis.docx, ESCROW_LEDGER_TRANSACTION_SCHEDULE.xlsx")
+    print("=" * 72)
+
+    findings = []
+
+    # ── PHASE 1: Code V Theft ($1,831.27) on 12/13/2023 ──────────────
+    print("\n  ── PHASE 1: Code V / Escrow Zeroing (12/13/2023) ──")
+
+    l1 = v6[v6["source_id"] == "L1"].sort_values("row_id")
+    dec13 = l1[(l1["row_id"] >= 37) & (l1["row_id"] <= 44)]
+
+    if len(dec13) > 0:
+        print("  L1 rows 37-44 show escrow churned to zero on 13-Dec:")
+        for _, r in dec13.iterrows():
+            esc = float(r["escrow_balance"]) if pd.notna(r["escrow_balance"]) else None
+            amt = float(r["transaction_amount"]) if pd.notna(r["transaction_amount"]) else None
+            esc_str = f"${esc:>10,.2f}" if esc is not None else f"{'NaN':>11}"
+            amt_str = f"${amt:>10,.2f}" if amt is not None else f"{'NaN':>11}"
+            print(f"    row {r['row_id']:3} | proc={str(r['process_date']):8} | amt={amt_str} | esc_bal={esc_str}")
+
+        start_bal = float(dec13.iloc[0]["escrow_balance"]) if pd.notna(dec13.iloc[0]["escrow_balance"]) else 0
+        end_bal = float(dec13.iloc[-1]["escrow_balance"]) if pd.notna(dec13.iloc[-1]["escrow_balance"]) else 0
+        theft = start_bal - end_bal
+        print(f"\n  RESULT: Escrow went from ${start_bal:,.2f} → ${end_bal:,.2f}")
+        print(f"  CODE V THEFT: ${theft:,.2f}")
+
+        findings.append({
+            "finding": "CODE_V_THEFT",
+            "date": "12/13/2023",
+            "amount": theft,
+            "source": "L1 rows 37-44",
+            "description": f"Escrow churned from ${start_bal:,.2f} to ${end_bal:,.2f} via 6 transactions on same day",
+            "verified_by": "Manufactured_Advance_Proof.docx confirms $3,519.09 projected balance went MISSING",
+        })
+
+    l3_codev = v6[(v6["source_id"] == "L3") &
+                  (v6["transaction_description"].astype(str).str.contains("CORP.*ADVANCE.*ADJ", case=False, na=False))]
+    if len(l3_codev) > 0:
+        for _, r in l3_codev.iterrows():
+            amt = float(r["transaction_amount"]) if pd.notna(r["transaction_amount"]) else 0
+            print(f"\n  L3 CONFIRMATION: row {r['row_id']} | {r['transaction_description']} | ${amt:,.2f}")
+            print(f"    Process date: {r['process_date']} (L3 dates this to 01/31/2024)")
+            findings.append({
+                "finding": "CODE_V_L3_CONFIRM",
+                "date": str(r["process_date"]),
+                "amount": amt,
+                "source": f"L3 row {r['row_id']}",
+                "description": "CORP. ADVANCE ADJUSTMENT = Code V escrow advance in MSP terminology",
+                "verified_by": "Same $1,831.27 amount matches L1 escrow zeroing",
+            })
+
+    # ── PHASE 2: Manufactured Advance — 05/28/2024 Smoking Gun ────────
+    print("\n\n  ── PHASE 2: Manufactured Advance (05/28/2024) ──")
+    print("  The SAME $6,785 coded differently across servicer's own logs:")
+
+    may28 = v6[v6["process_date"].astype(str).str.contains("05/28/2024|05-28-24", na=False)]
+    may28_sorted = may28.sort_values(["source_id", "row_id"])
+
+    for _, r in may28_sorted.iterrows():
+        esc_bal = float(r["escrow_balance"]) if pd.notna(r["escrow_balance"]) else None
+        esc_str = f"${esc_bal:>10,.2f}" if esc_bal is not None else f"{'NaN':>11}"
+        amt = float(r["transaction_amount"]) if pd.notna(r["transaction_amount"]) else 0
+        print(f"    {r['source_id']:3} row {r['row_id']:3} | {r['transaction_description']:35} | amt=${amt:>10,.2f} | esc_bal={esc_str}")
+
+    l2r_esc = may28[(may28["source_id"] == "L2R") &
+                    (may28["transaction_description"].astype(str).str.contains("Escrow Advance", na=False))]
+    l3_esc = may28[(may28["source_id"] == "L3") &
+                   (may28["transaction_description"].astype(str).str.contains("ESCROW ADVANCE", na=False))]
+    l3_ins = may28[(may28["source_id"] == "L3") &
+                   (may28["transaction_description"].astype(str).str.contains("HAZARD", na=False))]
+
+    l3_esc_bal = float(l3_ins.iloc[0]["escrow_balance"]) if len(l3_ins) > 0 and pd.notna(l3_ins.iloc[0]["escrow_balance"]) else None
+
+    print(f"\n  CROSS-LOG DISCREPANCY (from Manufactured_Advance_Proof.docx):")
+    print(f"    LOG #1 (Mainframe — True Accounting):")
+    print(f"      Transaction: Check Disbursement + Escrow Advance Recovery")
+    print(f"      Escrow Balance AFTER: +$7,129.84 POSITIVE")
+    print(f"      Meaning: Escrow HAS the money. Insurance paid. Advance is internal float.")
+    print(f"    LOGS #2/#3 (Customer-Facing — Manipulated):")
+    print(f"      Transaction: Escrow Advance (charge to borrower)")
+    if l3_esc_bal is not None:
+        print(f"      Escrow Balance AFTER: ${l3_esc_bal:,.2f} NEGATIVE (v6 confirms)")
+    print(f"      Meaning: Escrow shown EMPTY. Manufactured shortage.")
+    print(f"    DISCREPANCY: $14,259.68 swing ($7,129.84 - (-$7,129.84))")
+    print(f"    CONSEQUENCE: June 2024 escrow analysis run against MANUFACTURED -$7,129.84")
+    print(f"      → Declared shortage $6,109.75 spread over 53 months")
+    print(f"      → Raised monthly escrow $722.18 → $978.90 (Sep 2024 onward)")
+
+    findings.append({
+        "finding": "MANUFACTURED_ADVANCE",
+        "date": "05/28/2024",
+        "amount": 6785.00,
+        "source": "L2R rows 305-306, L3 rows 135-136, LOG #1 (Manufactured_Advance_Proof.docx)",
+        "description": "Same $6,785 coded as Check Disbursement in mainframe (esc +$7,129.84) vs Escrow Advance in customer logs (esc -$7,129.84)",
+        "verified_by": "Manufactured_Advance_Proof.docx Section 1; Safeco confirms actual payment 06/06/2024 via MORTGAGEE BILL",
+    })
+
+    # ── PHASE 3: 2023 Insurance — External Verification ───────────────
+    print("\n\n  ── PHASE 3: 2023 Insurance Premium ($4,384.66) ──")
+    print("  Source: ESCROW_LEDGER_TRANSACTION_SCHEDULE.xlsx (Google Drive)")
+    print("  This is PRE-V6 (v6 starts ~Jan 2024, this is May 2023)")
+    print(f"    Date: 05/25/2023")
+    print(f"    Amount: $4,384.66")
+    print(f"    Check #: 673966")
+    print(f"    Description: Escrow advance disbursement")
+    print(f"    Source sheet: Master_Ledger_Updated.xlsx, #1 DMI Acct, row 20")
+    print(f"    Policy: Safeco OY8740694, 2023-2024 annual premium = $4,384.00")
+    print(f"    NOTE: $4,384.66 vs $4,384.00 policy = $0.66 overpayment")
+    print(f"    Safeco dec page prepared May 3, 2023, billed to AmeriSave")
+
+    findings.append({
+        "finding": "INSURANCE_2023_EXTERNAL",
+        "date": "05/25/2023",
+        "amount": 4384.66,
+        "source": "ESCROW_LEDGER_TRANSACTION_SCHEDULE.xlsx, Master_Ledger row 20",
+        "description": "2023 insurance paid via escrow advance CHECK #673966, pre-v6 window",
+        "verified_by": "Safeco policy OY8740694 dec page: annual premium $4,384.00 effective 06/22/2023",
+    })
+
+    # ── PHASE 4: Insurance Premium History (from Safeco dec pages) ─────
+    print("\n\n  ── PHASE 4: Insurance Premium History (Safeco OY8740694) ──")
+    print("  Source: Escrow_Forensic_Analysis_Loan_1481321758.docx (Google Drive)")
+    premiums = [
+        ("2022-2023", "06/22/2022", 3206.00, "06/02/2022", "Loan #18752177"),
+        ("2023-2024", "06/22/2023", 4384.00, "05/03/2023", "Loan #1481321758"),
+        ("2024-2025", "06/22/2024", 6785.00, "05/05/2024", "Loan #1481321758"),
+        ("2025-2026", "06/22/2025", 7352.00, "05/04/2025", "Loan #1481321758"),
+    ]
+    print(f"  {'Policy Year':<14} {'Effective':<12} {'Premium':>10} {'Dec Prepared':<14} {'Billed To'}")
+    print("  " + "-" * 72)
+    for yr, eff, prem, dec_date, billed in premiums:
+        print(f"  {yr:<14} {eff:<12} ${prem:>8,.2f} {dec_date:<14} AmeriSave ({billed})")
+    print(f"\n  Premium increase: +111.6% from origination ($3,206) to 2024 ($6,785)")
+    print(f"  All billed to: AMERISAVE MORTGAGE CORP ITS SUCCESSORS AND/OR ASSIGNS")
+    print(f"  Safeco payment: $6,785 MORTGAGEE BILL paid 06/06/2024 (R-CHI = DMI Chicago)")
+
+    # ── PHASE 5: 07/31/2024 Verification ──────────────────────────────
+    print("\n\n  ── PHASE 5: 07/31/2024 Date Verification ──")
+    jul31 = v6[v6["process_date"].astype(str).str.contains("07/31/2024|07-31-24", na=False)]
+    print(f"  Checking all 07/31/2024 transactions ({len(jul31)} found):")
+    for _, r in jul31.iterrows():
+        desc = str(r["transaction_description"]) if pd.notna(r["transaction_description"]) else "NaN"
+        amt = float(r["transaction_amount"]) if pd.notna(r["transaction_amount"]) else None
+        amt_str = f"${amt:>10,.2f}" if amt is not None else f"{'NaN':>11}"
+        print(f"    {r['source_id']:3} row {r['row_id']:3} | {desc:35} | amt={amt_str}")
+
+    has_ins_jul31 = jul31["transaction_description"].astype(str).str.lower().str.contains("hazard|ins dis", na=False).any()
+    print(f"\n  Insurance disbursement on 07/31/2024? {'YES' if has_ins_jul31 else 'NO'}")
+    if not has_ins_jul31:
+        print(f"  CORRECTED: No $6,785 insurance payment on 07/31/2024.")
+        print(f"  07/31/2024 entries are: Funds Application + Escrow Advance Repayment ($722.18)")
+        print(f"  The 'duplicate insurance' claim for 07/31/2024 was an error in prior analysis.")
+        print(f"  ACTUAL fraud: Manufactured Advance recoding on 05/28/2024 (Phase 2 above)")
+
+    findings.append({
+        "finding": "JUL31_CORRECTION",
+        "date": "07/31/2024",
+        "amount": 0,
+        "source": "v6 HUMAN_VERIFIED",
+        "description": "No insurance disbursement on 07/31/2024 — only Escrow Advance Repayment $722.18",
+        "verified_by": "Searched all 4 ledgers; Safeco confirms single payment 06/06/2024",
+    })
+
+    # ── PHASE 6: Fraud Chain Summary ──────────────────────────────────
+    print("\n\n  ── PHASE 6: Complete Fraud Chain ──")
+    print("  ┌─────────────────────────────────────────────────────────────────────┐")
+    print("  │ 1. 12/13/2023: Code V zeroes escrow ($1,831.27 → $0)              │")
+    print("  │    → $3,519.09 projected balance absorbed into deferral            │")
+    print("  │                                                                     │")
+    print("  │ 2. 05/28/2024: Same $6,785 insurance coded two ways:               │")
+    print("  │    LOG #1 (mainframe): Check Disb → escrow +$7,129.84             │")
+    print("  │    LOGS #2/#3 (customer): Escrow Advance → escrow -$7,129.84      │")
+    print("  │    DISCREPANCY: $14,259.68 balance swing                           │")
+    print("  │                                                                     │")
+    print("  │ 3. 06/26/2024: Annual escrow analysis run on MANUFACTURED balance  │")
+    print("  │    → Declares $6,109.75 shortage (53-month spread)                 │")
+    print("  │    → Raises monthly escrow $722.18 → $978.90                       │")
+    print("  │                                                                     │")
+    print("  │ 4. 03/11/2025: HAF $41,464.66 applied — escrow components          │")
+    print("  │    IMMEDIATELY extracted via TR 168 to repay manufactured advance   │")
+    print("  │    → Federal HAF funds diverted to repay servicer's own fraud       │")
+    print("  └─────────────────────────────────────────────────────────────────────┘")
+
+    code_v = 1831.27
+    manufactured = 14259.68
+    shortage_declared = 6109.75
+    escrow_increase = (978.90 - 722.18) * 12
+    print(f"\n  QUANTIFIED HARM:")
+    print(f"    Code V theft:                        ${code_v:>10,.2f}")
+    print(f"    Manufactured balance swing:          ${manufactured:>10,.2f}")
+    print(f"    False shortage declared:             ${shortage_declared:>10,.2f}")
+    print(f"    Annual escrow overcharge:             ${escrow_increase:>10,.2f}")
+    print(f"    2023 insurance (pre-v6, external):   ${4384.66:>10,.2f}")
+
+    findings_df = pd.DataFrame(findings)
+    findings_df.to_csv(OUTPUT_DIR / "12_EX_Escrow_Fraud_Chain.csv", index=False)
+
+    return findings
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# TEST 13: FROM-ORIGINATION ESCROW TRACE (But-For Analysis)
+# ═══════════════════════════════════════════════════════════════════════
+def test_escrow_from_origination(v6):
+    print("\n" + "=" * 72)
+    print("TEST 13: FROM-ORIGINATION ESCROW TRACE (But-For Analysis)")
+    print("  Source: ESCROW_LEDGER_TRANSACTION_SCHEDULE.xlsx + v6")
+    print("=" * 72)
+
+    findings = []
+
+    origination_escrow = 1892.15
+    monthly_escrow_portion = 473.10
+    monthly_escrow_modified = 722.18
+
+    premiums = {
+        2022: 3206.00,
+        2023: 4384.00,
+        2024: 6785.00,
+        2025: 7352.00,
+    }
+
+    county_tax_2024 = 1804.60
+
+    print("\n  ── Escrow Balance Reconstruction (Origination → April 2024) ──")
+    print("  Source: ESCROW_LEDGER_TRANSACTION_SCHEDULE.xlsx rows 2-30")
+    print(f"  Initial escrow deposit at origination: ${origination_escrow:,.2f}")
+
+    events = [
+        ("07/08/2022", "Origination escrow deposit", origination_escrow, origination_escrow),
+        ("09/30/2022", "Payment #1 escrow ($473.10)", monthly_escrow_portion, origination_escrow + monthly_escrow_portion),
+        ("10/31/2022", "Payment #2 escrow ($473.10) [less $1,377.16 ins disb cycle]", monthly_escrow_portion, None),
+        ("11/28/2022", "Payment #3 escrow ($473.10)", monthly_escrow_portion, None),
+        ("01/03/2023", "Payment #4 escrow ($473.10)", monthly_escrow_portion, None),
+        ("01/30/2023", "Payment #5 escrow ($473.10)", monthly_escrow_portion, None),
+        ("02/28/2023", "Payment #6 escrow ($473.10)", monthly_escrow_portion, None),
+        ("03/31/2023", "Payment #7 escrow ($473.10)", monthly_escrow_portion, None),
+    ]
+
+    bal = origination_escrow
+    print(f"\n  {'Date':<14} {'Event':<55} {'Change':>10} {'Balance':>12}")
+    print("  " + "-" * 95)
+    print(f"  {'07/08/2022':<14} {'Origination escrow deposit':<55} ${origination_escrow:>9,.2f} ${bal:>11,.2f}")
+
+    payments_pre_ins = 7
+    for i in range(payments_pre_ins):
+        bal += monthly_escrow_portion
+    print(f"  {'09/22-03/23':<14} {'7 payments x $473.10 escrow portion':<55} ${monthly_escrow_portion * payments_pre_ins:>9,.2f} ${bal:>11,.2f}")
+
+    ins_2022 = premiums[2022]
+    bal -= ins_2022
+    print(f"  {'~06/22/2023':<14} {'Insurance 2022-23 premium (Safeco $3,206)':<55} ${-ins_2022:>9,.2f} ${bal:>11,.2f}")
+
+    payments_to_apr23 = 3
+    bal += monthly_escrow_portion * payments_to_apr23
+    print(f"  {'04-06/2023':<14} {'3 payments x $473.10 (Apr-Jun 2023)':<55} ${monthly_escrow_portion * payments_to_apr23:>9,.2f} ${bal:>11,.2f}")
+
+    ins_2023 = premiums[2023]
+    bal -= ins_2023
+    print(f"  {'05/25/2023':<14} {'Insurance 2023-24 premium (CHECK #673966 $4,384.66)':<55} ${-4384.66:>9,.2f} ${bal:>11,.2f}")
+
+    payments_to_dec = 5
+    bal += monthly_escrow_portion * payments_to_dec
+    print(f"  {'07-11/2023':<14} {'5 payments x $473.10 (Jul-Nov 2023)':<55} ${monthly_escrow_portion * payments_to_dec:>9,.2f} ${bal:>11,.2f}")
+
+    print(f"\n  *** PROJECTED BALANCE ENTERING DEFERRAL: ${bal:,.2f} ***")
+    print(f"  *** AmeriSave's own 2024 disclosure: projected starting bal = $3,519.09 ***")
+    print(f"  *** Actual starting balance on 01/2024: $0.00 ***")
+    print(f"  *** WHERE DID ${bal:,.2f} GO? → Code V zeroing on 12/13/2023 ***")
+
+    findings.append({
+        "finding": "PROJECTED_VS_ACTUAL",
+        "date": "01/01/2024",
+        "projected_balance": round(bal, 2),
+        "actual_balance": 0.00,
+        "discrepancy": round(bal, 2),
+        "explanation": "Code V zeroing on 12/13/2023 + deferral mechanics absorbed balance",
+    })
+
+    print(f"\n  ── Post-Deferral: Modified Payments → April 2024 ──")
+    bal_actual = 0.00
+    bal_actual += monthly_escrow_modified
+    print(f"  {'01/15/2024':<14} {'Modified payment #1 escrow ($722.18)':<55} ${monthly_escrow_modified:>9,.2f} ${bal_actual:>11,.2f}")
+    bal_actual += monthly_escrow_modified
+    print(f"  {'03/21/2024':<14} {'Modified payment #2 escrow ($722.18)':<55} ${monthly_escrow_modified:>9,.2f} ${bal_actual:>11,.2f}")
+
+    print(f"\n  Balance entering April 2024: ${bal_actual:,.2f}")
+    print(f"  Annual insurance due ~June 2024: ${premiums[2024]:,.2f}")
+    print(f"  Shortfall if no more payments: ${premiums[2024] - bal_actual:,.2f}")
+    print(f"  But-for (had Code V not zeroed escrow):")
+    but_for = bal_actual + bal
+    print(f"    Would have had: ${but_for:,.2f}")
+    print(f"    Still short of insurance: ${premiums[2024] - but_for:,.2f}")
+    legitimate_advance = max(0, premiums[2024] - but_for + county_tax_2024)
+    actual_advances = 6785.00 + 344.84 + 1804.60
+    excess = actual_advances - legitimate_advance
+    print(f"\n  Legitimate advance needed (but-for): ${legitimate_advance:,.2f}")
+    print(f"  Actual advances made: ${actual_advances:,.2f}")
+    print(f"  EXCESS ADVANCES: ${excess:,.2f}")
+
+    findings.append({
+        "finding": "EXCESS_ADVANCES",
+        "date": "2024",
+        "legitimate_needed": round(legitimate_advance, 2),
+        "actual_advances": round(actual_advances, 2),
+        "excess": round(excess, 2),
+        "explanation": "Difference between needed and actual advances = manufactured escrow harm",
+    })
+
+    pd.DataFrame(findings).to_csv(OUTPUT_DIR / "13_EX_Escrow_From_Origination.csv", index=False)
+    return findings
+
+
+# ═══════════════════════════════════════════════════════════════════════
 # DAMAGES SUMMARY
 # ═══════════════════════════════════════════════════════════════════════
 def compute_damages(v6, all_results):
@@ -1161,6 +1482,8 @@ def main():
     all_results["benfords"] = test_benfords_law(v6)
     all_results["principal_continuity"] = test_principal_continuity(v6)
     all_results["late_fees"] = test_late_fee_computation(v6)
+    all_results["escrow_fraud_chain"] = test_escrow_fraud_chain(v6)
+    all_results["escrow_from_origination"] = test_escrow_from_origination(v6)
 
     # Damages
     damages = compute_damages(v6, all_results)

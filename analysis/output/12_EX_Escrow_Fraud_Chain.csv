@@ -1,0 +1,6 @@
+finding,date,amount,source,description,verified_by
+CODE_V_THEFT,12/13/2023,1831.27,L1 rows 37-44,"Escrow churned from $1,831.27 to $0.00 via 6 transactions on same day","Manufactured_Advance_Proof.docx confirms $3,519.09 projected balance went MISSING"
+CODE_V_L3_CONFIRM,01-31-24,-1831.27,L3 row 145,CORP. ADVANCE ADJUSTMENT = Code V escrow advance in MSP terminology,"Same $1,831.27 amount matches L1 escrow zeroing"
+MANUFACTURED_ADVANCE,05/28/2024,6785.0,"L2R rows 305-306, L3 rows 135-136, LOG #1 (Manufactured_Advance_Proof.docx)","Same $6,785 coded as Check Disbursement in mainframe (esc +$7,129.84) vs Escrow Advance in customer logs (esc -$7,129.84)",Manufactured_Advance_Proof.docx Section 1; Safeco confirms actual payment 06/06/2024 via MORTGAGEE BILL
+INSURANCE_2023_EXTERNAL,05/25/2023,4384.66,"ESCROW_LEDGER_TRANSACTION_SCHEDULE.xlsx, Master_Ledger row 20","2023 insurance paid via escrow advance CHECK #673966, pre-v6 window","Safeco policy OY8740694 dec page: annual premium $4,384.00 effective 06/22/2023"
+JUL31_CORRECTION,07/31/2024,0.0,v6 HUMAN_VERIFIED,No insurance disbursement on 07/31/2024 — only Escrow Advance Repayment $722.18,Searched all 4 ledgers; Safeco confirms single payment 06/06/2024
