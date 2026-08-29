@@ -1,0 +1,4 @@
+source_id,row_id,amount,principal_applied,interest_applied,escrow_applied,suspense,ghost_amount,finding
+L3,115,35000.0,,,,35000.0,,PARTIAL
+L4,190,35000.0,,,,35000.0,,PARTIAL
+L2R,285,35000.0,,,,35000.0,,PARTIAL
